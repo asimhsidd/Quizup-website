@@ -101,6 +101,92 @@
       100% { background-position:  200% center; }
     }
 
+    /* ── Mesh Gradient Animations ──────────────────────────────────────── */
+    /*
+     * @property registers each CSS custom property with a concrete type so the
+     * browser knows HOW to interpolate between keyframe values. Without this,
+     * untyped custom props snap instead of tweening — they have no syntax the
+     * engine can lerp. With syntax:"<percentage>", it smoothly animates.
+     */
+    @property --x-0 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+    @property --y-0 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+    @property --x-1 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+    @property --y-1 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+    @property --x-2 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+    @property --y-2 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+    @property --x-3 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+    @property --y-3 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+
+    /* ── Card 1: PvP — pink / magenta / deep violet ── */
+    @keyframes mesh-1 {
+      0%   { --x-0:15%; --y-0:80%; --x-1:85%; --y-1:10%; --x-2:50%; --y-2:50%; --x-3:20%; --y-3:20%; }
+      25%  { --x-0:35%; --y-0:60%; --x-1:70%; --y-1:30%; --x-2:30%; --y-2:70%; --x-3:60%; --y-3:40%; }
+      50%  { --x-0:60%; --y-0:30%; --x-1:20%; --y-1:75%; --x-2:70%; --y-2:25%; --x-3:40%; --y-3:80%; }
+      75%  { --x-0:80%; --y-0:70%; --x-1:50%; --y-1:50%; --x-2:15%; --y-2:60%; --x-3:75%; --y-3:15%; }
+      100% { --x-0:15%; --y-0:80%; --x-1:85%; --y-1:10%; --x-2:50%; --y-2:50%; --x-3:20%; --y-3:20%; }
+    }
+    /* ── Card 2: Streaks — amber / red / gold ── */
+    @keyframes mesh-2 {
+      0%   { --x-0:5%;  --y-0:5%;  --x-1:90%; --y-1:90%; --x-2:50%; --y-2:30%; --x-3:80%; --y-3:10%; }
+      33%  { --x-0:40%; --y-0:25%; --x-1:60%; --y-1:65%; --x-2:20%; --y-2:70%; --x-3:50%; --y-3:50%; }
+      66%  { --x-0:70%; --y-0:70%; --x-1:20%; --y-1:20%; --x-2:75%; --y-2:55%; --x-3:10%; --y-3:85%; }
+      100% { --x-0:5%;  --y-0:5%;  --x-1:90%; --y-1:90%; --x-2:50%; --y-2:30%; --x-3:80%; --y-3:10%; }
+    }
+    /* ── Card 3: Ranked — gold / purple / indigo ── */
+    @keyframes mesh-3 {
+      0%   { --x-0:10%; --y-0:90%; --x-1:90%; --y-1:5%;  --x-2:50%; --y-2:55%; --x-3:70%; --y-3:80%; }
+      20%  { --x-0:30%; --y-0:60%; --x-1:65%; --y-1:35%; --x-2:25%; --y-2:30%; --x-3:85%; --y-3:50%; }
+      50%  { --x-0:65%; --y-0:25%; --x-1:30%; --y-1:70%; --x-2:80%; --y-2:75%; --x-3:15%; --y-3:20%; }
+      80%  { --x-0:45%; --y-0:75%; --x-1:80%; --y-1:20%; --x-2:40%; --y-2:45%; --x-3:55%; --y-3:65%; }
+      100% { --x-0:10%; --y-0:90%; --x-1:90%; --y-1:5%;  --x-2:50%; --y-2:55%; --x-3:70%; --y-3:80%; }
+    }
+    /* ── Card 4: Social Feed — teal / cyan / ocean ── */
+    @keyframes mesh-4 {
+      0%   { --x-0:0%;  --y-0:100%; --x-1:100%; --y-1:0%;  --x-2:45%; --y-2:45%; --x-3:80%; --y-3:80%; }
+      30%  { --x-0:30%; --y-0:65%;  --x-1:70%;  --y-1:30%; --x-2:60%; --y-2:20%; --x-3:20%; --y-3:60%; }
+      60%  { --x-0:70%; --y-0:30%;  --x-1:25%;  --y-1:75%; --x-2:20%; --y-2:70%; --x-3:65%; --y-3:25%; }
+      100% { --x-0:0%;  --y-0:100%; --x-1:100%; --y-1:0%;  --x-2:45%; --y-2:45%; --x-3:80%; --y-3:80%; }
+    }
+    /* ── Card 5: Push Alerts — blue / indigo / violet ── */
+    @keyframes mesh-5 {
+      0%   { --x-0:95%; --y-0:95%; --x-1:5%;  --y-1:5%;  --x-2:55%; --y-2:50%; --x-3:25%; --y-3:85%; }
+      25%  { --x-0:70%; --y-0:65%; --x-1:30%; --y-1:30%; --x-2:80%; --y-2:25%; --x-3:55%; --y-3:55%; }
+      50%  { --x-0:30%; --y-0:30%; --x-1:70%; --y-1:75%; --x-2:20%; --y-2:70%; --x-3:85%; --y-3:15%; }
+      75%  { --x-0:55%; --y-0:80%; --x-1:50%; --y-1:15%; --x-2:55%; --y-2:45%; --x-3:10%; --y-3:50%; }
+      100% { --x-0:95%; --y-0:95%; --x-1:5%;  --y-1:5%;  --x-2:55%; --y-2:50%; --x-3:25%; --y-3:85%; }
+    }
+    /* ── Card 6: Friends — green / emerald / lime ── */
+    @keyframes mesh-6 {
+      0%   { --x-0:5%;  --y-0:5%;  --x-1:95%; --y-1:95%; --x-2:50%; --y-2:50%; --x-3:85%; --y-3:10%; }
+      40%  { --x-0:45%; --y-0:30%; --x-1:55%; --y-1:65%; --x-2:25%; --y-2:75%; --x-3:40%; --y-3:55%; }
+      70%  { --x-0:80%; --y-0:70%; --x-1:15%; --y-1:25%; --x-2:75%; --y-2:20%; --x-3:60%; --y-3:85%; }
+      100% { --x-0:5%;  --y-0:5%;  --x-1:95%; --y-1:95%; --x-2:50%; --y-2:50%; --x-3:85%; --y-3:10%; }
+    }
+    /* ── Card 7: Rich Chat — rose / pink / fuchsia ── */
+    @keyframes mesh-7 {
+      0%   { --x-0:100%; --y-0:0%;  --x-1:0%;  --y-1:100%; --x-2:50%; --y-2:40%; --x-3:20%; --y-3:15%; }
+      35%  { --x-0:65%;  --y-0:30%; --x-1:35%; --y-1:65%;  --x-2:70%; --y-2:65%; --x-3:60%; --y-3:50%; }
+      65%  { --x-0:20%;  --y-0:75%; --x-1:80%; --y-1:20%;  --x-2:25%; --y-2:25%; --x-3:80%; --y-3:80%; }
+      100% { --x-0:100%; --y-0:0%;  --x-1:0%;  --y-1:100%; --x-2:50%; --y-2:40%; --x-3:20%; --y-3:15%; }
+    }
+    /* ── Card 8: PWA — indigo / violet / periwinkle ── */
+    @keyframes mesh-8 {
+      0%   { --x-0:10%; --y-0:10%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:5%;  }
+      30%  { --x-0:35%; --y-0:55%; --x-1:65%; --y-1:40%; --x-2:75%; --y-2:25%; --x-3:20%; --y-3:70%; }
+      60%  { --x-0:75%; --y-0:80%; --x-1:20%; --y-1:15%; --x-2:25%; --y-2:70%; --x-3:60%; --y-3:40%; }
+      100% { --x-0:10%; --y-0:10%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:5%;  }
+    }
+
+    /* Wire up animations to each card */
+    .feat-card:nth-child(1) { animation: mesh-1 18.75s ease-in-out infinite; }
+    .feat-card:nth-child(2) { animation: mesh-2 23.44s ease-in-out infinite; }
+    .feat-card:nth-child(3) { animation: mesh-3 17.19s ease-in-out infinite; }
+    .feat-card:nth-child(4) { animation: mesh-4 21.88s ease-in-out infinite; }
+    .feat-card:nth-child(5) { animation: mesh-5 15.63s ease-in-out infinite; }
+    .feat-card:nth-child(6) { animation: mesh-6 20.31s ease-in-out infinite; }
+    .feat-card:nth-child(7) { animation: mesh-7 25s ease-in-out infinite; }
+    .feat-card:nth-child(8) { animation: mesh-8 14.06s ease-in-out infinite; }
+
     /* ── Navbar ────────────────────────────────────────────────────────── */
     #navbar {
       position: fixed;
@@ -414,6 +500,7 @@
       transition: transform 0.25s ease;
       overflow: hidden;
       isolation: isolate;
+      will-change: background-image;
     }
     .feat-card:hover { transform: translateY(-4px); }
     .feat-grain {
@@ -920,8 +1007,17 @@
 
         <div class="features-grid">
 
-          <!-- PvP: pink/magenta/red mesh -->
-          <article class="feat-card reveal" style="transition-delay:0.05s; background: radial-gradient(ellipse 60% 60% at -10% 110%, #e11d48e0 0%, #e11d4800 100%), radial-gradient(ellipse 55% 55% at 110% -10%, #ff4d8de0 0%, #ff4d8d00 100%), radial-gradient(ellipse 50% 50% at 50% 50%, #9333eae0 0%, #9333ea00 100%), radial-gradient(ellipse 45% 45% at 105% 105%, #4c051900 100%), #1a0a14;">
+          <!-- PvP: pink/magenta/deep violet mesh -->
+          <article class="feat-card reveal" style="
+            --x-0:15%; --y-0:80%; --x-1:85%; --y-1:10%; --x-2:50%; --y-2:50%; --x-3:20%; --y-3:20%;
+            transition-delay:0.05s;
+            background-color: #110816;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #ff4d8d 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #e11d48 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #9333ea 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #be185d 0%, transparent 50%);
+          ">
             <div class="feat-grain"></div><div class="feat-border"></div>
             <div class="feat-content">
               <div class="feat-chip">&#9889; Real-Time PvP</div>
@@ -931,7 +1027,16 @@
           </article>
 
           <!-- Streaks: orange/amber/gold mesh -->
-          <article class="feat-card reveal" style="transition-delay:0.1s; background: radial-gradient(ellipse 55% 55% at -5% -5%, #f59e0be0 0%, #f59e0b00 100%), radial-gradient(ellipse 60% 60% at 110% 110%, #d9770600 100%), radial-gradient(ellipse 50% 50% at 50% 40%, #dc2626e0 0%, #dc262600 100%), radial-gradient(ellipse 45% 45% at 100% 10%, #ffd16690 0%, #ffd16600 100%), #1e0f00;">
+          <article class="feat-card reveal" style="
+            --x-0:5%; --y-0:5%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:30%; --x-3:80%; --y-3:10%;
+            transition-delay:0.1s;
+            background-color: #150a00;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #f59e0b 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #dc2626 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #ffd166 0%, transparent 60%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #ea580c 0%, transparent 50%);
+          ">
             <div class="feat-grain"></div><div class="feat-border"></div>
             <div class="feat-content">
               <div class="feat-chip">&#128293; Streaks</div>
@@ -941,7 +1046,16 @@
           </article>
 
           <!-- Ranked: gold/purple/deep mesh -->
-          <article class="feat-card reveal" style="transition-delay:0.15s; background: radial-gradient(ellipse 60% 60% at 0% 100%, #a855f7e0 0%, #a855f700 100%), radial-gradient(ellipse 55% 55% at 100% 0%, #ffd166e0 0%, #ffd16600 100%), radial-gradient(ellipse 50% 50% at 50% 50%, #7c3aede0 0%, #7c3aed00 100%), radial-gradient(ellipse 40% 40% at 80% 90%, #312e81c0 0%, #312e8100 100%), #0e0a1e;">
+          <article class="feat-card reveal" style="
+            --x-0:10%; --y-0:90%; --x-1:90%; --y-1:5%; --x-2:50%; --y-2:55%; --x-3:70%; --y-3:80%;
+            transition-delay:0.15s;
+            background-color: #0c0918;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #a855f7 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #ffd166 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #7c3aed 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #312e81 0%, transparent 55%);
+          ">
             <div class="feat-grain"></div><div class="feat-border"></div>
             <div class="feat-content">
               <div class="feat-chip">&#127942; Ranked</div>
@@ -951,7 +1065,16 @@
           </article>
 
           <!-- Social Feed: teal/cyan/blue mesh -->
-          <article class="feat-card reveal" style="transition-delay:0.2s; background: radial-gradient(ellipse 60% 60% at -5% 110%, #0891b2e0 0%, #0891b200 100%), radial-gradient(ellipse 55% 55% at 110% -5%, #00f5d4e0 0%, #00f5d400 100%), radial-gradient(ellipse 50% 50% at 45% 45%, #0e7490e0 0%, #0e749000 100%), radial-gradient(ellipse 40% 40% at 90% 80%, #1e3a5fc0 0%, #1e3a5f00 100%), #03141a;">
+          <article class="feat-card reveal" style="
+            --x-0:0%; --y-0:100%; --x-1:100%; --y-1:0%; --x-2:45%; --y-2:45%; --x-3:80%; --y-3:80%;
+            transition-delay:0.2s;
+            background-color: #020f14;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #0891b2 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #00f5d4 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #0e7490 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #1e3a5f 0%, transparent 55%);
+          ">
             <div class="feat-grain"></div><div class="feat-border"></div>
             <div class="feat-content">
               <div class="feat-chip">&#128172; Social Feed</div>
@@ -961,7 +1084,16 @@
           </article>
 
           <!-- Push: blue/indigo/violet mesh -->
-          <article class="feat-card reveal" style="transition-delay:0.25s; background: radial-gradient(ellipse 60% 60% at 110% 110%, #388df8e0 0%, #388df800 100%), radial-gradient(ellipse 55% 55% at -5% 0%, #4f46e5e0 0%, #4f46e500 100%), radial-gradient(ellipse 50% 50% at 55% 50%, #2563ebe0 0%, #2563eb00 100%), radial-gradient(ellipse 40% 40% at 20% 90%, #1e1b4bc0 0%, #1e1b4b00 100%), #080d1e;">
+          <article class="feat-card reveal" style="
+            --x-0:95%; --y-0:95%; --x-1:5%; --y-1:5%; --x-2:55%; --y-2:50%; --x-3:25%; --y-3:85%;
+            transition-delay:0.25s;
+            background-color: #050814;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #388df8 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #4f46e5 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #2563eb 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #1e1b4b 0%, transparent 55%);
+          ">
             <div class="feat-grain"></div><div class="feat-border"></div>
             <div class="feat-content">
               <div class="feat-chip">&#128241; Push Alerts</div>
@@ -971,7 +1103,16 @@
           </article>
 
           <!-- Challenge links: green/emerald/teal mesh -->
-          <article class="feat-card reveal" style="transition-delay:0.3s; background: radial-gradient(ellipse 60% 60% at -10% -10%, #22c55ee0 0%, #22c55e00 100%), radial-gradient(ellipse 55% 55% at 110% 110%, #059669e0 0%, #05966900 100%), radial-gradient(ellipse 50% 50% at 50% 50%, #16a34ae0 0%, #16a34a00 100%), radial-gradient(ellipse 40% 40% at 90% 10%, #14532dc0 0%, #14532d00 100%), #041a0d;">
+          <article class="feat-card reveal" style="
+            --x-0:5%; --y-0:5%; --x-1:95%; --y-1:95%; --x-2:50%; --y-2:50%; --x-3:85%; --y-3:10%;
+            transition-delay:0.3s;
+            background-color: #021208;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #22c55e 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #059669 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #16a34a 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #14532d 0%, transparent 55%);
+          ">
             <div class="feat-grain"></div><div class="feat-border"></div>
             <div class="feat-content">
               <div class="feat-chip">&#128101; Friends</div>
@@ -981,7 +1122,16 @@
           </article>
 
           <!-- Rich Chat: pink/rose/purple mesh -->
-          <article class="feat-card reveal" style="transition-delay:0.35s; background: radial-gradient(ellipse 60% 60% at 110% 0%, #f472b6e0 0%, #f472b600 100%), radial-gradient(ellipse 55% 55% at 0% 110%, #ec4899e0 0%, #ec489900 100%), radial-gradient(ellipse 50% 50% at 50% 45%, #be185de0 0%, #be185d00 100%), radial-gradient(ellipse 40% 40% at 15% 10%, #9333ea90 0%, #9333ea00 100%), #200a18;">
+          <article class="feat-card reveal" style="
+            --x-0:100%; --y-0:0%; --x-1:0%; --y-1:100%; --x-2:50%; --y-2:40%; --x-3:20%; --y-3:15%;
+            transition-delay:0.35s;
+            background-color: #130810;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #f472b6 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #ec4899 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #be185d 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #9333ea 0%, transparent 50%);
+          ">
             <div class="feat-grain"></div><div class="feat-border"></div>
             <div class="feat-content">
               <div class="feat-chip">&#128233; Rich Chat</div>
@@ -991,7 +1141,16 @@
           </article>
 
           <!-- PWA: slate/cool indigo/deep mesh -->
-          <article class="feat-card reveal" style="transition-delay:0.4s; background: radial-gradient(ellipse 60% 60% at 0% 0%, #6366f1e0 0%, #6366f100 100%), radial-gradient(ellipse 55% 55% at 110% 110%, #8b5cf6e0 0%, #8b5cf600 100%), radial-gradient(ellipse 50% 50% at 50% 50%, #4338cae0 0%, #4338ca00 100%), radial-gradient(ellipse 40% 40% at 95% 5%, #ff4d8d60 0%, #ff4d8d00 100%), #0b0a1e;">
+          <article class="feat-card reveal" style="
+            --x-0:10%; --y-0:10%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:5%;
+            transition-delay:0.4s;
+            background-color: #080818;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #6366f1 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #8b5cf6 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #4338ca 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #ff4d8d 0%, transparent 45%);
+          ">
             <div class="feat-grain"></div><div class="feat-border"></div>
             <div class="feat-content">
               <div class="feat-chip">&#128241; PWA</div>
