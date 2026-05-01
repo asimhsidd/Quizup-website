@@ -176,16 +176,41 @@
       60%  { --x-0:75%; --y-0:80%; --x-1:20%; --y-1:15%; --x-2:25%; --y-2:70%; --x-3:60%; --y-3:40%; }
       100% { --x-0:10%; --y-0:10%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:5%;  }
     }
+    /* ── Card 9: Lifelines — orange / amber / red ── */
+    @keyframes mesh-9 {
+      0%   { --x-0:80%; --y-0:10%; --x-1:10%; --y-1:80%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:90%; }
+      33%  { --x-0:50%; --y-0:40%; --x-1:40%; --y-1:55%; --x-2:20%; --y-2:80%; --x-3:70%; --y-3:20%; }
+      66%  { --x-0:20%; --y-0:70%; --x-1:75%; --y-1:20%; --x-2:80%; --y-2:30%; --x-3:30%; --y-3:60%; }
+      100% { --x-0:80%; --y-0:10%; --x-1:10%; --y-1:80%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:90%; }
+    }
+    /* ── Card 10: Async — violet / purple / indigo ── */
+    @keyframes mesh-10 {
+      0%   { --x-0:5%;  --y-0:95%; --x-1:95%; --y-1:5%;  --x-2:50%; --y-2:50%; --x-3:60%; --y-3:30%; }
+      40%  { --x-0:35%; --y-0:60%; --x-1:60%; --y-1:35%; --x-2:75%; --y-2:75%; --x-3:20%; --y-3:70%; }
+      70%  { --x-0:70%; --y-0:25%; --x-1:25%; --y-1:70%; --x-2:30%; --y-2:20%; --x-3:80%; --y-3:50%; }
+      100% { --x-0:5%;  --y-0:95%; --x-1:95%; --y-1:5%;  --x-2:50%; --y-2:50%; --x-3:60%; --y-3:30%; }
+    }
+    /* ── Card 11: AI Topics — cyan / teal / emerald ── */
+    @keyframes mesh-11 {
+      0%   { --x-0:90%; --y-0:90%; --x-1:10%; --y-1:10%; --x-2:55%; --y-2:45%; --x-3:15%; --y-3:85%; }
+      25%  { --x-0:60%; --y-0:55%; --x-1:40%; --y-1:40%; --x-2:80%; --y-2:20%; --x-3:50%; --y-3:50%; }
+      55%  { --x-0:25%; --y-0:20%; --x-1:70%; --y-1:75%; --x-2:20%; --y-2:75%; --x-3:85%; --y-3:15%; }
+      80%  { --x-0:50%; --y-0:70%; --x-1:55%; --y-1:25%; --x-2:60%; --y-2:55%; --x-3:35%; --y-3:70%; }
+      100% { --x-0:90%; --y-0:90%; --x-1:10%; --y-1:10%; --x-2:55%; --y-2:45%; --x-3:15%; --y-3:85%; }
+    }
 
     /* Wire up animations to each card */
-    .feat-card:nth-child(1) { animation: mesh-1 18.75s ease-in-out infinite; }
-    .feat-card:nth-child(2) { animation: mesh-2 23.44s ease-in-out infinite; }
-    .feat-card:nth-child(3) { animation: mesh-3 17.19s ease-in-out infinite; }
-    .feat-card:nth-child(4) { animation: mesh-4 21.88s ease-in-out infinite; }
-    .feat-card:nth-child(5) { animation: mesh-5 15.63s ease-in-out infinite; }
-    .feat-card:nth-child(6) { animation: mesh-6 20.31s ease-in-out infinite; }
-    .feat-card:nth-child(7) { animation: mesh-7 25s ease-in-out infinite; }
-    .feat-card:nth-child(8) { animation: mesh-8 14.06s ease-in-out infinite; }
+    .feat-card:nth-child(1)  { animation: mesh-1  18.75s ease-in-out infinite; }
+    .feat-card:nth-child(2)  { animation: mesh-2  23.44s ease-in-out infinite; }
+    .feat-card:nth-child(3)  { animation: mesh-3  17.19s ease-in-out infinite; }
+    .feat-card:nth-child(4)  { animation: mesh-4  21.88s ease-in-out infinite; }
+    .feat-card:nth-child(5)  { animation: mesh-5  15.63s ease-in-out infinite; }
+    .feat-card:nth-child(6)  { animation: mesh-6  20.31s ease-in-out infinite; }
+    .feat-card:nth-child(7)  { animation: mesh-7  25s    ease-in-out infinite; }
+    .feat-card:nth-child(8)  { animation: mesh-8  14.06s ease-in-out infinite; }
+    .feat-card:nth-child(9)  { animation: mesh-9  19.53s ease-in-out infinite; }
+    .feat-card:nth-child(10) { animation: mesh-10 22.27s ease-in-out infinite; }
+    .feat-card:nth-child(11) { animation: mesh-11 16.41s ease-in-out infinite; }
 
     /* ── Navbar ────────────────────────────────────────────────────────── */
     #navbar {
@@ -944,14 +969,16 @@
         <a href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer" class="btn-cta btn-cta-lg">
           &#9889; Enter the Arena
         </a>
-        <p class="hero-disclaimer">Free to play &middot; No download required &middot; Works on any device</p>
+        <p class="hero-disclaimer">Free to play &middot; No download required &middot; Sign in with Google or Discord</p>
       </div>
       <div class="hero-pills" aria-label="Key stats">
         <span class="pill">&#127919; Unlimited Topics</span>
         <span class="pill">&#9889; Real-time PvP</span>
+        <span class="pill">&#128737; Lifelines</span>
         <span class="pill">&#128293; Win Streaks</span>
         <span class="pill">&#127942; Global Leaderboard</span>
-        <span class="pill">&#127873; Free for all!</span>
+        <span class="pill">&#9202; Async Duels</span>
+        <span class="pill">&#10024; AI Topics</span>
       </div>
     </div>
 
@@ -1156,6 +1183,63 @@
               <div class="feat-chip">&#128241; Play on the Go</div>
               <h3 class="feat-title">Play Anywhere</h3>
               <p class="feat-desc">Play on phone, tablet, or desktop. No complications. Just add a shortcut to your homescreen and play.</p>
+            </div>
+          </article>
+
+          <!-- Lifelines: orange / amber / red mesh -->
+          <article class="feat-card reveal" style="
+            --x-0:80%; --y-0:10%; --x-1:10%; --y-1:80%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:90%;
+            transition-delay:0.45s;
+            background-color: #130800;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #f97316 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #dc2626 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #fb923c 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #7c2d12 0%, transparent 50%);
+          ">
+            <div class="feat-grain"></div><div class="feat-border"></div>
+            <div class="feat-content">
+              <div class="feat-chip">&#128737; Lifelines</div>
+              <h3 class="feat-title">Flip the Game</h3>
+              <p class="feat-desc">Four power-ups to deploy mid-round. <strong style="color:rgba(255,255,255,0.85)">50/50</strong> cuts wrong answers. <strong style="color:rgba(255,255,255,0.85)">Shield</strong> absorbs a miss. <strong style="color:rgba(255,255,255,0.85)">Score Heist</strong> steals your opponent's points. <strong style="color:rgba(255,255,255,0.85)">Double Dip</strong> doubles your score. One per round — choose wisely.</p>
+            </div>
+          </article>
+
+          <!-- Async Challenges: violet / purple / indigo mesh -->
+          <article class="feat-card reveal" style="
+            --x-0:5%; --y-0:95%; --x-1:95%; --y-1:5%; --x-2:50%; --y-2:50%; --x-3:60%; --y-3:30%;
+            transition-delay:0.5s;
+            background-color: #0a0515;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #7c3aed 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #a855f7 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #6d28d9 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #4c1d95 0%, transparent 50%);
+          ">
+            <div class="feat-grain"></div><div class="feat-border"></div>
+            <div class="feat-content">
+              <div class="feat-chip">&#9202; Play Later</div>
+              <h3 class="feat-title">Challenge on Your Terms</h3>
+              <p class="feat-desc">Can't play right now? Send a challenge anyway. You play your round and step away — your opponent answers whenever they're ready. See who wins when the dust settles.</p>
+            </div>
+          </article>
+
+          <!-- AI Topics: cyan / teal / emerald mesh -->
+          <article class="feat-card reveal" style="
+            --x-0:90%; --y-0:90%; --x-1:10%; --y-1:10%; --x-2:55%; --y-2:45%; --x-3:15%; --y-3:85%;
+            transition-delay:0.55s;
+            background-color: #010f0a;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #06b6d4 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #10b981 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #0891b2 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #065f46 0%, transparent 50%);
+          ">
+            <div class="feat-grain"></div><div class="feat-border"></div>
+            <div class="feat-content">
+              <div class="feat-chip">&#10024; Create Your Own</div>
+              <h3 class="feat-title">Any Topic, Instantly</h3>
+              <p class="feat-desc">Type any subject imaginable — Niche Football Stats, 90s Anime, Space Engineering, Local History. Our AI generates 14 fresh questions in seconds and adds it to the arena for everyone to play.</p>
             </div>
           </article>
 
