@@ -190,6 +190,13 @@
       70%  { --x-0:70%; --y-0:25%; --x-1:25%; --y-1:70%; --x-2:30%; --y-2:20%; --x-3:80%; --y-3:50%; }
       100% { --x-0:5%;  --y-0:95%; --x-1:95%; --y-1:5%;  --x-2:50%; --y-2:50%; --x-3:60%; --y-3:30%; }
     }
+    /* ── Card 12: Leaderboard — lime / yellow / gold ── */
+    @keyframes mesh-12 {
+      0%   { --x-0:20%; --y-0:80%; --x-1:80%; --y-1:20%; --x-2:50%; --y-2:50%; --x-3:10%; --y-3:10%; }
+      30%  { --x-0:55%; --y-0:45%; --x-1:45%; --y-1:55%; --x-2:75%; --y-2:20%; --x-3:40%; --y-3:75%; }
+      65%  { --x-0:85%; --y-0:15%; --x-1:15%; --y-1:85%; --x-2:25%; --y-2:70%; --x-3:70%; --y-3:35%; }
+      100% { --x-0:20%; --y-0:80%; --x-1:80%; --y-1:20%; --x-2:50%; --y-2:50%; --x-3:10%; --y-3:10%; }
+    }
     /* ── Card 11: AI Topics — cyan / teal / emerald ── */
     @keyframes mesh-11 {
       0%   { --x-0:90%; --y-0:90%; --x-1:10%; --y-1:10%; --x-2:55%; --y-2:45%; --x-3:15%; --y-3:85%; }
@@ -211,6 +218,7 @@
     .feat-card:nth-child(9)  { animation: mesh-9  19.53s ease-in-out infinite; }
     .feat-card:nth-child(10) { animation: mesh-10 22.27s ease-in-out infinite; }
     .feat-card:nth-child(11) { animation: mesh-11 16.41s ease-in-out infinite; }
+    .feat-card:nth-child(12) { animation: mesh-12 21.09s ease-in-out infinite; }
 
     /* ── Navbar ────────────────────────────────────────────────────────── */
     #navbar {
@@ -1240,6 +1248,25 @@
               <div class="feat-chip">&#10024; Create Your Own</div>
               <h3 class="feat-title">Any Topic, Instantly</h3>
               <p class="feat-desc">Type any subject imaginable — Niche Football Stats, 90s Anime, Space Engineering, Local History. Our AI generates 14 fresh questions in seconds and adds it to the arena for everyone to play.</p>
+            </div>
+          </article>
+
+          <!-- Leaderboard: lime / yellow / gold mesh -->
+          <article class="feat-card reveal" style="
+            --x-0:20%; --y-0:80%; --x-1:80%; --y-1:20%; --x-2:50%; --y-2:50%; --x-3:10%; --y-3:10%;
+            transition-delay:0.6s;
+            background-color: #0c0e00;
+            background-image:
+              radial-gradient(circle at var(--x-0) var(--y-0), #a3e635 0%, transparent 60%),
+              radial-gradient(circle at var(--x-1) var(--y-1), #ffd166 0%, transparent 55%),
+              radial-gradient(circle at var(--x-2) var(--y-2), #84cc16 0%, transparent 65%),
+              radial-gradient(circle at var(--x-3) var(--y-3), #713f12 0%, transparent 50%);
+          ">
+            <div class="feat-grain"></div><div class="feat-border"></div>
+            <div class="feat-content">
+              <div class="feat-chip">&#127942; Leaderboard</div>
+              <h3 class="feat-title">Claim Your Spot</h3>
+              <p class="feat-desc">Global rankings and per-topic leaderboards updated in real time. See exactly where you stand — and who you need to beat to move up. Get overtaken and you'll know about it.</p>
             </div>
           </article>
 
