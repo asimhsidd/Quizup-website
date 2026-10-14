@@ -3,1566 +3,1436 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kwiz — The Trivia Arena</title>
-  <meta name="description" content="Real-time trivia battles. Outsmart your rivals across dozens of topics. Climb the ranks. Claim the throne.">
-  <meta property="og:title" content="Kwiz — The Trivia Arena">
-  <meta property="og:description" content="Real-time trivia battles. Outsmart your rivals across dozens of topics. Climb the ranks. Claim the throne.">
+  <title>KWIZ.LIVE - Multiplayer Trivia Showdowns</title>
+  <meta name="description" content="KWIZ.LIVE is a fast multiplayer trivia game with live duels, any-topic quizzes, lifelines, ranks, clans, and a social feed.">
+  <meta property="og:title" content="KWIZ.LIVE - Multiplayer Trivia Showdowns">
+  <meta property="og:description" content="Pick a topic, press start, and battle real rivals in comic-pop trivia showdowns.">
   <meta property="og:image" content="/og-image.png">
-  <link rel="canonical" href="https://kwiz.live">
-  <link rel="icon" href="/favicon.png" type="image/png">
   <meta property="og:url" content="https://kwiz.live">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Kwiz — The Trivia Arena">
-  <meta name="twitter:description" content="Real-time trivia battles. Outsmart your rivals across dozens of topics. Climb the ranks. Claim the throne.">
+  <meta name="twitter:title" content="KWIZ.LIVE - Multiplayer Trivia Showdowns">
+  <meta name="twitter:description" content="Pick a topic, press start, and battle real rivals in comic-pop trivia showdowns.">
+  <link rel="canonical" href="https://kwiz.live">
+  <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,800&family=Press+Start+2P&display=swap" rel="stylesheet">
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; }
 
     :root {
-      --bg:           #08080F;
-      --surface:      #1A132A;
-      --surface2:     #2A1E3F;
-      --brand:        #FF4D8D;
-      --brand-dark:   #CC2F6B;
-      --brand-light:  #FF7FB3;
-      --gold:         #FFD166;
-      --xp:           #00F5D4;
-      --timer:        #388DF8;
-      --correct:      #22C55E;
-      --wrong:        #FF4D6D;
-      --text:         #F8F8FF;
-      --muted:        #8F8FB2;
-      --glass-bg:     rgba(255,255,255,0.04);
-      --glass-border: rgba(255,255,255,0.08);
-      --radius-card:  20px;
+      --ink: #14142B;
+      --cream: #FFF1D0;
+      --cream-2: #FFF8E8;
+      --pink: #FF4D8D;
+      --pink-soft: #FF8FB8;
+      --teal: #2EC4D6;
+      --yellow: #FFE14D;
+      --green: #3DDC84;
+      --green-dark: #22A85E;
+      --red: #E8453C;
+      --purple: #8B5CF6;
+      --orange: #F5A524;
+      --blue: #3D7BF5;
+      --muted: rgba(20, 20, 43, 0.68);
+      --shadow-sm: 3px 3px 0 var(--ink);
+      --shadow: 4px 4px 0 var(--ink);
+      --shadow-lg: 7px 7px 0 var(--ink);
+      --max: 1180px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', system-ui, sans-serif;
+      min-height: 100vh;
       overflow-x: hidden;
-      line-height: 1.6;
+      background-color: var(--cream);
+      background-image: radial-gradient(rgba(20, 20, 43, 0.08) 1.6px, transparent 1.8px);
+      background-size: 14px 14px;
+      color: var(--ink);
+      font-family: "Nunito", system-ui, sans-serif;
+      font-weight: 800;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
+    img, svg { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
+    button, input { font: inherit; }
 
-    /* ── Keyframes ─────────────────────────────────────────────────────── */
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(48px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    @keyframes rotateHex {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(7px); }
-    }
-    @keyframes legendBorder {
-      0%   { background-position: 0%   50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0%   50%; }
-    }
-    @keyframes legendText {
-      from { background-position: 0%   center; }
-      to   { background-position: 200% center; }
-    }
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.35; }
-      50%       { opacity: 0.6; }
-    }
-    @keyframes floatUp {
-      0%   { opacity: 0; transform: translateY(0);    }
-      20%  { opacity: 1; }
-      80%  { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-60px); }
-    }
-    @keyframes streakPop {
-      0%   { transform: scale(0.7); opacity: 0; }
-      60%  { transform: scale(1.15); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes shimmer {
-      0%   { background-position: -200% center; }
-      100% { background-position:  200% center; }
+    .display {
+      font-family: "Lilita One", "Nunito", sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.01em;
     }
 
-    /* ── Mesh Gradient Animations ──────────────────────────────────────── */
-    /*
-     * @property registers each CSS custom property with a concrete type so the
-     * browser knows HOW to interpolate between keyframe values. Without this,
-     * untyped custom props snap instead of tweening — they have no syntax the
-     * engine can lerp. With syntax:"<percentage>", it smoothly animates.
-     */
-    @property --x-0 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-    @property --y-0 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-    @property --x-1 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-    @property --y-1 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-    @property --x-2 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-    @property --y-2 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-    @property --x-3 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-    @property --y-3 { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
-
-    /* ── Card 1: PvP — pink / magenta / deep violet ── */
-    @keyframes mesh-1 {
-      0%   { --x-0:15%; --y-0:80%; --x-1:85%; --y-1:10%; --x-2:50%; --y-2:50%; --x-3:20%; --y-3:20%; }
-      25%  { --x-0:35%; --y-0:60%; --x-1:70%; --y-1:30%; --x-2:30%; --y-2:70%; --x-3:60%; --y-3:40%; }
-      50%  { --x-0:60%; --y-0:30%; --x-1:20%; --y-1:75%; --x-2:70%; --y-2:25%; --x-3:40%; --y-3:80%; }
-      75%  { --x-0:80%; --y-0:70%; --x-1:50%; --y-1:50%; --x-2:15%; --y-2:60%; --x-3:75%; --y-3:15%; }
-      100% { --x-0:15%; --y-0:80%; --x-1:85%; --y-1:10%; --x-2:50%; --y-2:50%; --x-3:20%; --y-3:20%; }
-    }
-    /* ── Card 2: Streaks — amber / red / gold ── */
-    @keyframes mesh-2 {
-      0%   { --x-0:5%;  --y-0:5%;  --x-1:90%; --y-1:90%; --x-2:50%; --y-2:30%; --x-3:80%; --y-3:10%; }
-      33%  { --x-0:40%; --y-0:25%; --x-1:60%; --y-1:65%; --x-2:20%; --y-2:70%; --x-3:50%; --y-3:50%; }
-      66%  { --x-0:70%; --y-0:70%; --x-1:20%; --y-1:20%; --x-2:75%; --y-2:55%; --x-3:10%; --y-3:85%; }
-      100% { --x-0:5%;  --y-0:5%;  --x-1:90%; --y-1:90%; --x-2:50%; --y-2:30%; --x-3:80%; --y-3:10%; }
-    }
-    /* ── Card 3: Ranked — gold / purple / indigo ── */
-    @keyframes mesh-3 {
-      0%   { --x-0:10%; --y-0:90%; --x-1:90%; --y-1:5%;  --x-2:50%; --y-2:55%; --x-3:70%; --y-3:80%; }
-      20%  { --x-0:30%; --y-0:60%; --x-1:65%; --y-1:35%; --x-2:25%; --y-2:30%; --x-3:85%; --y-3:50%; }
-      50%  { --x-0:65%; --y-0:25%; --x-1:30%; --y-1:70%; --x-2:80%; --y-2:75%; --x-3:15%; --y-3:20%; }
-      80%  { --x-0:45%; --y-0:75%; --x-1:80%; --y-1:20%; --x-2:40%; --y-2:45%; --x-3:55%; --y-3:65%; }
-      100% { --x-0:10%; --y-0:90%; --x-1:90%; --y-1:5%;  --x-2:50%; --y-2:55%; --x-3:70%; --y-3:80%; }
-    }
-    /* ── Card 4: Social Feed — teal / cyan / ocean ── */
-    @keyframes mesh-4 {
-      0%   { --x-0:0%;  --y-0:100%; --x-1:100%; --y-1:0%;  --x-2:45%; --y-2:45%; --x-3:80%; --y-3:80%; }
-      30%  { --x-0:30%; --y-0:65%;  --x-1:70%;  --y-1:30%; --x-2:60%; --y-2:20%; --x-3:20%; --y-3:60%; }
-      60%  { --x-0:70%; --y-0:30%;  --x-1:25%;  --y-1:75%; --x-2:20%; --y-2:70%; --x-3:65%; --y-3:25%; }
-      100% { --x-0:0%;  --y-0:100%; --x-1:100%; --y-1:0%;  --x-2:45%; --y-2:45%; --x-3:80%; --y-3:80%; }
-    }
-    /* ── Card 5: Push Alerts — blue / indigo / violet ── */
-    @keyframes mesh-5 {
-      0%   { --x-0:95%; --y-0:95%; --x-1:5%;  --y-1:5%;  --x-2:55%; --y-2:50%; --x-3:25%; --y-3:85%; }
-      25%  { --x-0:70%; --y-0:65%; --x-1:30%; --y-1:30%; --x-2:80%; --y-2:25%; --x-3:55%; --y-3:55%; }
-      50%  { --x-0:30%; --y-0:30%; --x-1:70%; --y-1:75%; --x-2:20%; --y-2:70%; --x-3:85%; --y-3:15%; }
-      75%  { --x-0:55%; --y-0:80%; --x-1:50%; --y-1:15%; --x-2:55%; --y-2:45%; --x-3:10%; --y-3:50%; }
-      100% { --x-0:95%; --y-0:95%; --x-1:5%;  --y-1:5%;  --x-2:55%; --y-2:50%; --x-3:25%; --y-3:85%; }
-    }
-    /* ── Card 6: Friends — green / emerald / lime ── */
-    @keyframes mesh-6 {
-      0%   { --x-0:5%;  --y-0:5%;  --x-1:95%; --y-1:95%; --x-2:50%; --y-2:50%; --x-3:85%; --y-3:10%; }
-      40%  { --x-0:45%; --y-0:30%; --x-1:55%; --y-1:65%; --x-2:25%; --y-2:75%; --x-3:40%; --y-3:55%; }
-      70%  { --x-0:80%; --y-0:70%; --x-1:15%; --y-1:25%; --x-2:75%; --y-2:20%; --x-3:60%; --y-3:85%; }
-      100% { --x-0:5%;  --y-0:5%;  --x-1:95%; --y-1:95%; --x-2:50%; --y-2:50%; --x-3:85%; --y-3:10%; }
-    }
-    /* ── Card 7: Rich Chat — rose / pink / fuchsia ── */
-    @keyframes mesh-7 {
-      0%   { --x-0:100%; --y-0:0%;  --x-1:0%;  --y-1:100%; --x-2:50%; --y-2:40%; --x-3:20%; --y-3:15%; }
-      35%  { --x-0:65%;  --y-0:30%; --x-1:35%; --y-1:65%;  --x-2:70%; --y-2:65%; --x-3:60%; --y-3:50%; }
-      65%  { --x-0:20%;  --y-0:75%; --x-1:80%; --y-1:20%;  --x-2:25%; --y-2:25%; --x-3:80%; --y-3:80%; }
-      100% { --x-0:100%; --y-0:0%;  --x-1:0%;  --y-1:100%; --x-2:50%; --y-2:40%; --x-3:20%; --y-3:15%; }
-    }
-    /* ── Card 8: PWA — indigo / violet / periwinkle ── */
-    @keyframes mesh-8 {
-      0%   { --x-0:10%; --y-0:10%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:5%;  }
-      30%  { --x-0:35%; --y-0:55%; --x-1:65%; --y-1:40%; --x-2:75%; --y-2:25%; --x-3:20%; --y-3:70%; }
-      60%  { --x-0:75%; --y-0:80%; --x-1:20%; --y-1:15%; --x-2:25%; --y-2:70%; --x-3:60%; --y-3:40%; }
-      100% { --x-0:10%; --y-0:10%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:5%;  }
-    }
-    /* ── Card 9: Lifelines — orange / amber / red ── */
-    @keyframes mesh-9 {
-      0%   { --x-0:80%; --y-0:10%; --x-1:10%; --y-1:80%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:90%; }
-      33%  { --x-0:50%; --y-0:40%; --x-1:40%; --y-1:55%; --x-2:20%; --y-2:80%; --x-3:70%; --y-3:20%; }
-      66%  { --x-0:20%; --y-0:70%; --x-1:75%; --y-1:20%; --x-2:80%; --y-2:30%; --x-3:30%; --y-3:60%; }
-      100% { --x-0:80%; --y-0:10%; --x-1:10%; --y-1:80%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:90%; }
-    }
-    /* ── Card 10: Async — violet / purple / indigo ── */
-    @keyframes mesh-10 {
-      0%   { --x-0:5%;  --y-0:95%; --x-1:95%; --y-1:5%;  --x-2:50%; --y-2:50%; --x-3:60%; --y-3:30%; }
-      40%  { --x-0:35%; --y-0:60%; --x-1:60%; --y-1:35%; --x-2:75%; --y-2:75%; --x-3:20%; --y-3:70%; }
-      70%  { --x-0:70%; --y-0:25%; --x-1:25%; --y-1:70%; --x-2:30%; --y-2:20%; --x-3:80%; --y-3:50%; }
-      100% { --x-0:5%;  --y-0:95%; --x-1:95%; --y-1:5%;  --x-2:50%; --y-2:50%; --x-3:60%; --y-3:30%; }
-    }
-    /* ── Card 12: Leaderboard — lime / yellow / gold ── */
-    @keyframes mesh-12 {
-      0%   { --x-0:20%; --y-0:80%; --x-1:80%; --y-1:20%; --x-2:50%; --y-2:50%; --x-3:10%; --y-3:10%; }
-      30%  { --x-0:55%; --y-0:45%; --x-1:45%; --y-1:55%; --x-2:75%; --y-2:20%; --x-3:40%; --y-3:75%; }
-      65%  { --x-0:85%; --y-0:15%; --x-1:15%; --y-1:85%; --x-2:25%; --y-2:70%; --x-3:70%; --y-3:35%; }
-      100% { --x-0:20%; --y-0:80%; --x-1:80%; --y-1:20%; --x-2:50%; --y-2:50%; --x-3:10%; --y-3:10%; }
-    }
-    /* ── Card 11: AI Topics — cyan / teal / emerald ── */
-    @keyframes mesh-11 {
-      0%   { --x-0:90%; --y-0:90%; --x-1:10%; --y-1:10%; --x-2:55%; --y-2:45%; --x-3:15%; --y-3:85%; }
-      25%  { --x-0:60%; --y-0:55%; --x-1:40%; --y-1:40%; --x-2:80%; --y-2:20%; --x-3:50%; --y-3:50%; }
-      55%  { --x-0:25%; --y-0:20%; --x-1:70%; --y-1:75%; --x-2:20%; --y-2:75%; --x-3:85%; --y-3:15%; }
-      80%  { --x-0:50%; --y-0:70%; --x-1:55%; --y-1:25%; --x-2:60%; --y-2:55%; --x-3:35%; --y-3:70%; }
-      100% { --x-0:90%; --y-0:90%; --x-1:10%; --y-1:10%; --x-2:55%; --y-2:45%; --x-3:15%; --y-3:85%; }
+    .pixel {
+      font-family: "Press Start 2P", "Lilita One", monospace;
+      font-size: 10px;
+      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
-    /* Wire up animations to each card */
-    .feat-card:nth-child(1)  { animation: mesh-1  18.75s ease-in-out infinite; }
-    .feat-card:nth-child(2)  { animation: mesh-2  23.44s ease-in-out infinite; }
-    .feat-card:nth-child(3)  { animation: mesh-3  17.19s ease-in-out infinite; }
-    .feat-card:nth-child(4)  { animation: mesh-4  21.88s ease-in-out infinite; }
-    .feat-card:nth-child(5)  { animation: mesh-5  15.63s ease-in-out infinite; }
-    .feat-card:nth-child(6)  { animation: mesh-6  20.31s ease-in-out infinite; }
-    .feat-card:nth-child(7)  { animation: mesh-7  25s    ease-in-out infinite; }
-    .feat-card:nth-child(8)  { animation: mesh-8  14.06s ease-in-out infinite; }
-    .feat-card:nth-child(9)  { animation: mesh-9  19.53s ease-in-out infinite; }
-    .feat-card:nth-child(10) { animation: mesh-10 22.27s ease-in-out infinite; }
-    .feat-card:nth-child(11) { animation: mesh-11 16.41s ease-in-out infinite; }
-    .feat-card:nth-child(12) { animation: mesh-12 21.09s ease-in-out infinite; }
+    .stroke {
+      color: #fff;
+      -webkit-text-stroke: 2px var(--ink);
+      paint-order: stroke fill;
+    }
 
-    /* ── Navbar ────────────────────────────────────────────────────────── */
-    #navbar {
+    .field {
+      background-color: var(--field, var(--cream));
+      background-image: radial-gradient(rgba(20, 20, 43, var(--dot-alpha, 0.08)) 1.6px, transparent 1.8px);
+      background-size: 14px 14px;
+    }
+
+    .bold-field {
+      --dot-alpha: 0.12;
+      background-image: radial-gradient(rgba(20, 20, 43, var(--dot-alpha)) 2px, transparent 2.2px);
+      background-size: 16px 16px;
+    }
+
+    .sticker {
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
+    .sticker-lg {
+      border: 3px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      background: #fff;
+    }
+
+    .press {
+      transition: translate 80ms ease-out, box-shadow 80ms ease-out, transform 180ms ease;
+    }
+
+    .press:hover { transform: translateY(-2px); }
+    .press:active { translate: 2px 2px; box-shadow: 1px 1px 0 var(--ink); }
+
+    .btn {
+      min-height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 24px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: var(--yellow);
+      color: var(--ink);
+      font-family: "Lilita One", "Nunito", sans-serif;
+      font-size: 23px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .btn.secondary { background: #fff; }
+    .btn.pink { background: var(--pink); color: #fff; }
+
+    @keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+    @keyframes breathe { 0%, 100% { scale: 1; } 50% { scale: 1.035; } }
+    @keyframes wiggle { 0%, 80%, 100% { rotate: 0deg; } 84% { rotate: -7deg; } 88% { rotate: 7deg; } 92% { rotate: -4deg; } 96% { rotate: 3deg; } }
+    @keyframes spin { to { rotate: 360deg; } }
+    @keyframes blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.28; } }
+    @keyframes cellOn { from { opacity: 0; scale: 0.4; } to { opacity: 1; scale: 1; } }
+    .bob { animation: bob 3s ease-in-out infinite; }
+    .breathe { animation: breathe 1.4s ease-in-out infinite; }
+    .wiggle { animation: wiggle 3s infinite; }
+    .spin { animation: spin 34s linear infinite; }
+    .blink { animation: blink 1.1s steps(1) infinite; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
+      inset: 0 0 auto;
+      z-index: 50;
+      border-bottom: 3px solid var(--ink);
+      background: rgba(255, 241, 208, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: box-shadow 180ms ease;
+    }
+    .nav.scrolled { box-shadow: 0 5px 0 rgba(20, 20, 43, 0.12); }
+
+    .nav-inner {
+      width: min(var(--max), calc(100% - 32px));
+      height: 74px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      background: var(--yellow);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .brand-word {
+      font-family: "Lilita One", "Nunito", sans-serif;
+      font-size: 29px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .brand-word span { color: var(--pink); }
+    .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+
+    .hero {
+      padding: 118px 0 64px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: min(620px, 80vw);
+      aspect-ratio: 1;
+      right: -180px;
+      top: 54px;
+      border-radius: 999px;
+      background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.58) 0deg 9deg, transparent 9deg 22.5deg);
+      -webkit-mask-image: radial-gradient(circle, #000 28%, transparent 70%);
+      mask-image: radial-gradient(circle, #000 28%, transparent 70%);
+      opacity: 0.8;
+      animation: spin 52s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 470px);
+      gap: clamp(28px, 5vw, 70px);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-dot {
+      width: 10px;
+      height: 10px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(58px, 7.7vw, 112px);
+      line-height: 0.88;
+      color: var(--ink);
+    }
+
+    .hero .pink-word { color: var(--pink); }
+    .hero-copy {
+      max-width: 600px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 23px);
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .hero-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+      max-width: 680px;
+    }
+
+    .stat-pill {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    .phone-wrap {
+      position: relative;
+      justify-self: center;
+      width: min(100%, 360px);
+      aspect-ratio: 0.54;
+    }
+
+    .phone-rays {
+      position: absolute;
+      inset: 9% -14% auto auto;
+      width: 340px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: repeating-conic-gradient(from 0deg, rgba(255,255,255,0.42) 0deg 9deg, transparent 9deg 22deg);
+      -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+      mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+      z-index: 0;
+    }
+
+    .phone {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border: 4px solid var(--ink);
+      border-radius: 36px;
+      background: var(--ink);
+      padding: 12px;
+      transform: rotate(2deg);
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      z-index: -1;
+      border-radius: inherit;
+      background: var(--ink);
+      transform: translate(12px, 12px);
+    }
+
+    .screen {
+      height: 100%;
+      overflow: hidden;
+      border: 3px solid var(--ink);
+      border-radius: 25px;
+      background: var(--cream);
+      position: relative;
+      isolation: isolate;
+    }
+
+    .app-top {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 12px;
+      border-bottom: 3px solid var(--ink);
+      background: var(--cream);
+    }
+
+    .app-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-right: auto;
+      font-size: 18px;
+    }
+
+    .tiny-icon {
+      width: 29px;
+      height: 29px;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+    }
+
+    .play-card {
+      margin: 13px;
+      padding: 14px;
+      border: 3px solid var(--ink);
+      border-radius: 22px;
+      box-shadow: var(--shadow-lg);
+      background-color: var(--pink);
+      background-image: radial-gradient(rgba(20,20,43,0.12) 2px, transparent 2.2px);
+      background-size: 16px 16px;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .coin {
+      position: absolute;
+      right: -18px;
+      top: -18px;
+      width: 88px;
+      height: 88px;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: var(--shadow);
+      transform: rotate(-13deg);
+      display: grid;
+      place-items: center;
+    }
+
+    .coin::before {
+      content: "";
+      width: 58px;
+      height: 58px;
+      border: 3px dashed var(--ink);
+      border-radius: 999px;
+    }
+
+    .play-card h2 {
+      width: 76%;
+      font-size: 30px;
+      line-height: 0.95;
+      margin: 4px 0 14px;
+    }
+
+    .press-start {
+      height: 48px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: var(--yellow);
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 20px;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      padding: 0 13px;
+    }
+
+    .topic-tile {
+      aspect-ratio: 1;
+      border: 3px solid var(--ink);
+      border-radius: 15px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px;
+      font-size: 10px;
+      font-weight: 1000;
+      line-height: 1.05;
+    }
+
+    .topic-tile:nth-child(1) { background: var(--teal); }
+    .topic-tile:nth-child(2) { background: var(--orange); }
+    .topic-tile:nth-child(3) { background: var(--yellow); }
+    .topic-tile:nth-child(4) { background: var(--green); }
+    .topic-tile:nth-child(5) { background: var(--purple); color: #fff; }
+    .topic-tile:nth-child(6) { background: var(--pink-soft); }
+
+    .mini-game {
+      margin: 13px;
+      padding: 11px;
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 1fr 54px 1fr;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .score-plate {
+      height: 54px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 48px;
-      transition: background 0.35s ease, backdrop-filter 0.35s ease,
-                  padding 0.35s ease, border-color 0.35s ease;
-      border-bottom: 1px solid transparent;
+      padding: 0 9px;
+      transform: skewX(-6deg);
     }
-    #navbar.scrolled {
-      background: rgba(8,8,15,0.88);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      padding: 14px 48px;
-      border-bottom-color: var(--glass-border);
-    }
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 30px;
-      color: var(--brand);
-      letter-spacing: 3px;
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      user-select: none;
-    }
-    .nav-logo-text { color: var(--text); }
+    .score-plate span { transform: skewX(6deg); }
+    .score-plate.you { background: var(--pink); }
+    .score-plate.rival { background: var(--teal); color: var(--ink); }
 
-    .btn-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, var(--brand-light) 0%, var(--brand) 50%, var(--brand-dark) 100%);
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 0.2px;
-      padding: 10px 24px;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-      box-shadow: 0 0 20px rgba(255,77,141,0.3);
-      white-space: nowrap;
-    }
-    .btn-cta:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px rgba(255,77,141,0.55), 0 4px 20px rgba(0,0,0,0.4);
-    }
-    .btn-cta-lg {
-      font-size: 17px;
-      font-weight: 700;
-      padding: 16px 44px;
-      box-shadow: 0 0 36px rgba(255,77,141,0.38), 0 6px 24px rgba(0,0,0,0.45);
-    }
-    .btn-cta-lg:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 64px rgba(255,77,141,0.6), 0 10px 40px rgba(0,0,0,0.5);
+    .timer {
+      width: 54px;
+      height: 54px;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      background: var(--yellow);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
     }
 
-    /* ── Hero ──────────────────────────────────────────────────────────── */
-    #hero {
-      position: relative;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    .question {
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      background: #fff;
+      padding: 13px;
       text-align: center;
-      padding: 100px 24px 80px;
-      overflow: hidden;
-    }
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .hero-bg-pink {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(900px, 120vw);
-      height: min(900px, 120vw);
-      background: radial-gradient(ellipse at center,
-        rgba(255,77,141,0.12) 0%,
-        rgba(255,77,141,0.04) 40%,
-        transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-      animation: pulseGlow 5s ease-in-out infinite;
-    }
-    .hero-bg-purple {
-      position: absolute;
-      top: -15%; right: -8%;
-      width: min(700px, 90vw);
-      height: min(700px, 90vw);
-      background: radial-gradient(ellipse at center,
-        rgba(42,30,63,0.6) 0%,
-        transparent 65%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Hexagons */
-    .hex { position: absolute; pointer-events: none; z-index: 0; }
-    .hex svg { width: 100%; height: 100%; }
-    .hex-1 { width: 300px; height: 300px; top: 8%;    left: -6%;  opacity: 0.035; animation: rotateHex 32s linear infinite; }
-    .hex-2 { width: 220px; height: 220px; top: 55%;   right: 0%;  opacity: 0.03;  animation: rotateHex 44s linear infinite reverse; }
-    .hex-3 { width: 160px; height: 160px; bottom: 12%; left: 12%; opacity: 0.04;  animation: rotateHex 27s linear infinite; }
-    .hex-4 { width: 110px; height: 110px; top: 22%;   right: 18%; opacity: 0.045; animation: rotateHex 38s linear infinite reverse; }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 820px;
-      width: 100%;
-    }
-    .eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeIn 0.7s ease forwards 0.15s;
-    }
-    .hero-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(76px, 15vw, 164px);
-      line-height: 0.9;
-      letter-spacing: 3px;
-      color: var(--text);
-      margin-bottom: 32px;
-    }
-    .hero-line { display: block; opacity: 0; transform: translateY(52px); }
-    .hero-line:nth-child(1) { animation: slideUp 0.75s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: 0.3s; }
-    .hero-line:nth-child(2) { animation: slideUp 0.75s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: 0.46s; }
-    .hero-line:nth-child(3) { animation: slideUp 0.75s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: 0.62s; color: var(--brand); }
-
-    .hero-sub {
-      font-size: 18px;
-      font-weight: 400;
-      color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 40px;
-      opacity: 0;
-      animation: fadeIn 0.8s ease forwards 0.95s;
-      line-height: 1.65;
-    }
-    .hero-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      opacity: 0;
-      animation: fadeIn 0.7s ease forwards 1.15s;
-    }
-    .hero-disclaimer {
-      font-size: 12px;
-      color: rgba(248,248,255,0.3);
-      letter-spacing: 0.3px;
-    }
-    .hero-pills {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 44px;
-      opacity: 0;
-      animation: fadeIn 0.7s ease forwards 1.4s;
-    }
-    .pill {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 100px;
-      padding: 7px 16px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-    }
-    .scroll-cue {
-      position: absolute;
-      bottom: 36px; left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      z-index: 2;
-      opacity: 0;
-      animation: fadeIn 0.7s ease forwards 1.9s;
-    }
-    .scroll-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
-    .scroll-dot:nth-child(1) { animation: bounce 1.5s ease infinite 0s; }
-    .scroll-dot:nth-child(2) { animation: bounce 1.5s ease infinite 0.18s; opacity: 0.55; }
-    .scroll-dot:nth-child(3) { animation: bounce 1.5s ease infinite 0.36s; opacity: 0.25; }
-
-    /* ── Shared section ────────────────────────────────────────────────── */
-    .section-inner {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 100px 40px;
-    }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(44px, 6vw, 74px);
-      letter-spacing: 2px;
-      color: var(--text);
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .section-sub {
-      text-align: center;
-      color: var(--muted);
       font-size: 16px;
-      max-width: 460px;
-      margin: 0 auto 60px;
-      line-height: 1.65;
+      line-height: 1.15;
+      margin-bottom: 12px;
     }
-    .divider {
-      border: none;
-      height: 1px;
-      background: var(--glass-border);
-      max-width: 1160px;
+
+    .answers {
+      display: grid;
+      gap: 9px;
+    }
+
+    .answer {
+      min-height: 44px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 9px;
+      font-size: 12px;
+    }
+
+    .answer-key {
+      width: 30px;
+      height: 30px;
+      border: 3px solid var(--ink);
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--pink);
+      flex: 0 0 auto;
+    }
+    .answer:nth-child(2) .answer-key { background: var(--teal); color: var(--ink); }
+    .answer:nth-child(3) .answer-key { background: var(--purple); }
+
+    .dock {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 60px;
+      border-top: 3px solid var(--ink);
+      background: var(--ink);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      padding: 0 7px;
+      color: rgba(255,255,255,0.76);
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .dock-play {
+      width: 58px;
+      height: 58px;
+      margin: -32px auto 0;
+      border: 4px solid var(--ink);
+      border-radius: 999px;
+      background: var(--yellow);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 0 4px var(--cream);
+    }
+
+    section {
+      position: relative;
+      padding: 80px 0;
+    }
+
+    .section-inner {
+      width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
     }
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── How It Works ──────────────────────────────────────────────────── */
-    .steps-grid {
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 380px);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-title {
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: 0.94;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-    .step-card {
-      position: relative;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-card);
-      padding: 36px 28px;
-      overflow: hidden;
-      transition: transform 0.28s ease, border-color 0.28s ease;
-    }
-    .step-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px 2px 0 0;
-    }
-    .step-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.14); }
-    .step-num {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: var(--muted);
-      margin-bottom: 22px;
-    }
-    .step-icon {
-      width: 58px; height: 58px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin-bottom: 22px;
-      background: var(--icon-bg);
-    }
-    .step-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
-      letter-spacing: 1px;
-      color: var(--text);
-      margin-bottom: 12px;
-      line-height: 1.05;
-    }
-    .step-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
-
-    /* ── Features ──────────────────────────────────────────────────────── */
-    #features-wrap {
-      background: linear-gradient(180deg,
-        transparent 0%,
-        rgba(42,30,63,0.4) 35%,
-        rgba(42,30,63,0.4) 65%,
-        transparent 100%);
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
       gap: 18px;
     }
-    .feat-card {
-      position: relative;
-      border-radius: 20px;
-      padding: 28px 26px 26px;
-      transition: transform 0.25s ease;
-      overflow: hidden;
-      isolation: isolate;
-      will-change: background-image;
-    }
-    .feat-card:hover { transform: translateY(-4px); }
-    .feat-grain {
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      opacity: 0.07;
-      mix-blend-mode: soft-light;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .feat-border {
-      position: absolute; inset: 0;
-      border-radius: 20px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.13);
-      pointer-events: none;
-      z-index: 2;
-    }
-    .feat-content { position: relative; z-index: 3; }
-    .feat-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(0,0,0,0.28);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 8px;
-      padding: 5px 12px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 14px;
-      color: rgba(248,248,255,0.9);
-    }
-    .feat-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 7px;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
-    }
-    .feat-desc { font-size: 14px; color: rgba(255,255,255,0.62); line-height: 1.6; }
 
-    /* ── Social Proof Strip ────────────────────────────────────────────── */
-    #social-strip {
-      background: linear-gradient(180deg, transparent 0%, rgba(255,77,141,0.04) 50%, transparent 100%);
-    }
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-top: 0;
-    }
-    .social-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      transition: transform 0.25s ease;
-    }
-    .social-card:hover { transform: translateY(-3px); }
-    .social-stat {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 52px;
-      letter-spacing: 1px;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .social-label {
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    /* ── Ranks ─────────────────────────────────────────────────────────── */
-    #ranks-wrap { overflow: hidden; }
-    .ranks-scroll {
-      display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding: 16px 40px 36px;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      cursor: grab;
-    }
-    .ranks-scroll:active { cursor: grabbing; }
-    .ranks-scroll::-webkit-scrollbar { display: none; }
-
-    .rank-card {
-      flex-shrink: 0;
-      width: 152px;
-      scroll-snap-align: start;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 18px;
-      padding: 30px 16px 22px;
+    .step {
+      min-height: 270px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.28s ease;
-      isolation: isolate;
+      gap: 12px;
     }
-    .rank-card:hover { transform: translateY(-5px); }
-    .rank-glow-bg {
-      position: absolute;
-      top: -18px; left: 50%;
-      transform: translateX(-50%);
-      width: 88px; height: 88px;
-      border-radius: 50%;
-      filter: blur(24px);
-      opacity: 0.22;
-      z-index: -1;
-    }
-    .rank-icon { font-size: 38px; position: relative; z-index: 1; }
-    .rank-name {
-      font-family: 'Bebas Neue', sans-serif;
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--ink);
+      border-radius: 15px;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      place-items: center;
+      background: var(--tile);
+      color: var(--ink);
       font-size: 22px;
-      letter-spacing: 1.5px;
+    }
+
+    .step h3 {
+      font-size: 31px;
+      line-height: 0.98;
+    }
+
+    .step p { color: var(--muted); font-weight: 900; }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .feature {
+      min-height: 250px;
+      padding: 18px;
+      overflow: hidden;
+      position: relative;
+      background: var(--tile);
+    }
+
+    .feature::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background: repeating-conic-gradient(from 0deg, rgba(255,255,255,0.42) 0deg 11deg, transparent 11deg 24deg);
+      -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+      mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+      opacity: 0.72;
+    }
+
+    .feature-chip {
+      width: fit-content;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 11px;
       position: relative;
       z-index: 1;
     }
-    .rank-xp { font-size: 11px; font-weight: 500; letter-spacing: 1px; color: var(--muted); }
 
-    .rank-card.legend { border-color: transparent; }
-    .rank-card.legend::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #FFD166, var(--brand), #9C6FE4, var(--xp), #FFD166);
-      background-size: 300% 300%;
-      animation: legendBorder 3s linear infinite;
-      z-index: -1;
-    }
-    .rank-card.legend::after {
-      content: '';
-      position: absolute;
-      inset: 1px;
-      border-radius: 17px;
-      background: #0e0a18;
-      z-index: -1;
-    }
-    .rank-name.legend-name {
-      background: linear-gradient(90deg, #FFD166, var(--brand), #9C6FE4, var(--xp), #FFD166);
-      background-size: 220% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: legendText 2.2s linear infinite;
-    }
-
-    /* ── Daily Challenge Teaser ────────────────────────────────────────── */
-    #daily-wrap {
-      background: linear-gradient(180deg, transparent 0%, rgba(56,141,248,0.05) 50%, transparent 100%);
-    }
-    .daily-card {
-      max-width: 680px;
-      margin: 0 auto;
-      background: var(--surface);
-      border: 1px solid rgba(56,141,248,0.25);
-      border-radius: 24px;
-      padding: 40px;
-      text-align: center;
+    .feature h3 {
+      margin: 34px 0 9px;
+      font-size: 30px;
+      line-height: 0.95;
       position: relative;
+      z-index: 1;
+    }
+
+    .feature p {
+      color: rgba(20,20,43,0.74);
+      font-weight: 900;
+      position: relative;
+      z-index: 1;
+    }
+
+    .playground {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1.1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .feed {
+      padding: 22px;
+      background: var(--ink);
+      color: #fff;
       overflow: hidden;
     }
-    .daily-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--timer), transparent);
+
+    .feed h3 {
+      font-size: 42px;
+      line-height: 0.98;
+      margin-bottom: 18px;
     }
-    .daily-badge {
+
+    .feed-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .feed-item {
+      display: grid;
+      grid-template-columns: 46px 1fr auto;
+      gap: 11px;
+      align-items: center;
+      min-height: 74px;
+      padding: 10px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      background: #fff;
+      color: var(--ink);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--pink);
+      color: #fff;
+      font-size: 22px;
+    }
+
+    .feed-text { font-size: 14px; line-height: 1.15; }
+    .feed-meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+    .badge {
+      min-height: 30px;
+      padding: 0 9px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(56,141,248,0.12);
-      border: 1px solid rgba(56,141,248,0.3);
-      color: var(--timer);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .daily-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 36px;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-    .daily-desc {
-      color: var(--muted);
-      font-size: 15px;
-      margin-bottom: 28px;
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .countdown-row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 28px;
-    }
-    .countdown-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .countdown-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 40px;
-      letter-spacing: 2px;
-      color: var(--timer);
-      line-height: 1;
-      min-width: 50px;
-      text-align: center;
-    }
-    .countdown-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .countdown-sep {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 40px;
-      color: var(--muted);
-      opacity: 0.4;
-      line-height: 1;
-      align-self: flex-start;
-      padding-top: 0px;
+      background: var(--yellow);
+      font-size: 11px;
+      white-space: nowrap;
     }
 
-    /* ── Social Feed Preview ───────────────────────────────────────────── */
-    #feed-wrap {
-      background: linear-gradient(180deg, transparent 0%, rgba(0,245,212,0.03) 50%, transparent 100%);
-    }
-    .feed-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-width: 540px;
-      margin: 0 auto;
-    }
-    .feed-item {
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      transition: transform 0.22s ease;
-    }
-    .feed-item:hover { transform: translateX(4px); }
-    .feed-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    .feed-body { flex: 1; min-width: 0; }
-    .feed-text { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-    .feed-text strong { color: var(--brand); }
-    .feed-meta { font-size: 12px; color: var(--muted); }
-    .feed-badge {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 100px;
-      flex-shrink: 0;
-    }
-    .feed-badge.win  { background: rgba(34,197,94,0.12);  color: var(--correct); border: 1px solid rgba(34,197,94,0.2); }
-    .feed-badge.loss { background: rgba(255,77,109,0.12); color: var(--wrong);   border: 1px solid rgba(255,77,109,0.2); }
-    .feed-badge.streak { background: rgba(255,209,102,0.12); color: var(--gold); border: 1px solid rgba(255,209,102,0.2); }
-    .feed-badge.xp   { background: rgba(0,245,212,0.1);   color: var(--xp);     border: 1px solid rgba(0,245,212,0.2); }
-
-    /* ── Final CTA ─────────────────────────────────────────────────────── */
-    #cta {
-      position: relative;
-      text-align: center;
+    .live-panel {
+      padding: 22px;
+      background: var(--purple);
+      color: #fff;
       overflow: hidden;
-    }
-    .cta-bg-pink {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(800px, 120vw);
-      height: min(800px, 120vw);
-      background: radial-gradient(ellipse at center,
-        rgba(255,77,141,0.18) 0%,
-        rgba(255,77,141,0.05) 45%,
-        transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-      animation: pulseGlow 4.5s ease-in-out infinite;
-    }
-    .cta-bg-purple {
-      position: absolute;
-      bottom: -10%; left: 25%;
-      width: min(500px, 80vw);
-      height: min(500px, 80vw);
-      background: radial-gradient(ellipse at center,
-        rgba(42,30,63,0.6) 0%,
-        transparent 68%);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .cta-inner {
       position: relative;
-      z-index: 2;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 120px 40px;
-    }
-    .cta-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(88px, 18vw, 200px);
-      letter-spacing: 6px;
-      line-height: 0.92;
-      margin-bottom: 24px;
-    }
-    .cta-sub {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 420px;
-      margin: 0 auto 44px;
-      line-height: 1.65;
-    }
-    .cta-url {
-      display: block;
-      margin-top: 18px;
-      font-size: 12px;
-      color: rgba(248,248,255,0.22);
-      font-family: 'Courier New', monospace;
-      letter-spacing: 1px;
     }
 
-    /* ── Footer ────────────────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--glass-border);
-      padding: 26px 48px;
+    .live-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto -80px -100px auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: var(--yellow);
+      border: 3px solid var(--ink);
+      opacity: 0.95;
+    }
+
+    .live-panel > * { position: relative; z-index: 1; }
+    .live-panel h3 { font-size: 52px; line-height: 0.9; max-width: 360px; }
+    .live-panel p { margin: 14px 0 20px; max-width: 420px; font-size: 18px; }
+
+    .lobby {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      max-width: 410px;
+    }
+
+    .lobby-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: center;
       gap: 12px;
-      font-size: 13px;
-      color: var(--muted);
+      min-height: 52px;
+      padding: 8px 10px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+      color: var(--ink);
     }
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      color: var(--brand);
-      letter-spacing: 2px;
-    }
-    .footer-center { text-align: center; }
-    .footer-right  { text-align: right; }
-    footer a { color: var(--muted); transition: color 0.2s ease; }
-    footer a:hover { color: var(--text); }
 
-    /* ── Responsive ────────────────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .steps-grid   { grid-template-columns: 1fr; gap: 16px; }
-      .features-grid { grid-template-columns: 1fr; gap: 14px; }
-      .social-grid  { grid-template-columns: 1fr; gap: 14px; }
+    .meter {
+      height: 18px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2px;
+      padding: 2px;
+      border: 2px solid var(--ink);
+      border-radius: 7px;
+      background: #fff;
     }
-    @media (max-width: 640px) {
-      #navbar         { padding: 16px 20px; }
-      #navbar.scrolled { padding: 12px 20px; }
-      .section-inner  { padding: 80px 20px; }
-      .hero-sub       { font-size: 16px; }
-      .hero-pills     { gap: 8px; }
-      .pill           { font-size: 12px; padding: 6px 12px; }
-      .ranks-scroll   { padding: 12px 20px 28px; }
-      .cta-inner      { padding: 80px 20px; }
-      .cta-sub        { font-size: 16px; }
-      .daily-card     { padding: 28px 20px; }
-      footer {
-        grid-template-columns: 1fr 1fr;
-        padding: 22px 20px;
+
+    .meter span {
+      border-radius: 3px;
+      background: #F1E6C8;
+    }
+
+    .meter span.on {
+      background: var(--pink);
+      animation: cellOn 0.18s both;
+    }
+
+    .rank-strip {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(140px, 1fr));
+      gap: 14px;
+    }
+
+    .rank {
+      min-height: 156px;
+      padding: 16px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .rank-icon {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 12px;
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: var(--shadow-sm);
+      background: var(--rank);
+      display: grid;
+      place-items: center;
+      color: #fff;
+    }
+
+    .rank h3 {
+      font-size: 25px;
+      line-height: 0.95;
+    }
+
+    .rank p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .cta {
+      padding-bottom: 96px;
+    }
+
+    .cta-card {
+      min-height: 360px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 28px;
+      padding: clamp(24px, 5vw, 54px);
+      background-color: var(--pink);
+      background-image: radial-gradient(rgba(20, 20, 43, 0.12) 2px, transparent 2.2px);
+      background-size: 16px 16px;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cta-card::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -90px;
+      width: 330px;
+      height: 330px;
+      border-radius: 999px;
+      background: var(--yellow);
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-card h2 {
+      max-width: 650px;
+      font-size: clamp(50px, 8vw, 100px);
+      line-height: 0.86;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-card p {
+      max-width: 520px;
+      margin: 16px 0 24px;
+      font-size: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-card .btn { position: relative; z-index: 1; }
+
+    .mascot-card {
+      width: 220px;
+      height: 220px;
+      border: 3px solid var(--ink);
+      border-radius: 40px;
+      box-shadow: var(--shadow-lg);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      transform: rotate(5deg);
+      position: relative;
+      z-index: 1;
+    }
+
+    .bolt {
+      width: 94px;
+      height: 120px;
+    }
+
+    footer {
+      border-top: 3px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .footer-inner {
+      width: min(var(--max), calc(100% - 32px));
+      min-height: 112px;
+      margin: 0 auto;
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      justify-content: space-between;
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .footer-brand {
+      color: #fff;
+      font-size: 25px;
+    }
+
+    .footer-meta {
+      display: grid;
+      gap: 4px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px 16px;
+      max-width: 680px;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .footer-links a:hover { color: #fff; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
       }
-      .footer-center { display: none; }
     }
-    @media (max-width: 400px) {
-      .hero-pills   { flex-direction: column; align-items: center; }
-      .btn-cta-lg   { font-size: 15px; padding: 14px 32px; }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 104px; }
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+      .phone-wrap {
+        width: min(430px, 92vw);
+      }
+      .section-head,
+      .playground,
+      .cta-card {
+        grid-template-columns: 1fr;
+      }
+      .steps { grid-template-columns: 1fr; }
+      .features { grid-template-columns: repeat(2, 1fr); }
+      .rank-strip {
+        overflow-x: auto;
+        grid-template-columns: repeat(6, 160px);
+        padding-bottom: 10px;
+      }
+      .mascot-card { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner { width: min(100% - 22px, var(--max)); height: 68px; }
+      .brand-word { font-size: 24px; }
+      .brand-mark { width: 38px; height: 38px; border-radius: 12px; }
+      .nav .btn { min-height: 46px; padding: 0 14px; font-size: 18px; }
+      .hero { padding: 92px 0 30px; }
+      h1 { font-size: clamp(48px, 16vw, 70px); }
+      .hero-copy { font-size: 17px; }
+      .hero-actions .btn { width: 100%; }
+      .stat-row { display: none; }
+      .phone-wrap { display: none; }
+      .phone { box-shadow: 7px 7px 0 var(--ink); }
+      .section-inner { width: min(100% - 22px, var(--max)); }
+      section { padding: 56px 0; }
+      .features { grid-template-columns: 1fr; }
+      .feature { min-height: 210px; }
+      .feed-item {
+        grid-template-columns: 42px 1fr;
+      }
+      .feed-item .badge { grid-column: 2; width: fit-content; }
+      .footer-inner {
+        min-height: 116px;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .footer-links { justify-content: flex-start; }
     }
   </style>
 </head>
 
 <body>
-
-  <!-- ── NAVBAR ───────────────────────────────────────────────────────── -->
-  <nav id="navbar" role="navigation" aria-label="Main navigation">
-    <div class="nav-logo" aria-label="Kwiz">&#9889;<span class="nav-logo-text">KWIZ</span></div>
-    <a href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer" class="btn-cta" aria-label="Play Kwiz now">
-      Play Now &rarr;
-    </a>
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="KWIZ.LIVE home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="25" height="31" viewBox="0 0 26 34">
+            <path d="M15 2 L3 19 H11 L8 32 L23 13 H14 L18 2 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="3" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-word">KWIZ<span>.LIVE</span></span>
+      </a>
+      <div class="nav-links" aria-label="Page sections">
+        <a href="#how">How it plays</a>
+        <a href="#features">Features</a>
+        <a href="#community">Community</a>
+        <a href="#ranks">Ranks</a>
+      </div>
+      <a class="btn press" href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer">Play Now</a>
+    </div>
   </nav>
 
-  <!-- ── HERO ─────────────────────────────────────────────────────────── -->
-  <section id="hero" aria-label="Hero">
-    <canvas id="hero-canvas" aria-hidden="true"></canvas>
-    <div class="hero-bg-pink"   aria-hidden="true"></div>
-    <div class="hero-bg-purple" aria-hidden="true"></div>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow pixel reveal"><span class="eyebrow-dot blink" aria-hidden="true"></span> Live trivia showdowns</p>
+          <h1 class="display reveal" id="hero-title">Pick a topic. <span class="pink-word">Press start.</span> Beat your rival.</h1>
+          <p class="hero-copy reveal">KWIZ.LIVE is the comic-pop trivia game where real players duel across any topic, use lifelines at the perfect moment, and climb from Novice to Legend.</p>
+          <div class="hero-actions reveal">
+            <a class="btn pink press breathe" href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+              Press Start
+            </a>
+            <a class="btn secondary press" href="#features">See the game</a>
+          </div>
+          <p class="hero-note pixel reveal">Free to play / no download / Google or Discord sign in</p>
+          <div class="stat-row reveal" aria-label="Game highlights">
+            <span class="stat-pill">Real-time PvP</span>
+            <span class="stat-pill">Any-topic quizzes</span>
+            <span class="stat-pill">Lifelines</span>
+            <span class="stat-pill">Clans</span>
+            <span class="stat-pill">Ranks</span>
+          </div>
+        </div>
 
-    <div class="hex hex-1" aria-hidden="true"><svg viewBox="0 0 100 115" fill="none"><polygon points="50,2 98,27 98,88 50,113 2,88 2,27" stroke="white" stroke-width="1.2"/></svg></div>
-    <div class="hex hex-2" aria-hidden="true"><svg viewBox="0 0 100 115" fill="none"><polygon points="50,2 98,27 98,88 50,113 2,88 2,27" stroke="white" stroke-width="1.2"/></svg></div>
-    <div class="hex hex-3" aria-hidden="true"><svg viewBox="0 0 100 115" fill="none"><polygon points="50,2 98,27 98,88 50,113 2,88 2,27" stroke="white" stroke-width="1.2"/></svg></div>
-    <div class="hex hex-4" aria-hidden="true"><svg viewBox="0 0 100 115" fill="none"><polygon points="50,2 98,27 98,88 50,113 2,88 2,27" stroke="white" stroke-width="1.2"/></svg></div>
+        <div class="phone-wrap reveal" aria-label="KWIZ game interface preview">
+          <div class="phone-rays spin" aria-hidden="true"></div>
+          <div class="phone bob">
+            <div class="screen field">
+              <div class="app-top">
+                <div class="app-logo display">
+                  <span class="brand-mark" style="width:30px;height:30px;border-radius:10px;box-shadow:none" aria-hidden="true">
+                    <svg width="18" height="22" viewBox="0 0 26 34"><path d="M15 2 L3 19 H11 L8 32 L23 13 H14 L18 2 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="3" stroke-linejoin="round"/></svg>
+                  </span>
+                  KWIZ<span style="color:var(--pink)">.LIVE</span>
+                </div>
+                <span class="tiny-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="none" stroke="#14142B" stroke-width="2.5" stroke-linejoin="round"/></svg></span>
+                <span class="tiny-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7" fill="none" stroke="#14142B" stroke-width="2.5"/><path d="M13.7 21a2 2 0 0 1-3.4 0" fill="none" stroke="#14142B" stroke-width="2.5"/></svg></span>
+              </div>
 
-    <div class="hero-content">
-      <p class="eyebrow">The Trivia Arena</p>
-      <h1 class="hero-headline">
-        <span class="hero-line">THINK FAST.</span>
-        <span class="hero-line">PLAY HARD.</span>
-        <span class="hero-line">WIN GLORY.</span>
-      </h1>
-      <p class="hero-sub">
-        Real-time trivia battles. Challenge friends, climb the ranks, and dominate
-        the global leaderboard — one question at a time.
-      </p>
-      <div class="hero-actions">
-        <a href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer" class="btn-cta btn-cta-lg">
-          &#9889; Enter the Arena
-        </a>
-        <p class="hero-disclaimer">Free to play &middot; No download required &middot; Sign in with Google or Discord</p>
+              <div class="play-card bold-field">
+                <div class="coin wiggle" aria-hidden="true"></div>
+                <p class="pixel">Continue?</p>
+                <h2 class="display stroke">90s cartoons</h2>
+                <div class="press-start display breathe">
+                  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#14142B"/></svg>
+                  PRESS START
+                </div>
+                <p class="pixel blink" style="text-align:center;margin-top:10px">Insert coin / 1 credit</p>
+              </div>
+
+              <div class="topic-grid" aria-hidden="true">
+                <div class="topic-tile">Movies</div>
+                <div class="topic-tile">Science</div>
+                <div class="topic-tile">Sports</div>
+                <div class="topic-tile">History</div>
+                <div class="topic-tile">Anime</div>
+                <div class="topic-tile">Your Topic</div>
+              </div>
+
+              <div class="mini-game" aria-hidden="true">
+                <div class="score-row">
+                  <div class="score-plate you display"><span>You</span><span class="stroke">240</span></div>
+                  <div class="timer display">12</div>
+                  <div class="score-plate rival display"><span>Rival</span><span>190</span></div>
+                </div>
+                <div class="question display">Which lifeline steals points?</div>
+                <div class="answers">
+                  <div class="answer"><span class="answer-key display">A</span><span>Score Heist</span></div>
+                  <div class="answer"><span class="answer-key display">B</span><span>Shield</span></div>
+                  <div class="answer"><span class="answer-key display">C</span><span>Double Dip</span></div>
+                </div>
+              </div>
+
+              <div class="dock pixel" aria-hidden="true">
+                <span>Home</span>
+                <span>Feed</span>
+                <span class="dock-play"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#14142B"/></svg></span>
+                <span>Clans</span>
+                <span>Me</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hero-pills" aria-label="Key stats">
-        <span class="pill">&#127919; Unlimited Topics</span>
-        <span class="pill">&#9889; Real-time PvP</span>
-        <span class="pill">&#128737; Lifelines</span>
-        <span class="pill">&#128293; Win Streaks</span>
-        <span class="pill">&#127942; Global Leaderboard</span>
-        <span class="pill">&#9202; Async Duels</span>
-        <span class="pill">&#10024; AI Topics</span>
+    </section>
+
+    <section id="how" aria-labelledby="how-title">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker pixel reveal">How it plays</p>
+            <h2 class="section-title display reveal" id="how-title">Three taps to a showdown.</h2>
+          </div>
+          <p class="section-copy reveal">Jump from the topic grid into a match, spend XP on clutch lifelines, and watch every round land with loud scoreboard feedback.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step sticker-lg reveal" style="--tile:var(--teal)">
+            <div class="step-number display">1</div>
+            <h3 class="display">Pick a topic</h3>
+            <p>Choose a popular topic, jump back into your last one, go random, or generate a quiz on whatever you can name.</p>
+          </article>
+          <article class="step sticker-lg reveal" style="--tile:var(--yellow)">
+            <div class="step-number display">2</div>
+            <h3 class="display">Find a rival</h3>
+            <p>Queue into live PvP, challenge a friend with a link, or send an async duel when they cannot play right now.</p>
+          </article>
+          <article class="step sticker-lg reveal" style="--tile:var(--green)">
+            <div class="step-number display">3</div>
+            <h3 class="display">Win the round</h3>
+            <p>Answer fast, spend XP on lifelines, protect streaks, and watch the scoreboard pop after every swing.</p>
+          </article>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="scroll-cue" aria-hidden="true">
-      <div class="scroll-dot"></div>
-      <div class="scroll-dot"></div>
-      <div class="scroll-dot"></div>
-    </div>
-  </section>
+    <section id="features" aria-labelledby="features-title">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker pixel reveal">Built for the game</p>
+            <h2 class="section-title display reveal" id="features-title">Everything feels like KWIZ now.</h2>
+          </div>
+          <p class="section-copy reveal">Live duels, custom topics, clans, social posts, and rank progression all sit inside one fast browser game.</p>
+        </div>
 
-  <hr class="divider">
+        <div class="features">
+          <article class="feature sticker reveal" style="--tile:#FF8FB8">
+            <span class="feature-chip pixel">PvP</span>
+            <h3 class="display">Live battles</h3>
+            <p>Socket-synced duels with score plates, countdown pressure, and instant reveal moments.</p>
+          </article>
+          <article class="feature sticker reveal" style="--tile:var(--teal)">
+            <span class="feature-chip pixel">Topics</span>
+            <h3 class="display">Any subject</h3>
+            <p>Curated categories sit beside custom AI-generated topics for niche obsessions.</p>
+          </article>
+          <article class="feature sticker reveal" style="--tile:var(--yellow)">
+            <span class="feature-chip pixel">Lifelines</span>
+            <h3 class="display">Flip the game</h3>
+            <p>50/50, Shield, Score Heist, and Double Dip turn close rounds into chaos.</p>
+          </article>
+          <article class="feature sticker reveal" style="--tile:var(--green)">
+            <span class="feature-chip pixel">Ranks</span>
+            <h3 class="display">XP climb</h3>
+            <p>Progress bars, streak badges, and rank colors make every win feel earned.</p>
+          </article>
+          <article class="feature sticker reveal" style="--tile:var(--purple);color:#fff">
+            <span class="feature-chip pixel">Clans</span>
+            <h3 class="display stroke">Squad up</h3>
+            <p style="color:rgba(255,255,255,0.88)">Team with friends, compare activity, and turn trivia into a group sport.</p>
+          </article>
+          <article class="feature sticker reveal" style="--tile:var(--orange)">
+            <span class="feature-chip pixel">Feed</span>
+            <h3 class="display">Arena chatter</h3>
+            <p>Wins, streaks, milestones, posts, comments, and reactions keep the world alive.</p>
+          </article>
+          <article class="feature sticker reveal" style="--tile:#B9A4FF">
+            <span class="feature-chip pixel">Async</span>
+            <h3 class="display">Play later</h3>
+            <p>Send a duel, take your turn, and let your opponent answer when they are ready.</p>
+          </article>
+          <article class="feature sticker reveal" style="--tile:#FFFFFF">
+            <span class="feature-chip pixel">PWA</span>
+            <h3 class="display">No download</h3>
+            <p>Play from the browser, pin it to your homescreen, and get challenge alerts.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <main>
-
-  <!-- ── HOW IT WORKS ─────────────────────────────────────────────────── -->
-  <section aria-labelledby="how-title">
-    <div class="section-inner">
-      <h2 class="section-title reveal" id="how-title">HOW IT WORKS</h2>
-
-      <div class="steps-grid">
-        <article class="step-card reveal" style="--accent:#FF4D8D; --icon-bg:rgba(255,77,141,0.12); transition-delay:0.08s">
-          <p class="step-num">01</p>
-          <div class="step-icon" aria-hidden="true">&#127919;</div>
-          <h3 class="step-title">CHOOSE YOUR BATTLEFIELD</h3>
-          <p class="step-desc">Pick from unlimited curated topics — Science, History, Pop Culture, Sports, and more. Or instantly generate a custom topic on any subject imaginable.</p>
+    <section id="community" aria-labelledby="community-title">
+      <div class="section-inner playground">
+        <article class="feed sticker-lg reveal">
+          <h3 class="display" id="community-title">The feed is alive.</h3>
+          <div class="feed-list" role="list">
+            <div class="feed-item" role="listitem">
+              <div class="avatar display" style="background:var(--pink)">F</div>
+              <div>
+                <p class="feed-text"><strong>FoxTrot99</strong> beat <strong>StarGazer</strong> in Science.</p>
+                <p class="feed-meta">2 min ago / 8 of 10 correct</p>
+              </div>
+              <span class="badge pixel">Win</span>
+            </div>
+            <div class="feed-item" role="listitem">
+              <div class="avatar display" style="background:var(--orange);color:var(--ink)">Q</div>
+              <div>
+                <p class="feed-text"><strong>QuizKing_PK</strong> is on a 7-game streak.</p>
+                <p class="feed-meta">5 min ago / streak protected</p>
+              </div>
+              <span class="badge pixel">x7</span>
+            </div>
+            <div class="feed-item" role="listitem">
+              <div class="avatar display" style="background:var(--teal);color:var(--ink)">N</div>
+              <div>
+                <p class="feed-text"><strong>NightOwl</strong> reached Scholar rank.</p>
+                <p class="feed-meta">12 min ago / 800 XP milestone</p>
+              </div>
+              <span class="badge pixel">+120 XP</span>
+            </div>
+          </div>
         </article>
 
-        <article class="step-card reveal" style="--accent:#9C6FE4; --icon-bg:rgba(156,111,228,0.12); transition-delay:0.18s">
-          <p class="step-num">02</p>
-          <div class="step-icon" aria-hidden="true">&#9889;</div>
-          <h3 class="step-title">CHALLENGE YOUR RIVALS</h3>
-          <p class="step-desc">Match against real players in real-time. Send a challenge link to anyone — they can jump straight in, no account needed to accept.</p>
+        <article class="live-panel sticker-lg reveal">
+          <p class="pixel">KWIZ Live</p>
+          <h3 class="display stroke">Lobby opens soon.</h3>
+          <p>Survive the same question set as everyone else. Share the prize pool if you make it through.</p>
+          <div class="lobby">
+            <div class="lobby-row">
+              <strong>Prize pool</strong>
+              <span class="badge pixel">2,500 XP</span>
+            </div>
+            <div class="lobby-row">
+              <strong>Players in</strong>
+              <span class="badge pixel">48</span>
+            </div>
+            <div class="meter" aria-label="Lobby fill meter">
+              <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
         </article>
-
-        <article class="step-card reveal" style="--accent:#FFD166; --icon-bg:rgba(255,209,102,0.12); transition-delay:0.28s">
-          <p class="step-num">03</p>
-          <div class="step-icon" aria-hidden="true">&#127942;</div>
-          <h3 class="step-title">CLIMB THE RANKS</h3>
-          <p class="step-desc">Earn XP, unlock six ranks from Novice to Legend, build win streaks, and dominate the global leaderboard.</p>
-        </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <hr class="divider">
-
-  <!-- ── FEATURES ─────────────────────────────────────────────────────── -->
-  <div id="features-wrap">
-    <section aria-labelledby="features-title">
+    <section id="ranks" aria-labelledby="ranks-title">
       <div class="section-inner">
-        <h2 class="section-title reveal" id="features-title">BUILT FOR COMPETITORS</h2>
-        <p class="section-sub reveal" style="transition-delay:0.1s">Everything you need to compete, connect, and climb.</p>
+        <div class="section-head">
+          <div>
+            <p class="section-kicker pixel reveal">Rank road</p>
+            <h2 class="section-title display reveal" id="ranks-title">From Novice to Legend.</h2>
+          </div>
+          <p class="section-copy reveal">Every match earns XP, every streak raises the pressure, and every rank gives rivals another reason to chase you.</p>
+        </div>
 
-        <div class="features-grid">
-
-          <!-- PvP: pink/magenta/deep violet mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:15%; --y-0:80%; --x-1:85%; --y-1:10%; --x-2:50%; --y-2:50%; --x-3:20%; --y-3:20%;
-            transition-delay:0.05s;
-            background-color: #110816;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #ff4d8d 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #e11d48 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #9333ea 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #be185d 0%, transparent 50%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#9889; Real-Time PvP</div>
-              <h3 class="feat-title">Live Battles</h3>
-              <p class="feat-desc">Face off against real players with live scoring and instant results. No bots, no delays — pure competition with real-time socket sync.</p>
-            </div>
+        <div class="rank-strip" role="list" aria-label="Rank progression">
+          <article class="rank sticker reveal" role="listitem" style="--rank:#64748B">
+            <div class="rank-icon display">N</div>
+            <h3 class="display">Novice</h3>
+            <p>0 XP</p>
           </article>
-
-          <!-- Streaks: orange/amber/gold mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:5%; --y-0:5%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:30%; --x-3:80%; --y-3:10%;
-            transition-delay:0.1s;
-            background-color: #150a00;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #f59e0b 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #dc2626 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #ffd166 0%, transparent 60%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #ea580c 0%, transparent 50%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#128293; Streaks</div>
-              <h3 class="feat-title">Win Streak System</h3>
-              <p class="feat-desc">Build momentum with consecutive wins. Your streak is displayed live on your profile — let your rivals see what they're up against.</p>
-            </div>
+          <article class="rank sticker reveal" role="listitem" style="--rank:#22A85E">
+            <div class="rank-icon display">B</div>
+            <h3 class="display">Beginner</h3>
+            <p>200 XP</p>
           </article>
-
-          <!-- Ranked: gold/purple/deep mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:10%; --y-0:90%; --x-1:90%; --y-1:5%; --x-2:50%; --y-2:55%; --x-3:70%; --y-3:80%;
-            transition-delay:0.15s;
-            background-color: #0c0918;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #a855f7 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #ffd166 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #7c3aed 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #312e81 0%, transparent 55%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#127942; Ranked</div>
-              <h3 class="feat-title">Ranked Progression</h3>
-              <p class="feat-desc">Six ranks from Novice to Legend. Every match earns XP. Every correct answer edges you closer to the top.</p>
-            </div>
+          <article class="rank sticker reveal" role="listitem" style="--rank:#8B5CF6">
+            <div class="rank-icon display">S</div>
+            <h3 class="display">Scholar</h3>
+            <p>800 XP</p>
           </article>
-
-          <!-- Social Feed: teal/cyan/blue mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:0%; --y-0:100%; --x-1:100%; --y-1:0%; --x-2:45%; --y-2:45%; --x-3:80%; --y-3:80%;
-            transition-delay:0.2s;
-            background-color: #020f14;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #0891b2 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #00f5d4 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #0e7490 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #1e3a5f 0%, transparent 55%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#128172; Social Feed</div>
-              <h3 class="feat-title">Live Activity Feed</h3>
-              <p class="feat-desc">See what your rivals are up to. Game results, win streaks, and milestones stream live in a social feed — like, comment, react with emoji.</p>
-            </div>
+          <article class="rank sticker reveal" role="listitem" style="--rank:#F5A524">
+            <div class="rank-icon display">E</div>
+            <h3 class="display">Expert</h3>
+            <p>2,500 XP</p>
           </article>
-
-          <!-- Push: blue/indigo/violet mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:95%; --y-0:95%; --x-1:5%; --y-1:5%; --x-2:55%; --y-2:50%; --x-3:25%; --y-3:85%;
-            transition-delay:0.25s;
-            background-color: #050814;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #388df8 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #4f46e5 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #2563eb 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #1e1b4b 0%, transparent 55%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#128241; Push Alerts</div>
-              <h3 class="feat-title">Challenge Notifications</h3>
-              <p class="feat-desc">Get push notifications when someone challenges you. Accept instantly, even from the lock screen. Never miss a duel.</p>
-            </div>
+          <article class="rank sticker reveal" role="listitem" style="--rank:#FF4D8D">
+            <div class="rank-icon display">M</div>
+            <h3 class="display">Master</h3>
+            <p>7,000 XP</p>
           </article>
-
-          <!-- Challenge links: green/emerald/teal mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:5%; --y-0:5%; --x-1:95%; --y-1:95%; --x-2:50%; --y-2:50%; --x-3:85%; --y-3:10%;
-            transition-delay:0.3s;
-            background-color: #021208;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #22c55e 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #059669 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #16a34a 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #14532d 0%, transparent 55%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#128101; Friends</div>
-              <h3 class="feat-title">Challenge Anyone</h3>
-              <p class="feat-desc">Send a shareable challenge link to any friend. They open it, pick a username, and they're in. No sign-up barrier.</p>
-            </div>
+          <article class="rank sticker reveal" role="listitem" style="--rank:#FFE14D">
+            <div class="rank-icon display" style="color:var(--ink)">L</div>
+            <h3 class="display">Legend</h3>
+            <p>15,000 XP</p>
           </article>
-
-          <!-- Rich Chat: pink/rose/purple mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:100%; --y-0:0%; --x-1:0%; --y-1:100%; --x-2:50%; --y-2:40%; --x-3:20%; --y-3:15%;
-            transition-delay:0.35s;
-            background-color: #130810;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #f472b6 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #ec4899 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #be185d 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #9333ea 0%, transparent 50%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#128233; Rich Chat</div>
-              <h3 class="feat-title">In-App Messaging</h3>
-              <p class="feat-desc">Full messaging with emoji reactions, voice notes, image attachments, seen receipts, and timestamps. Trash talk included.</p>
-            </div>
-          </article>
-
-          <!-- PWA: slate/cool indigo/deep mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:10%; --y-0:10%; --x-1:90%; --y-1:90%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:5%;
-            transition-delay:0.4s;
-            background-color: #080818;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #6366f1 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #8b5cf6 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #4338ca 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #ff4d8d 0%, transparent 45%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#128241; Play on the Go</div>
-              <h3 class="feat-title">Play Anywhere</h3>
-              <p class="feat-desc">Play on phone, tablet, or desktop. No complications. Just add a shortcut to your homescreen and play.</p>
-            </div>
-          </article>
-
-          <!-- Lifelines: orange / amber / red mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:80%; --y-0:10%; --x-1:10%; --y-1:80%; --x-2:50%; --y-2:50%; --x-3:90%; --y-3:90%;
-            transition-delay:0.45s;
-            background-color: #130800;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #f97316 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #dc2626 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #fb923c 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #7c2d12 0%, transparent 50%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#128737; Lifelines</div>
-              <h3 class="feat-title">Flip the Game</h3>
-              <p class="feat-desc">Four power-ups to deploy mid-round. <strong style="color:rgba(255,255,255,0.85)">50/50</strong> cuts wrong answers. <strong style="color:rgba(255,255,255,0.85)">Shield</strong> absorbs a miss. <strong style="color:rgba(255,255,255,0.85)">Score Heist</strong> steals your opponent's points. <strong style="color:rgba(255,255,255,0.85)">Double Dip</strong> doubles your score. One per round — choose wisely.</p>
-            </div>
-          </article>
-
-          <!-- Async Challenges: violet / purple / indigo mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:5%; --y-0:95%; --x-1:95%; --y-1:5%; --x-2:50%; --y-2:50%; --x-3:60%; --y-3:30%;
-            transition-delay:0.5s;
-            background-color: #0a0515;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #7c3aed 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #a855f7 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #6d28d9 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #4c1d95 0%, transparent 50%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#9202; Play Later</div>
-              <h3 class="feat-title">Challenge on Your Terms</h3>
-              <p class="feat-desc">Can't play right now? Send a challenge anyway. You play your round and step away — your opponent answers whenever they're ready. See who wins when the dust settles.</p>
-            </div>
-          </article>
-
-          <!-- AI Topics: cyan / teal / emerald mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:90%; --y-0:90%; --x-1:10%; --y-1:10%; --x-2:55%; --y-2:45%; --x-3:15%; --y-3:85%;
-            transition-delay:0.55s;
-            background-color: #010f0a;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #06b6d4 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #10b981 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #0891b2 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #065f46 0%, transparent 50%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#10024; Create Your Own</div>
-              <h3 class="feat-title">Any Topic, Instantly</h3>
-              <p class="feat-desc">Type any subject imaginable — Niche Football Stats, 90s Anime, Space Engineering, Local History. Our AI generates 14 fresh questions in seconds and adds it to the arena for everyone to play.</p>
-            </div>
-          </article>
-
-          <!-- Leaderboard: lime / yellow / gold mesh -->
-          <article class="feat-card reveal" style="
-            --x-0:20%; --y-0:80%; --x-1:80%; --y-1:20%; --x-2:50%; --y-2:50%; --x-3:10%; --y-3:10%;
-            transition-delay:0.6s;
-            background-color: #0c0e00;
-            background-image:
-              radial-gradient(circle at var(--x-0) var(--y-0), #a3e635 0%, transparent 60%),
-              radial-gradient(circle at var(--x-1) var(--y-1), #ffd166 0%, transparent 55%),
-              radial-gradient(circle at var(--x-2) var(--y-2), #84cc16 0%, transparent 65%),
-              radial-gradient(circle at var(--x-3) var(--y-3), #713f12 0%, transparent 50%);
-          ">
-            <div class="feat-grain"></div><div class="feat-border"></div>
-            <div class="feat-content">
-              <div class="feat-chip">&#127942; Leaderboard</div>
-              <h3 class="feat-title">Claim Your Spot</h3>
-              <p class="feat-desc">Global rankings and per-topic leaderboards updated in real time. See exactly where you stand — and who you need to beat to move up. Get overtaken and you'll know about it.</p>
-            </div>
-          </article>
-
         </div>
       </div>
     </section>
-  </div>
 
-  <hr class="divider">
-
-  <!-- ── DAILY CHALLENGE ──────────────────────────────────────────────── -->
-  <div id="daily-wrap">
-    <section aria-labelledby="daily-title">
+    <section class="cta" aria-labelledby="cta-title">
       <div class="section-inner">
-        <h2 class="section-title reveal" id="daily-title">DAILY CHALLENGE</h2>
-        <p class="section-sub reveal" style="transition-delay:0.1s; margin-bottom: 40px;">
-          A fresh challenge drops every day at midnight. Same questions for everyone. Compete for the top spot on a single day's leaderboard.
-        </p>
-
-        <div class="daily-card reveal" style="transition-delay:0.2s">
-          <div class="daily-badge">&#9201; Resets in</div>
-          <h3 class="daily-title">TODAY'S CHALLENGE</h3>
-          <p class="daily-desc">Beat the clock. Answer 10 questions faster and more accurately than everyone else today.</p>
-          <div class="countdown-row" aria-label="Time until next challenge">
-            <div class="countdown-unit">
-              <span class="countdown-num" id="cd-h">--</span>
-              <span class="countdown-label">Hours</span>
-            </div>
-            <span class="countdown-sep">:</span>
-            <div class="countdown-unit">
-              <span class="countdown-num" id="cd-m">--</span>
-              <span class="countdown-label">Min</span>
-            </div>
-            <span class="countdown-sep">:</span>
-            <div class="countdown-unit">
-              <span class="countdown-num" id="cd-s">--</span>
-              <span class="countdown-label">Sec</span>
-            </div>
+        <div class="cta-card sticker-lg reveal">
+          <div>
+            <h2 class="display stroke" id="cta-title">Your move. The timer is running.</h2>
+            <p>Start a live duel, generate a topic, or challenge a friend. Same KWIZ energy, now from the first pixel of the website.</p>
+            <a class="btn press breathe" href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer">Play KWIZ now</a>
           </div>
-          <a href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer" class="btn-cta">
-            &#9201; Take Today's Challenge
-          </a>
+          <div class="mascot-card wiggle" aria-hidden="true">
+            <svg class="bolt" viewBox="0 0 26 34">
+              <path d="M15 2 L3 19 H11 L8 32 L23 13 H14 L18 2 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="3" stroke-linejoin="round"/>
+            </svg>
+          </div>
         </div>
       </div>
     </section>
-  </div>
-
-  <hr class="divider">
-
-  <!-- ── SOCIAL FEED PREVIEW ──────────────────────────────────────────── -->
-  <div id="feed-wrap">
-    <section aria-labelledby="feed-title">
-      <div class="section-inner">
-        <h2 class="section-title reveal" id="feed-title">THE ARENA IS ALIVE</h2>
-        <p class="section-sub reveal" style="transition-delay:0.1s; margin-bottom: 48px;">
-          Real activity from real players — happening right now.
-        </p>
-
-        <div class="feed-cards" role="list">
-
-          <div class="feed-item reveal" style="transition-delay:0.05s" role="listitem">
-            <div class="feed-avatar" style="background:rgba(255,77,141,0.15)">🦊</div>
-            <div class="feed-body">
-              <p class="feed-text"><strong>FoxTrot99</strong> just beat <strong>StarGazer</strong> in Science</p>
-              <p class="feed-meta">2 minutes ago · 8/10 correct</p>
-            </div>
-            <div class="feed-badge win">✓ Win</div>
-          </div>
-
-          <div class="feed-item reveal" style="transition-delay:0.1s" role="listitem">
-            <div class="feed-avatar" style="background:rgba(255,209,102,0.15)">🔥</div>
-            <div class="feed-body">
-              <p class="feed-text"><strong>QuizKing_PK</strong> is on a <strong>7-game win streak</strong></p>
-              <p class="feed-meta">5 minutes ago</p>
-            </div>
-            <div class="feed-badge streak">🔥 ×7</div>
-          </div>
-
-          <div class="feed-item reveal" style="transition-delay:0.15s" role="listitem">
-            <div class="feed-avatar" style="background:rgba(0,245,212,0.12)">🌙</div>
-            <div class="feed-body">
-              <p class="feed-text"><strong>NightOwl</strong> reached <strong>Scholar</strong> rank</p>
-              <p class="feed-meta">12 minutes ago · 800 XP milestone</p>
-            </div>
-            <div class="feed-badge xp">⚡ +120 XP</div>
-          </div>
-
-          <div class="feed-item reveal" style="transition-delay:0.2s" role="listitem">
-            <div class="feed-avatar" style="background:rgba(156,111,228,0.15)">🎯</div>
-            <div class="feed-body">
-              <p class="feed-text"><strong>Ace_Trivia</strong> won the <strong>Daily Challenge</strong></p>
-              <p class="feed-meta">18 minutes ago · Perfect score</p>
-            </div>
-            <div class="feed-badge win">★ Perfect</div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <hr class="divider">
-
-  <!-- ── RANKS ─────────────────────────────────────────────────────────── -->
-  <div id="ranks-wrap">
-    <section aria-labelledby="ranks-title">
-      <div class="section-inner" style="padding-bottom:0">
-        <h2 class="section-title reveal" id="ranks-title">THE PATH TO LEGEND</h2>
-        <p class="section-sub reveal" style="transition-delay:0.1s; margin-bottom:0">
-          Every match earns XP. Every rank unlocks prestige.
-        </p>
-      </div>
-
-      <div class="ranks-scroll" role="list" aria-label="Rank progression">
-
-        <div class="rank-card reveal" role="listitem" style="transition-delay:0.05s">
-          <div class="rank-glow-bg" style="background:#64748b"></div>
-          <div class="rank-icon">🪃</div>
-          <div class="rank-name" style="color:#64748b">NOVICE</div>
-          <div class="rank-xp">0 XP</div>
-        </div>
-
-        <div class="rank-card reveal" role="listitem" style="transition-delay:0.12s">
-          <div class="rank-glow-bg" style="background:#22C55E"></div>
-          <div class="rank-icon">🗡️</div>
-          <div class="rank-name" style="color:#22C55E">BEGINNER</div>
-          <div class="rank-xp">200 XP</div>
-        </div>
-
-        <div class="rank-card reveal" role="listitem" style="transition-delay:0.19s">
-          <div class="rank-glow-bg" style="background:#9C6FE4"></div>
-          <div class="rank-icon">⚔️</div>
-          <div class="rank-name" style="color:#9C6FE4">SCHOLAR</div>
-          <div class="rank-xp">800 XP</div>
-        </div>
-
-        <div class="rank-card reveal" role="listitem" style="transition-delay:0.26s">
-          <div class="rank-glow-bg" style="background:#FFD166"></div>
-          <div class="rank-icon">🔱</div>
-          <div class="rank-name" style="color:#FFD166">EXPERT</div>
-          <div class="rank-xp">2,500 XP</div>
-        </div>
-
-        <div class="rank-card reveal" role="listitem" style="transition-delay:0.33s">
-          <div class="rank-glow-bg" style="background:#FF4D8D"></div>
-          <div class="rank-icon">🛡️</div>
-          <div class="rank-name" style="color:#FF4D8D">MASTER</div>
-          <div class="rank-xp">7,000 XP</div>
-        </div>
-
-        <div class="rank-card legend reveal" role="listitem" style="transition-delay:0.4s">
-          <div class="rank-glow-bg" style="background:#FFD166"></div>
-          <div class="rank-icon">⚡</div>
-          <div class="rank-name legend-name">LEGEND</div>
-          <div class="rank-xp">15,000 XP</div>
-        </div>
-
-      </div>
-    </section>
-  </div>
-
-  <hr class="divider">
-
-  <!-- ── FINAL CTA ─────────────────────────────────────────────────────── -->
-  <section id="cta" aria-labelledby="cta-title">
-    <div class="cta-bg-pink"   aria-hidden="true"></div>
-    <div class="cta-bg-purple" aria-hidden="true"></div>
-    <div class="cta-inner">
-      <h2 class="cta-headline reveal" id="cta-title">YOUR MOVE.</h2>
-      <p class="cta-sub reveal" style="transition-delay:0.15s">
-        The leaderboard won't fill itself.<br>
-        Enter the arena and start climbing.
-      </p>
-      <a href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer"
-         class="btn-cta btn-cta-lg reveal" style="transition-delay:0.28s">
-        &#9889; Enter the Arena
-      </a>
-    </div>
-  </section>
-
   </main>
 
-  <!-- ── FOOTER ────────────────────────────────────────────────────────── -->
   <footer role="contentinfo">
-    <div class="footer-logo" aria-label="Kwiz">&#9889; KWIZ</div>
-    <div class="footer-center">&copy; 2026 Kwiz. Built for competitors.</div>
-    <div class="footer-right">
-      <a href="mailto:info@kwiz.live" target="_blank" rel="noopener noreferrer">Contact</a>
+    <div class="footer-inner">
+      <div class="footer-meta">
+        <div class="footer-brand display">KWIZ<span style="color:var(--pink)">.LIVE</span></div>
+        <div>Copyright 2026 KWIZ. Built for fast trivia showdowns.</div>
+      </div>
+      <div class="footer-links" aria-label="Legal and support links">
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/account-deletion/">Account Deletion</a>
+        <a href="/community-guidelines/">Community Guidelines</a>
+        <a href="/child-safety/">Child Safety</a>
+        <a href="/contact/">Contact</a>
+      </div>
     </div>
   </footer>
 
-  <!-- ── SCRIPTS ───────────────────────────────────────────────────────── -->
   <script>
-    /* ── Navbar scroll ──────────────────────────────────────────────────── */
-    var navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', function () {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
+    var nav = document.getElementById('nav');
+    function onScroll() {
+      nav.classList.toggle('scrolled', window.scrollY > 24);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
-    /* ── Particle canvas ────────────────────────────────────────────────── */
-    (function () {
-      var canvas = document.getElementById('hero-canvas');
-      var ctx    = canvas.getContext('2d');
-      var W, H, particles = [];
-
-      function resize() {
-        W = canvas.width  = canvas.offsetWidth;
-        H = canvas.height = canvas.offsetHeight;
-      }
-      function mkParticle() {
-        return {
-          x: Math.random() * W,
-          y: Math.random() * H,
-          r: Math.random() * 1.4 + 0.4,
-          a: Math.random() * 0.11 + 0.05,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: (Math.random() - 0.5) * 0.22,
-        };
-      }
-      function init() {
-        resize();
-        particles = [];
-        var count = Math.min(58, Math.floor(W * H / 13000));
-        for (var i = 0; i < count; i++) particles.push(mkParticle());
-      }
-      function draw() {
-        ctx.clearRect(0, 0, W, H);
-        for (var i = 0; i < particles.length; i++) {
-          var p = particles[i];
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255,127,179,' + p.a + ')';
-          ctx.fill();
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < -8)  p.x = W + 8;
-          if (p.x > W+8) p.x = -8;
-          if (p.y < -8)  p.y = H + 8;
-          if (p.y > H+8) p.y = -8;
-        }
-        requestAnimationFrame(draw);
-      }
-      window.addEventListener('resize', init, { passive: true });
-      init(); draw();
-    }());
-
-    /* ── Daily challenge countdown ──────────────────────────────────────── */
-    (function () {
-      var elH = document.getElementById('cd-h');
-      var elM = document.getElementById('cd-m');
-      var elS = document.getElementById('cd-s');
-      if (!elH) return;
-
-      function pad(n) { return String(n).padStart(2, '0'); }
-      function tick() {
-        var now       = new Date();
-        var midnight  = new Date();
-        midnight.setHours(24, 0, 0, 0);
-        var diff = Math.floor((midnight - now) / 1000);
-        var h = Math.floor(diff / 3600);
-        var m = Math.floor((diff % 3600) / 60);
-        var s = diff % 60;
-        elH.textContent = pad(h);
-        elM.textContent = pad(m);
-        elS.textContent = pad(s);
-      }
-      tick();
-      setInterval(tick, 1000);
-    }());
-
-    /* ── Scroll reveal ──────────────────────────────────────────────────── */
-    (function () {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            io.unobserve(e.target);
+    var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-    }());
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    } else {
+      reveals.forEach(function(el) { el.classList.add('in-view'); });
+    }
 
-    /* ── Ranks drag-to-scroll ───────────────────────────────────────────── */
-    (function () {
-      var el = document.querySelector('.ranks-scroll');
-      var isDown = false, startX, scrollLeft;
-      el.addEventListener('mousedown',  function (e) { isDown = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
-      el.addEventListener('mouseleave', function ()  { isDown = false; });
-      el.addEventListener('mouseup',    function ()  { isDown = false; });
-      el.addEventListener('mousemove',  function (e) {
-        if (!isDown) return;
-        e.preventDefault();
-        el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX) * 1.4;
-      });
-    }());
   </script>
-
 </body>
 </html>

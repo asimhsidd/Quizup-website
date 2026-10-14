@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">KWIZ.LIVE logo</title>
+  <desc id="desc">A yellow rounded square app icon with a pink lightning bolt and dark ink outline.</desc>
+  <rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/>
+  <path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/>
+</svg>
