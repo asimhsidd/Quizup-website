@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KWIZ.LIVE - Trivia with your neighbours</title>
-  <meta name="description" content="KWIZ.LIVE is multiplayer trivia for your neighbourhood: see who plays near you, challenge them in one tap, and win topics for your city on a live map. Coming soon to Android.">
+  <title>KWIZ.LIVE - Your trivia rival lives next door</title>
+  <meta name="description" content="Someone near you thinks they know more than you. KWIZ.LIVE shows who's playing in your neighbourhood, so you can challenge them in one tap and win topics for your city. Coming soon to Android.">
   <meta name="theme-color" content="#FFF1D0">
   <meta property="og:site_name" content="KWIZ.LIVE">
-  <meta property="og:title" content="KWIZ.LIVE - Trivia with your neighbours">
-  <meta property="og:description" content="See who's playing near you, challenge them in one tap, and win topics for your city. Coming soon to Google Play.">
+  <meta property="og:title" content="KWIZ.LIVE - Your trivia rival lives next door">
+  <meta property="og:description" content="Someone near you is playing. Find them, challenge them, settle it. Coming soon to Google Play.">
   <meta property="og:image" content="https://kwiz.live/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="KWIZ.LIVE: Beat the neighbours at trivia, beside the logo and a game map of Sydney with topic landmarks.">
+  <meta property="og:image:alt" content="KWIZ.LIVE: Your rival lives next door, beside the logo and a game map of Sydney with topic landmarks.">
   <meta property="og:url" content="https://kwiz.live/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="KWIZ.LIVE - Trivia with your neighbours">
-  <meta name="twitter:description" content="See who's playing near you, challenge them in one tap, and win topics for your city. Coming soon to Google Play.">
+  <meta name="twitter:title" content="KWIZ.LIVE - Your trivia rival lives next door">
+  <meta name="twitter:description" content="Someone near you is playing. Find them, challenge them, settle it. Coming soon to Google Play.">
   <meta name="twitter:image" content="https://kwiz.live/og-image.png">
   <link rel="canonical" href="https://kwiz.live/">
   <link rel="icon" href="/kwiz-logo.svg" type="image/svg+xml">
@@ -360,12 +360,6 @@
       margin-top: 30px;
     }
 
-    .hero-note {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 900;
-    }
 
     .stat-row {
       display: flex;
@@ -389,6 +383,11 @@
       font-size: 13px;
       font-weight: 900;
     }
+    .stat-pill:nth-child(5n+1) { background: var(--yellow); }
+    .stat-pill:nth-child(5n+2) { background: var(--teal); }
+    .stat-pill:nth-child(5n+3) { background: var(--pink); }
+    .stat-pill:nth-child(5n+4) { background: var(--green); }
+    .stat-pill:nth-child(5n+5) { background: var(--orange); }
 
     .phone-wrap {
       position: relative;
@@ -657,39 +656,141 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .steps {
+    /* How it plays: three stops climbing a dashed road, street → city → crown */
+    .route {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: 26px;
+      align-items: end;
+      padding-top: 10px;
     }
-
+    .route-road {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
     .step {
-      min-height: 270px;
-      padding: 22px;
+      position: relative;
+      z-index: 1;
+      padding: 18px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      background: #fff;
+    }
+    .route { margin-top: 126px; }
+    .step.s2 { translate: 0 -48px; }
+    .step.s3 { translate: 0 -96px; }
+    .step-pin {
+      position: absolute;
+      top: -26px;
+      left: 18px;
+      width: 46px;
+      height: 54px;
+      filter: drop-shadow(3px 3px 0 var(--ink));
+    }
+    .step-scene {
+      height: 150px;
+      margin: 18px 0 4px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      background-color: var(--tile);
+      background-image: radial-gradient(rgba(20, 20, 43, 0.13) 2px, transparent 2.2px);
+      background-size: 14px 14px;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      overflow: hidden;
+    }
+    .step h3 {
+      font-size: 30px;
+      line-height: 0.98;
+    }
+    .step p { color: var(--muted); font-weight: 900; }
+
+    /* Scene 1: a radar of who's around you */
+    .radar { position: relative; width: 150px; height: 126px; }
+    .radar .ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border: 2px dashed rgba(20, 20, 43, 0.55);
+      border-radius: 999px;
+      translate: -50% -50%;
+    }
+    .radar .r1 { width: 56px; height: 56px; }
+    .radar .r2 { width: 104px; height: 104px; }
+    .radar .r3 { width: 152px; height: 152px; animation: pulse 2.4s ease-out infinite; }
+    @keyframes pulse { from { opacity: 0.9; scale: 0.7; } to { opacity: 0; scale: 1.08; } }
+    .radar .avatar { position: absolute; width: 36px; height: 36px; font-size: 17px; translate: -50% -50%; box-shadow: var(--shadow-sm); }
+    .radar .me { left: 50%; top: 50%; width: 42px; height: 42px; font-size: 20px; }
+    .radar .dot { left: var(--x); top: var(--y); }
+    .radar-label {
+      position: absolute;
+      right: -46px;
+      bottom: -6px;
+      padding: 3px 7px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 2px 2px 0 var(--ink);
+      white-space: nowrap;
     }
 
-    .step-number {
-      width: 50px;
-      height: 50px;
+    /* Scene 2: a challenge */
+    .vs {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      align-items: center;
+      gap: 8px;
+      justify-items: center;
+    }
+    .vs .avatar { width: 58px; height: 58px; font-size: 26px; box-shadow: var(--shadow-sm); }
+    .vs .vs-badge {
+      width: 44px;
+      height: 44px;
       border: 3px solid var(--ink);
-      border-radius: 15px;
+      border-radius: 999px;
+      background: var(--yellow);
       box-shadow: var(--shadow-sm);
       display: grid;
       place-items: center;
-      background: var(--tile);
-      color: var(--ink);
-      font-size: 22px;
+      font-size: 18px;
+      transform: rotate(-8deg);
+    }
+    .vs .who { grid-row: 2; font-size: 12px; text-align: center; line-height: 1.1; }
+    .vs .who small { display: block; color: var(--muted); font-size: 10px; }
+    .vs .topic {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      padding: 3px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 12px;
     }
 
-    .step h3 {
-      font-size: 31px;
-      line-height: 0.98;
+    /* Scene 3: crown + the climb */
+    .crown-scene { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; width: 100%; max-width: 260px; }
+    .crown-scene .big-crown { filter: drop-shadow(3px 3px 0 var(--ink)); }
+    .climb { display: grid; gap: 6px; }
+    .climb span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 30px;
+      padding: 0 9px;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      background: #fff;
+      font-size: 14px;
     }
-
-    .step p { color: var(--muted); font-weight: 900; }
+    .climb span.up { background: var(--yellow); box-shadow: var(--shadow-sm); }
+    .climb b { color: var(--green-dark); font-size: 12px; }
 
     .features {
       display: grid;
@@ -1049,7 +1150,10 @@
       .cta-card {
         grid-template-columns: 1fr;
       }
-      .steps { grid-template-columns: 1fr; }
+      .route { grid-template-columns: 1fr; gap: 40px; padding-top: 30px; }
+      .route-road { display: none; }
+      .route { margin-top: 0; }
+      .step.s2, .step.s3 { translate: none; }
       .features { grid-template-columns: repeat(2, 1fr); }
       .rank-strip {
         overflow-x: auto;
@@ -1119,14 +1223,13 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-inner">
         <div>
-          <p class="eyebrow pixel reveal"><span class="eyebrow-dot blink" aria-hidden="true"></span> Trivia for your neighbourhood</p>
-          <h1 class="display reveal" id="hero-title">Beat the <span class="pink-word">neighbours</span> at trivia</h1>
-          <p class="hero-copy reveal">KWIZ.LIVE puts trivia on the map. See who's playing near you, challenge them in one tap, and win topics for your city. Live duels on any topic, lifelines and ranks. Coming soon to Android.</p>
+          <p class="eyebrow pixel reveal"><span class="eyebrow-dot blink" aria-hidden="true"></span> Who's playing near you?</p>
+          <h1 class="display reveal" id="hero-title">Your rival lives <span class="pink-word" style="white-space:nowrap">next door</span></h1>
+          <p class="hero-copy reveal">Someone around the corner thinks they know more than you. KWIZ.LIVE shows who's playing near you, so you can find them, challenge them, and settle it. Coming soon to Android.</p>
           <div class="hero-actions reveal">
             <div class="store-cta" role="img" aria-label="Coming soon to Google Play"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="#FFE14D" stroke="#fff" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="#14142B"/></svg><span><small>Coming soon to</small><strong>Google Play</strong></span><span class="soon pixel" aria-hidden="true">Soon</span></div>
-            <a class="btn secondary press" href="#nearby">See who's near you</a>
+            <a class="btn secondary press" href="#nearby">Find who's near you</a>
           </div>
-          <p class="hero-note pixel reveal">Free to play / Android / Starting in Australia</p>
           <div class="stat-row reveal" aria-label="Game highlights">
             <span class="stat-pill">Players near you</span>
             <span class="stat-pill">City clans</span>
@@ -1213,26 +1316,63 @@
         <div class="section-head">
           <div>
             <p class="section-kicker pixel reveal">How it plays</p>
-            <h2 class="section-title display reveal" id="how-title">From your street to the top</h2>
+            <h2 class="section-title display reveal" id="how-title">Somewhere near you<br> is your rival</h2>
           </div>
-          <p class="section-copy reveal">Turn on location once and the game fills up with people from your part of the world. Then it gets personal.</p>
+          <p class="section-copy reveal">They could be around the corner, or on your bus right now. Here's how you find them.</p>
         </div>
 
-        <div class="steps">
-          <article class="step sticker-lg reveal" style="--tile:var(--teal)">
-            <div class="step-number display">1</div>
-            <h3 class="display">Find your patch</h3>
-            <p>KWIZ puts you in your city's clan and shows who's playing around you, closest first.</p>
+        <div class="route">
+          <svg class="route-road" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M40 380 C 220 380, 260 300, 380 300 S 560 230, 680 210 S 880 120, 980 40" fill="none" stroke="#14142B" stroke-width="5" stroke-dasharray="14 12" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+          </svg>
+
+          <article class="step s1 sticker-lg reveal" style="--tile:var(--teal)">
+            <svg class="step-pin" viewBox="0 0 46 54" aria-hidden="true"><path d="M23 52s19-16.5 19-30A19 19 0 0 0 4 22c0 13.5 19 30 19 30z" fill="#2EC4D6" stroke="#14142B" stroke-width="3.5"/><text x="23" y="29" text-anchor="middle" font-family="Lilita One, sans-serif" font-size="21" fill="#14142B">1</text></svg>
+            <div class="step-scene" aria-hidden="true">
+              <div class="radar">
+                <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+                <span class="me avatar display" style="background:var(--pink)">Y</span>
+                <span class="dot avatar display" style="--x:18%;--y:22%;background:var(--purple)">N</span>
+                <span class="dot avatar display" style="--x:78%;--y:30%;background:var(--orange);color:var(--ink)">B</span>
+                <span class="dot avatar display" style="--x:24%;--y:80%;background:var(--green);color:var(--ink)">C</span>
+                <span class="radar-label pixel">4 near you</span>
+              </div>
+            </div>
+            <h3 class="display">Look around</h3>
+            <p>Turn on location once and see who's playing near you, closest first. Some of them are closer than you think.</p>
           </article>
-          <article class="step sticker-lg reveal" style="--tile:var(--yellow)">
-            <div class="step-number display">2</div>
-            <h3 class="display">Call someone out</h3>
+
+          <article class="step s2 sticker-lg reveal" style="--tile:var(--yellow)">
+            <svg class="step-pin" viewBox="0 0 46 54" aria-hidden="true"><path d="M23 52s19-16.5 19-30A19 19 0 0 0 4 22c0 13.5 19 30 19 30z" fill="#FFE14D" stroke="#14142B" stroke-width="3.5"/><text x="23" y="29" text-anchor="middle" font-family="Lilita One, sans-serif" font-size="21" fill="#14142B">2</text></svg>
+            <div class="step-scene" aria-hidden="true">
+              <div class="vs display">
+                <div class="avatar" style="background:var(--pink)">Y</div>
+                <div class="vs-badge">VS</div>
+                <div class="avatar" style="background:var(--purple)">N</div>
+                <div class="who">You<small>Sydney</small></div>
+                <div></div>
+                <div class="who">Nora<small>Sydney</small></div>
+                <div class="topic">90s Cartoons</div>
+              </div>
+            </div>
+            <h3 class="display">Pick your rival</h3>
             <p>Challenge a player nearby or the local crown holder, on any topic, even one you make up.</p>
           </article>
-          <article class="step sticker-lg reveal" style="--tile:var(--green)">
-            <div class="step-number display">3</div>
-            <h3 class="display">Win it for your city</h3>
-            <p>Every point lifts your clan up the ladder. Top a topic this month and the crown is yours.</p>
+
+          <article class="step s3 sticker-lg reveal" style="--tile:var(--pink)">
+            <svg class="step-pin" viewBox="0 0 46 54" aria-hidden="true"><path d="M23 52s19-16.5 19-30A19 19 0 0 0 4 22c0 13.5 19 30 19 30z" fill="#FF4D8D" stroke="#14142B" stroke-width="3.5"/><text x="23" y="29" text-anchor="middle" font-family="Lilita One, sans-serif" font-size="21" fill="#14142B">3</text></svg>
+            <div class="step-scene" aria-hidden="true">
+              <div class="crown-scene">
+                <svg class="big-crown" width="78" height="66" viewBox="0 0 24 20" aria-hidden="true"><path d="M2 6l5 4.5L12 2l5 8.5L22 6l-2.2 12H4.2z" fill="#FFE14D" stroke="#14142B" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="1.8" fill="#FF4D8D" stroke="#14142B" stroke-width="1.2"/></svg>
+                <div class="climb display">
+                  <span class="up">1 Sydney <b>&#9650; 2</b></span>
+                  <span>2 Melbourne</span>
+                  <span>3 Brisbane</span>
+                </div>
+              </div>
+            </div>
+            <h3 class="display">Settle it</h3>
+            <p>Win and your city knows. Every point lifts your clan, and the best player in a topic wears its crown.</p>
           </article>
         </div>
       </div>
@@ -1395,8 +1535,8 @@
       <div class="section-inner">
         <div class="cta-card sticker-lg reveal">
           <div>
-            <h2 class="display stroke" id="cta-title">Your city needs a champion</h2>
-            <p>The map is waiting for its first crown holders. Be the name your neighbours have to beat when KWIZ lands on Google Play.</p>
+            <h2 class="display stroke" id="cta-title">Go find the rival next door</h2>
+            <p>The map is waiting for its first crown holders. Be the name your neighbours have to find when KWIZ lands on Google Play.</p>
             <div class="store-cta breathe" role="img" aria-label="Coming soon to Google Play"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="#FFE14D" stroke="#fff" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="#14142B"/></svg><span><small>Coming soon to</small><strong>Google Play</strong></span><span class="soon pixel" aria-hidden="true">Soon</span></div>
           </div>
           <svg class="mascot wiggle" viewBox="40 40 432 432" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg>
