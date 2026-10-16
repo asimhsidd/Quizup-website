@@ -26,6 +26,7 @@
   <link rel="preload" href="/fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/nunito-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/fonts.css">
+  <script defer src="/analytics.js"></script>
   <script>document.documentElement.classList.add('js');</script>
   <script type="application/ld+json">
   {
@@ -1435,7 +1436,7 @@
         <a href="#features">Features</a>
         <a href="#ranks">Ranks</a>
       </div>
-      <a class="btn press" href="#get"><span>Get <span class="wide">the </span>app</span></a>
+      <a class="btn press" href="#get" data-umami-event="nav-get-the-app"><span>Get <span class="wide">the </span>app</span></a>
     </div>
   </nav>
 
@@ -1448,7 +1449,7 @@
           <p class="hero-copy reveal">Someone around the corner thinks they know more than you. KWIZ.LIVE shows who's playing near you, so you can find them, challenge them, and settle it. Coming soon to Android.</p>
           <div class="hero-actions reveal">
             <div class="store-cta" role="img" aria-label="Coming soon to Google Play"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="#FFE14D" stroke="#fff" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="#14142B"/></svg><span><small>Coming soon to</small><strong>Google Play</strong></span><span class="soon pixel" aria-hidden="true">Soon</span></div>
-            <a class="btn secondary press" href="#nearby">Find who's near you</a>
+            <a class="btn secondary press" href="#nearby" data-umami-event="hero-find-near-you">Find who's near you</a>
           </div>
           <div class="stat-row reveal" aria-label="Game highlights">
             <span class="stat-pill">Players near you</span>
@@ -1492,7 +1493,7 @@
                  alt="The KWIZ map of Sydney: each area shows its most played topic, its player count, and a crown for the local leader.">
             <figcaption class="map-caption" id="map-caption">Sydney, area by area: what each part of town plays most, and who wears the crown.</figcaption>
             <div class="map-toggle" role="group" aria-label="Map level">
-              <button type="button" data-map="australia" aria-pressed="false">Australia</button>
+              <button type="button" data-map="australia" aria-pressed="false" data-umami-event="map-australia">Australia</button>
               <button type="button" data-map="sydney" aria-pressed="true">Sydney</button>
             </div>
           </figure>
@@ -1912,6 +1913,7 @@
         return r.json().catch(function() { return {}; }).then(function(d) {
           if (!r.ok) throw new Error(d.error || 'Something went wrong, please try again');
           notifyForm.classList.add('done');
+          if (window.umami) window.umami.track('waitlist-signup');
           say('You\'re on the list. We\'ll email ' + email + ' the day KWIZ lands on Google Play.');
         });
       }).catch(function(err) {
