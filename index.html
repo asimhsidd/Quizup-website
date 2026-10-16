@@ -656,6 +656,183 @@
       box-shadow: var(--shadow-sm);
     }
 
+    /* ---------- Friends: rivals become mates ---------- */
+    .friends {
+      border-block: 3px solid var(--ink);
+      background-color: var(--pink-soft);
+      background-image: radial-gradient(rgba(20, 20, 43, 0.12) 2px, transparent 2.2px);
+      background-size: 16px 16px;
+    }
+    .friends .section-copy { color: rgba(20, 20, 43, 0.8); }
+    .friends-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .friend-col { display: grid; gap: 16px; }
+    .profile-card { padding: 18px; transform: rotate(-1deg); }
+    .profile-top { display: flex; align-items: center; gap: 14px; }
+    .profile-top .avatar { width: 64px; height: 64px; font-size: 30px; box-shadow: var(--shadow-sm); position: relative; }
+    .profile-top .avatar::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      bottom: -3px;
+      width: 18px;
+      height: 18px;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      background: var(--green);
+    }
+    .profile-top h3 { font-size: 32px; line-height: 1; }
+    .profile-top p { color: var(--muted); font-size: 13px; }
+    .rank-chip {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 8px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--purple);
+      color: #fff;
+      font-size: 11px;
+      vertical-align: middle;
+    }
+    .h2h {
+      margin: 16px 0 14px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      background: var(--cream);
+      text-align: center;
+    }
+    .h2h strong { font-family: "Lilita One", "Nunito", sans-serif; font-weight: 400; font-size: 34px; line-height: 1; }
+    .h2h small { display: block; color: var(--muted); font-size: 11px; }
+    .h2h .mid { font-size: 11px; color: var(--muted); }
+    .profile-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .pa {
+      height: 44px;
+      border: 3px solid var(--ink);
+      border-radius: 13px;
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: "Lilita One", "Nunito", sans-serif;
+      font-size: 17px;
+    }
+    .pa.on { background: var(--green); }
+    .pa.hot { background: var(--pink); color: #fff; }
+    .friend-points { display: grid; gap: 10px; }
+    .fp {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+    }
+    .fp .ico {
+      width: 46px;
+      height: 46px;
+      border: 3px solid var(--ink);
+      border-radius: 13px;
+      box-shadow: var(--shadow-sm);
+      background: var(--tile);
+      display: grid;
+      place-items: center;
+    }
+    .fp h3 { font-size: 22px; line-height: 1; margin-bottom: 3px; }
+    .fp p { color: var(--muted); font-size: 14px; line-height: 1.35; }
+
+    .chat {
+      padding: 0;
+      overflow: hidden;
+      transform: rotate(1.2deg);
+    }
+    .chat-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom: 3px solid var(--ink);
+      background: var(--cream);
+    }
+    .chat-top .avatar { width: 40px; height: 40px; font-size: 19px; }
+    .chat-top b { display: block; font-size: 16px; line-height: 1.1; }
+    .chat-top small { color: var(--green-dark); font-size: 12px; }
+    .chat-body { display: grid; gap: 10px; padding: 16px 14px 18px; background: #fff; }
+    .msg {
+      max-width: 82%;
+      padding: 9px 13px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+    .msg.them { background: var(--cream); border-bottom-left-radius: 4px; }
+    .msg.me { justify-self: end; background: var(--yellow); border-bottom-right-radius: 4px; box-shadow: var(--shadow-sm); }
+    .msg-system {
+      justify-self: center;
+      padding: 4px 10px;
+      border: 2px dashed rgba(20, 20, 43, 0.5);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .voice { display: flex; align-items: center; gap: 9px; }
+    .voice .play {
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--pink);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+    .wave { display: flex; align-items: center; gap: 3px; height: 24px; }
+    .wave i { display: block; width: 4px; border-radius: 2px; background: var(--ink); }
+    .voice small { font-size: 12px; color: var(--muted); }
+    .chat-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 3px solid var(--ink);
+      background: var(--cream);
+    }
+    .chat-input span {
+      flex: 1;
+      height: 38px;
+      padding: 0 12px;
+      border: 2px solid var(--ink);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+    .chat-input .rematch {
+      height: 38px;
+      padding: 0 12px;
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      background: var(--pink);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      font-family: "Lilita One", "Nunito", sans-serif;
+      font-size: 16px;
+    }
+
     /* How it plays: three stops climbing a dashed road, street → city → crown */
     .route {
       position: relative;
@@ -1147,6 +1324,7 @@
       .section-head,
       .playground,
       .local-grid,
+      .friends-grid,
       .cta-card {
         grid-template-columns: 1fr;
       }
@@ -1211,8 +1389,8 @@
       <div class="nav-links" aria-label="Page sections">
         <a href="#nearby">Near you</a>
         <a href="#how">How it plays</a>
+        <a href="#friends">Friends</a>
         <a href="#features">Features</a>
-        <a href="#community">Community</a>
         <a href="#ranks">Ranks</a>
       </div>
       <a class="btn press" href="#get"><span>Get <span class="wide">the </span>app</span></a>
@@ -1235,7 +1413,7 @@
             <span class="stat-pill">City clans</span>
             <span class="stat-pill">Live map</span>
             <span class="stat-pill">Any topic</span>
-            <span class="stat-pill">Real-time PvP</span>
+            <span class="stat-pill">Friends &amp; chat</span>
           </div>
         </div>
 
@@ -1373,6 +1551,78 @@
             </div>
             <h3 class="display">Settle it</h3>
             <p>Win and your city knows. Every point lifts your clan, and the best player in a topic wears its crown.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="friends" class="friends" aria-labelledby="friends-title">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker pixel reveal">Friends</p>
+            <h2 class="section-title display reveal" id="friends-title">Rivals today,<br> mates tomorrow</h2>
+          </div>
+          <p class="section-copy reveal">The player who beat you on Tuesday could be the one you're chatting with by Friday. Follow them, add them, and keep the banter going.</p>
+        </div>
+
+        <div class="friends-grid">
+          <div class="friend-col">
+            <article class="profile-card sticker-lg reveal" aria-label="Example player profile">
+              <div class="profile-top">
+                <div class="avatar display" style="background:var(--purple)">N</div>
+                <div>
+                  <h3 class="display">Nora <span class="rank-chip pixel">Scholar</span></h3>
+                  <p>Sydney / online now / 214 followers</p>
+                </div>
+              </div>
+              <div class="h2h" aria-label="Head to head: you 3, Nora 2">
+                <div><strong>3</strong><small>You</small></div>
+                <div class="mid pixel">Head<br>to head</div>
+                <div><strong>2</strong><small>Nora</small></div>
+              </div>
+              <div class="profile-actions" aria-hidden="true">
+                <span class="pa on"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="#14142B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Following</span>
+                <span class="pa"><svg width="20" height="18" viewBox="0 0 26 24" aria-hidden="true"><circle cx="8.5" cy="8" r="3.6" fill="#fff" stroke="#14142B" stroke-width="2.2"/><circle cx="17.5" cy="8" r="3.6" fill="#fff" stroke="#14142B" stroke-width="2.2"/><path d="M2 20c0-3.6 2.8-5.8 6.5-5.8 1.7 0 3.2.5 4.5 1.3 1.3-.8 2.8-1.3 4.5-1.3 3.7 0 6.5 2.2 6.5 5.8z" fill="#fff" stroke="#14142B" stroke-width="2.2" stroke-linejoin="round"/></svg> Friends</span>
+                <span class="pa hot">Message</span>
+              </div>
+            </article>
+
+            <div class="friend-points">
+              <article class="fp sticker reveal" style="--tile:var(--yellow)">
+                <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="8" r="4" fill="#fff" stroke="#14142B" stroke-width="2.2"/><path d="M3 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5z" fill="#fff" stroke="#14142B" stroke-width="2.2" stroke-linejoin="round"/><path d="M19 6v6M16 9h6" stroke="#14142B" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+                <div><h3 class="display">Follow anyone</h3><p>Liked the way they played? Follow them and catch their wins, crowns and posts.</p></div>
+              </article>
+              <article class="fp sticker reveal" style="--tile:var(--green)">
+                <span class="ico"><svg width="26" height="24" viewBox="0 0 26 24" aria-hidden="true"><circle cx="8.5" cy="8" r="3.6" fill="#fff" stroke="#14142B" stroke-width="2.2"/><circle cx="17.5" cy="8" r="3.6" fill="#fff" stroke="#14142B" stroke-width="2.2"/><path d="M2 20c0-3.6 2.8-5.8 6.5-5.8 1.7 0 3.2.5 4.5 1.3 1.3-.8 2.8-1.3 4.5-1.3 3.7 0 6.5 2.2 6.5 5.8z" fill="#fff" stroke="#14142B" stroke-width="2.2" stroke-linejoin="round"/></svg></span>
+                <div><h3 class="display">Make it official</h3><p>Friends see when you're online, show up in your Friends feed, and can challenge you any time.</p></div>
+              </article>
+              <article class="fp sticker reveal" style="--tile:var(--teal)">
+                <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H10l-5 4v-4H4z" fill="#fff" stroke="#14142B" stroke-width="2.2" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke="#14142B" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div><h3 class="display">Chat in the game</h3><p>Messages, photos and voice notes, right where you play. Block or report anyone, any time.</p></div>
+              </article>
+            </div>
+          </div>
+
+          <article class="chat sticker-lg reveal" aria-label="Example chat between you and Nora">
+            <div class="chat-top">
+              <div class="avatar display" style="background:var(--purple)">N</div>
+              <div><b>Nora</b><small>Online</small></div>
+            </div>
+            <div class="chat-body">
+              <span class="msg-system">Nora won 90s Cartoons, 640 to 610</span>
+              <p class="msg them">Ha, that last question was a coin flip. GG though</p>
+              <p class="msg me">Coin flip?? You knew Doug's dog's name instantly</p>
+              <div class="msg them voice">
+                <span class="play"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z" fill="#fff"/></svg></span><span class="wave" aria-hidden="true"><i style="height:8px"></i><i style="height:14px"></i><i style="height:20px"></i><i style="height:12px"></i><i style="height:22px"></i><i style="height:16px"></i><i style="height:9px"></i><i style="height:18px"></i><i style="height:24px"></i><i style="height:13px"></i><i style="height:7px"></i><i style="height:15px"></i><i style="height:19px"></i><i style="height:10px"></i><i style="height:6px"></i></span><small>0:07</small>
+              </div>
+              <p class="msg me">Fine. Rematch, Movies this time. Loser posts a shout-out</p>
+              <p class="msg them">Deal. Get ready to write mine</p>
+            </div>
+            <div class="chat-input" aria-hidden="true">
+              <span>Message Nora</span>
+              <span class="rematch">Challenge</span>
+            </div>
           </article>
         </div>
       </div>
