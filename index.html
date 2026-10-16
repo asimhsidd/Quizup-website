@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KWIZ.LIVE - Multiplayer Trivia Showdowns</title>
-  <meta name="description" content="KWIZ.LIVE is a fast multiplayer trivia game for Android: live duels, quizzes on any topic you name, lifelines, ranks, clans, and a social feed.">
+  <title>KWIZ.LIVE - Trivia with your neighbours</title>
+  <meta name="description" content="KWIZ.LIVE is multiplayer trivia for your neighbourhood: see who plays near you, challenge them in one tap, and win topics for your city on a live map. Coming soon to Android.">
   <meta name="theme-color" content="#FFF1D0">
   <meta property="og:site_name" content="KWIZ.LIVE">
-  <meta property="og:title" content="KWIZ.LIVE - Multiplayer Trivia Showdowns">
-  <meta property="og:description" content="Pick a topic, press start, and battle real rivals in comic-pop trivia showdowns. Coming soon to Google Play.">
+  <meta property="og:title" content="KWIZ.LIVE - Trivia with your neighbours">
+  <meta property="og:description" content="See who's playing near you, challenge them in one tap, and win topics for your city. Coming soon to Google Play.">
   <meta property="og:image" content="https://kwiz.live/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="KWIZ.LIVE logo: a pink lightning bolt on a yellow tile, with the line Pick a topic. Press start. Beat your rival.">
+  <meta property="og:image:alt" content="KWIZ.LIVE: Beat the neighbours at trivia. The logo beside a game map of Sydney with topic landmarks.">
   <meta property="og:url" content="https://kwiz.live/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="KWIZ.LIVE - Multiplayer Trivia Showdowns">
-  <meta name="twitter:description" content="Pick a topic, press start, and battle real rivals in comic-pop trivia showdowns. Coming soon to Google Play.">
+  <meta name="twitter:title" content="KWIZ.LIVE - Trivia with your neighbours">
+  <meta name="twitter:description" content="See who's playing near you, challenge them in one tap, and win topics for your city. Coming soon to Google Play.">
   <meta name="twitter:image" content="https://kwiz.live/og-image.png">
   <link rel="canonical" href="https://kwiz.live/">
   <link rel="icon" href="/kwiz-logo.svg" type="image/svg+xml">
@@ -37,7 +37,7 @@
     "applicationCategory": "GameApplication",
     "genre": "Trivia",
     "operatingSystem": "Android",
-    "description": "A fast multiplayer trivia game: live duels, quizzes on any topic you name, lifelines, ranks, clans, and a social feed.",
+    "description": "Multiplayer trivia for your neighbourhood: see who plays near you, challenge them in one tap, and win topics for your city on a live map.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
@@ -393,8 +393,8 @@
     .phone-wrap {
       position: relative;
       justify-self: center;
-      width: min(100%, 360px);
-      aspect-ratio: 0.54;
+      width: min(100%, 350px);
+      aspect-ratio: 0.5;
     }
 
     .phone-rays {
@@ -440,274 +440,46 @@
       isolation: isolate;
     }
 
-    .app-top {
-      height: 48px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 0 12px;
-      border-bottom: 3px solid var(--ink);
-      background: var(--cream);
+    .screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
     }
 
-    .app-logo {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-right: auto;
-      font-size: 18px;
-    }
-
-    .tiny-icon {
-      width: 29px;
-      height: 29px;
-      border: 2px solid var(--ink);
-      border-radius: 10px;
-      background: #fff;
-      display: grid;
-      place-items: center;
-    }
-
-    .play-card {
-      margin: 13px;
-      padding: 14px;
-      border: 3px solid var(--ink);
-      border-radius: 22px;
-      box-shadow: var(--shadow-lg);
-      background-color: var(--pink);
-      background-image: radial-gradient(rgba(20,20,43,0.12) 2px, transparent 2.2px);
-      background-size: 16px 16px;
-      color: #fff;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .coin {
-      position: absolute;
-      right: -18px;
-      top: -18px;
-      width: 88px;
-      height: 88px;
-      border: 3px solid var(--ink);
-      border-radius: 999px;
-      background: var(--yellow);
-      box-shadow: var(--shadow);
-      transform: rotate(-13deg);
-      display: grid;
-      place-items: center;
-    }
-
-    .coin::before {
-      content: "";
-      width: 58px;
-      height: 58px;
-      border: 3px dashed var(--ink);
-      border-radius: 999px;
-    }
-
-    .play-card h2 {
-      width: 76%;
-      font-size: 30px;
-      line-height: 0.95;
-      margin: 4px 0 14px;
-    }
-
-    .press-start {
-      height: 48px;
-      border: 3px solid var(--ink);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      background: var(--yellow);
-      color: var(--ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 20px;
-    }
-
-    .topic-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-      padding: 0 13px;
-    }
-
-    .topic-tile {
-      position: relative;
-      aspect-ratio: 1;
-      border: 3px solid var(--ink);
-      border-radius: 15px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 6px;
-      font-size: 10px;
-      font-weight: 900;
-      line-height: 1.05;
-    }
-
-    .topic-tile:nth-child(1) { background: var(--teal); }
-    .topic-tile:nth-child(2) { background: var(--orange); }
-    .topic-tile:nth-child(3) { background: var(--yellow); }
-    .topic-tile:nth-child(4) { background: var(--green); }
-    .topic-tile:nth-child(5) { background: var(--purple); color: #fff; }
-    .topic-tile:nth-child(6) { background: var(--pink-soft); }
-
-    .quick-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-      padding: 0 13px 11px;
-    }
-
-    .quick {
-      height: 38px;
-      border: 3px solid var(--ink);
-      border-radius: 13px;
-      box-shadow: var(--shadow-sm);
-      background: #fff;
-      display: grid;
-      place-items: center;
-      font-size: 14px;
-      line-height: 1;
-    }
-    .quick:first-child { background: var(--yellow); }
-
-    .tile-count {
-      position: absolute;
-      left: 5px;
-      bottom: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 2px;
-      font-size: 9px;
-    }
-
-    .float-match {
+    /* A nearby challenge, floating beside the phone */
+    .float-invite {
       position: absolute;
       z-index: 2;
-      left: -78px;
-      bottom: -34px;
-      width: 250px;
-      padding: 11px;
+      left: -86px;
+      bottom: 64px;
+      width: 268px;
+      padding: 12px;
       border: 3px solid var(--ink);
       border-radius: 18px;
       box-shadow: var(--shadow-lg);
       background: #fff;
       transform: rotate(-4deg);
-    }
-
-    .score-row {
       display: grid;
-      grid-template-columns: 1fr 54px 1fr;
-      gap: 8px;
+      grid-template-columns: 46px 1fr;
+      gap: 4px 10px;
       align-items: center;
-      margin-bottom: 12px;
     }
-
-    .score-plate {
-      height: 54px;
+    .float-invite .avatar { grid-row: span 2; }
+    .float-invite b { font-size: 15px; line-height: 1.1; }
+    .float-invite span { color: var(--muted); font-size: 12px; line-height: 1.2; }
+    .float-invite .go {
+      grid-column: 1 / -1;
+      margin-top: 6px;
+      height: 38px;
       border: 3px solid var(--ink);
-      border-radius: 14px;
+      border-radius: 12px;
       box-shadow: var(--shadow-sm);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      padding: 0 9px;
-      transform: skewX(-6deg);
-    }
-    .score-plate span { transform: skewX(6deg); }
-    .score-plate.you { background: var(--pink); }
-    .score-plate.rival { background: var(--teal); color: var(--ink); }
-
-    .timer {
-      width: 54px;
-      height: 54px;
-      border: 3px solid var(--ink);
-      border-radius: 999px;
-      box-shadow: var(--shadow);
-      background: var(--yellow);
-      display: grid;
-      place-items: center;
-      font-size: 24px;
-    }
-
-    .question {
-      border: 3px solid var(--ink);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      background: #fff;
-      padding: 13px;
-      text-align: center;
-      font-size: 16px;
-      line-height: 1.15;
-    }
-
-    .answers {
-      display: grid;
-      gap: 9px;
-    }
-
-    .answer {
-      min-height: 44px;
-      border: 3px solid var(--ink);
-      border-radius: 14px;
-      box-shadow: var(--shadow-sm);
-      background: #fff;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 6px 9px;
-      font-size: 12px;
-    }
-
-    .answer-key {
-      width: 30px;
-      height: 30px;
-      border: 3px solid var(--ink);
-      border-radius: 9px;
-      display: grid;
-      place-items: center;
-      color: #fff;
       background: var(--pink);
-      flex: 0 0 auto;
-    }
-    .answer:nth-child(2) .answer-key { background: var(--teal); color: var(--ink); }
-    .answer:nth-child(3) .answer-key { background: var(--purple); }
-
-    .dock {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 60px;
-      border-top: 3px solid var(--ink);
-      background: var(--ink);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      align-items: center;
-      padding: 0 7px;
-      color: rgba(255,255,255,0.76);
-      font-size: 10px;
-      text-align: center;
-    }
-
-    .dock-play {
-      width: 58px;
-      height: 58px;
-      margin: -32px auto 0;
-      border: 4px solid var(--ink);
-      border-radius: 999px;
-      background: var(--yellow);
-      color: var(--ink);
+      color: #fff;
       display: grid;
       place-items: center;
-      box-shadow: 0 0 0 4px var(--cream);
+      font-size: 17px;
     }
 
     section {
@@ -748,6 +520,141 @@
       color: var(--muted);
       font-size: 18px;
       font-weight: 900;
+    }
+
+    /* ---------- Near you: the neighbourhood section ---------- */
+    .local {
+      border-block: 3px solid var(--ink);
+      background-color: var(--teal);
+      background-image: radial-gradient(rgba(20, 20, 43, 0.14) 2px, transparent 2.2px);
+      background-size: 16px 16px;
+    }
+    .local .section-copy { color: rgba(20, 20, 43, 0.82); }
+    .local-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .map-card {
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      transform: rotate(-1deg);
+    }
+    .map-card img { width: 100%; height: auto; aspect-ratio: 820 / 855; }
+    .map-toggle {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      display: flex;
+      gap: 10px;
+    }
+    .map-toggle button {
+      min-height: 46px;
+      padding: 0 16px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+      color: var(--ink);
+      font-family: "Lilita One", "Nunito", sans-serif;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .map-toggle button[aria-pressed="true"] { background: var(--yellow); }
+    .map-caption {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      max-width: 62%;
+      padding: 6px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+      font-size: 13px;
+      line-height: 1.25;
+    }
+    .local-cards { display: grid; gap: 16px; }
+    .local-card { padding: 18px; }
+    .local-card h3 { font-size: 28px; line-height: 0.98; margin-bottom: 6px; }
+    .local-card p { color: var(--muted); font-weight: 900; }
+    .local-card .row-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .local-card .row-head small { color: var(--muted); font-size: 12px; }
+    .near-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .near-row figure {
+      width: 62px;
+      flex: 0 0 auto;
+      margin: 0;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .near-row .avatar { width: 54px; height: 54px; margin: 0 auto 5px; font-size: 25px; box-shadow: 0 0 0 3px var(--ring, var(--yellow)); }
+    .near-row figcaption { font-size: 13px; }
+    .near-row figcaption small { display: block; color: var(--muted); font-size: 11px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ladder { display: grid; gap: 7px; margin-bottom: 12px; padding: 0; }
+    .ladder li {
+      display: grid;
+      grid-template-columns: 24px 1fr auto;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 12px;
+      border: 2px solid var(--ink);
+      border-radius: 12px;
+      background: #fff;
+      font-size: 15px;
+      list-style: none;
+    }
+    .ladder li.you { background: var(--yellow); box-shadow: var(--shadow-sm); }
+    .ladder li em { font-style: normal; color: var(--muted); font-size: 12px; }
+    .crown-chip {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 10px;
+      border: 3px solid var(--ink);
+      border-radius: 13px;
+      box-shadow: var(--shadow-sm);
+      background: var(--yellow);
+    }
+    .privacy-strip {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 22px;
+      padding: 14px 18px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      background: var(--ink);
+      color: #fff;
+      box-shadow: var(--shadow);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+    .privacy-strip svg { flex: 0 0 auto; }
+    .au-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0 0 10px 8px;
+      padding: 5px 9px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: var(--shadow-sm);
     }
 
     .steps {
@@ -1138,6 +1045,7 @@
       }
       .section-head,
       .playground,
+      .local-grid,
       .cta-card {
         grid-template-columns: 1fr;
       }
@@ -1164,8 +1072,11 @@
       .hero-actions .store-cta { width: 100%; justify-content: center; }
       .stat-row { display: none; }
       .phone-wrap { width: min(300px, 78vw); margin-top: 18px; }
-      .float-match { left: -10px; bottom: -40px; transform: rotate(-4deg) scale(0.8); transform-origin: bottom left; }
+      .float-invite { left: -10px; bottom: -36px; transform: rotate(-4deg) scale(0.82); transform-origin: bottom left; }
       .phone-wrap { margin-bottom: 40px; }
+      .map-toggle button { min-height: 40px; font-size: 17px; padding: 0 12px; }
+      .map-caption { display: none; }
+      .privacy-strip { align-items: flex-start; font-size: 14px; }
       .cta-card::after { width: 150px; height: 150px; right: -60px; top: -60px; }
       .section-inner { width: min(100% - 22px, var(--max)); }
       section { padding: 56px 0; }
@@ -1194,6 +1105,7 @@
         <span class="brand-word">KWIZ<span>.LIVE</span></span>
       </a>
       <div class="nav-links" aria-label="Page sections">
+        <a href="#nearby">Near you</a>
         <a href="#how">How it plays</a>
         <a href="#features">Features</a>
         <a href="#community">Community</a>
@@ -1207,81 +1119,92 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-inner">
         <div>
-          <p class="eyebrow pixel reveal"><span class="eyebrow-dot blink" aria-hidden="true"></span> Live trivia showdowns</p>
-          <h1 class="display reveal" id="hero-title">Pick a topic. <span class="pink-word">Press start.</span> Beat your rival.</h1>
-          <p class="hero-copy reveal">KWIZ.LIVE is the comic-pop trivia game where real players duel across any topic, use lifelines at the perfect moment, and climb from Novice to Legend. Coming soon to Android.</p>
+          <p class="eyebrow pixel reveal"><span class="eyebrow-dot blink" aria-hidden="true"></span> Trivia for your neighbourhood</p>
+          <h1 class="display reveal" id="hero-title">Beat the <span class="pink-word">neighbours</span> at trivia.</h1>
+          <p class="hero-copy reveal">KWIZ.LIVE puts trivia on the map. See who's playing near you, challenge them in one tap, and win topics for your city. Live duels on any topic, lifelines and ranks. Coming soon to Android.</p>
           <div class="hero-actions reveal">
             <div class="store-cta" role="img" aria-label="Coming soon to Google Play"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="#FFE14D" stroke="#fff" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="#14142B"/></svg><span><small>Coming soon to</small><strong>Google Play</strong></span><span class="soon pixel" aria-hidden="true">Soon</span></div>
-            <a class="btn secondary press" href="#how">See how it plays</a>
+            <a class="btn secondary press" href="#nearby">See who's near you</a>
           </div>
-          <p class="hero-note pixel reveal">Free to play / Android / Google sign in</p>
+          <p class="hero-note pixel reveal">Free to play / Android / Starting in Australia</p>
           <div class="stat-row reveal" aria-label="Game highlights">
+            <span class="stat-pill">Players near you</span>
+            <span class="stat-pill">City clans</span>
+            <span class="stat-pill">Live map</span>
+            <span class="stat-pill">Any topic</span>
             <span class="stat-pill">Real-time PvP</span>
-            <span class="stat-pill">Any-topic quizzes</span>
-            <span class="stat-pill">Lifelines</span>
-            <span class="stat-pill">Clans</span>
-            <span class="stat-pill">Ranks</span>
           </div>
         </div>
 
-        <div class="phone-wrap reveal" aria-label="KWIZ game interface preview">
+        <div class="phone-wrap reveal">
           <div class="phone-rays spin" aria-hidden="true"></div>
-        <div class="float-match" aria-hidden="true">
-          <div class="score-row">
-            <div class="score-plate you display"><span>You</span><span class="stroke">240</span></div>
-            <div class="timer display">12</div>
-            <div class="score-plate rival display"><span>Rival</span><span>190</span></div>
+          <div class="float-invite" aria-hidden="true">
+            <div class="avatar display" style="background:var(--purple)">N</div>
+            <b>Nora challenged you</b>
+            <span>Sydney / 90s Cartoons</span>
+            <div class="go display">Accept</div>
           </div>
-          <div class="question display">Which lifeline steals points?</div>
-        </div>
           <div class="phone bob">
-            <div class="screen field">
-              <div class="app-top">
-                <div class="app-logo display">
-                  <svg class="" viewBox="40 40 432 432" width="28" height="28" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg>
-                  <span>KWIZ<span style="color:var(--pink)">.LIVE</span></span>
-                </div>
-                <span class="tiny-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="none" stroke="#14142B" stroke-width="2.5" stroke-linejoin="round"/></svg></span>
-                <span class="tiny-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7" fill="none" stroke="#14142B" stroke-width="2.5"/><path d="M13.7 21a2 2 0 0 1-3.4 0" fill="none" stroke="#14142B" stroke-width="2.5"/></svg></span>
-              </div>
-
-              <div class="play-card bold-field">
-                <div class="coin wiggle" aria-hidden="true"></div>
-                <p class="pixel">Continue?</p>
-                <h2 class="display stroke">90s cartoons</h2>
-                <div class="press-start display breathe">
-                  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#14142B"/></svg>
-                  PRESS START
-                </div>
-                <p class="pixel blink" style="text-align:center;margin-top:10px">Insert coin / 1 credit</p>
-              </div>
-
-              <div class="quick-row display" aria-hidden="true">
-                <div class="quick">Your Topic</div>
-                <div class="quick">Random</div>
-                <div class="quick">Challenge</div>
-              </div>
-
-              <div class="topic-grid" aria-hidden="true">
-                <div class="topic-tile">Movies<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>42</span></div>
-                <div class="topic-tile">Science<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>31</span></div>
-                <div class="topic-tile">Sports<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>27</span></div>
-                <div class="topic-tile">History<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>18</span></div>
-                <div class="topic-tile">Anime<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>15</span></div>
-                <div class="topic-tile">Geography<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>12</span></div>
-              </div>
-
-
-              <div class="dock pixel" aria-hidden="true">
-                <span>Home</span>
-                <span>Feed</span>
-                <span class="dock-play"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#14142B"/></svg></span>
-                <span>Clans</span>
-                <span>Me</span>
-              </div>
+            <div class="screen">
+              <img src="/img/app-clans.webp" width="720" height="1558" alt="The KWIZ Clans tab: players near you at the top, then a map of Sydney with each area's most played topic and its crown holder." fetchpriority="high">
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="nearby" class="local" aria-labelledby="nearby-title">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="reveal"><span class="section-kicker pixel">Near you</span><span class="au-pill pixel"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" fill="#FF4D8D" stroke="#14142B" stroke-width="2.5"/><circle cx="12" cy="10" r="2.5" fill="#fff" stroke="#14142B" stroke-width="2"/></svg> Starting in Australia</span></p>
+            <h2 class="section-title display reveal" id="nearby-title">Your neighbourhood is the arena.</h2>
+          </div>
+          <p class="section-copy reveal">Every part of town, every city, one live map. See who's playing around you, take on the local champions, and put your city on top.</p>
+        </div>
+
+        <div class="local-grid">
+          <figure class="map-card sticker-lg reveal">
+            <img id="clan-map" src="/img/map-sydney.webp" width="820" height="855" loading="lazy"
+                 alt="The KWIZ map of Sydney: each area shows its most played topic, its player count, and a crown for the local leader.">
+            <figcaption class="map-caption" id="map-caption">Sydney, area by area: what each part of town plays most, and who wears the crown.</figcaption>
+            <div class="map-toggle" role="group" aria-label="Map level">
+              <button type="button" data-map="australia" aria-pressed="false">Australia</button>
+              <button type="button" data-map="sydney" aria-pressed="true">Sydney</button>
+            </div>
+          </figure>
+
+          <div class="local-cards">
+            <article class="local-card sticker reveal">
+              <div class="row-head"><h3 class="display">Players near you</h3><small>Tap to challenge</small></div>
+              <div class="near-row" aria-hidden="true">
+                <figure><div class="avatar display" style="background:var(--orange);color:var(--ink);--ring:var(--purple)">B</div><figcaption>bob<small>Sydney</small></figcaption></figure>
+                <figure><div class="avatar display" style="background:var(--purple)">C</div><figcaption>Chloe<small>Sydney</small></figcaption></figure>
+                <figure><div class="avatar display" style="background:var(--teal);color:var(--ink);--ring:var(--orange)">N</div><figcaption>Nora<small>Sydney</small></figcaption></figure>
+                <figure><div class="avatar display" style="background:var(--green);color:var(--ink);--ring:var(--pink)">C</div><figcaption>carol<small>Wagga Wagga</small></figcaption></figure>
+              </div>
+              <p>The closest players come first. Challenge anyone nearby in one tap, even if you're not friends yet. They play when they're free.</p>
+            </article>
+
+            <article class="local-card sticker reveal">
+              <span class="crown-chip"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z" fill="#FF4D8D" stroke="#14142B" stroke-width="2.2" stroke-linejoin="round"/></svg></span>
+              <h3 class="display">Topics are landmarks</h3>
+              <p>Each part of your city shows the topics it plays most. Top a topic this month and you hold its crown, for the whole city to see.</p>
+            </article>
+
+            <article class="local-card sticker reveal">
+              <div class="row-head"><h3 class="display">Play for your city</h3><small>October</small></div>
+              <ol class="ladder" aria-label="Example clan ladder">
+                <li class="you display"><span>1</span><span>Sydney <em>/ you</em></span><span>18.7K</span></li>
+                <li class="display"><span>2</span><span>Melbourne</span><span>15.8K</span></li>
+                <li class="display"><span>3</span><span>Brisbane</span><span>10.7K</span></li>
+              </ol>
+              <p>Every point you score counts for your city's clan. Climb the state and country ladders together, one month at a time.</p>
+            </article>
+          </div>
+        </div>
+
+        <p class="privacy-strip reveal"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 4 5.5v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10v-6z" fill="#3DDC84" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="#14142B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Location is opt-in. Other players see your city, never your suburb or exact spot. Hide it, or turn off nearby challenges, any time in Settings.</span></p>
       </div>
     </section>
 
@@ -1290,26 +1213,26 @@
         <div class="section-head">
           <div>
             <p class="section-kicker pixel reveal">How it plays</p>
-            <h2 class="section-title display reveal" id="how-title">Three taps to a showdown.</h2>
+            <h2 class="section-title display reveal" id="how-title">From your street to the top.</h2>
           </div>
-          <p class="section-copy reveal">Jump from the topic grid into a match, spend XP on clutch lifelines, and watch every round land with loud scoreboard feedback.</p>
+          <p class="section-copy reveal">Turn on location once and the game fills up with people from your part of the world. Then it gets personal.</p>
         </div>
 
         <div class="steps">
           <article class="step sticker-lg reveal" style="--tile:var(--teal)">
             <div class="step-number display">1</div>
-            <h3 class="display">Pick a topic</h3>
-            <p>Choose a popular topic, jump back into your last one, go random, or generate a quiz on whatever you can name.</p>
+            <h3 class="display">Find your patch</h3>
+            <p>KWIZ puts you in your city's clan and shows who's playing around you, closest first.</p>
           </article>
           <article class="step sticker-lg reveal" style="--tile:var(--yellow)">
             <div class="step-number display">2</div>
-            <h3 class="display">Find a rival</h3>
-            <p>Queue into live PvP, challenge a friend with a link, or send an async duel when they cannot play right now.</p>
+            <h3 class="display">Call someone out</h3>
+            <p>Challenge a player nearby or the local crown holder, on any topic, even one you make up.</p>
           </article>
           <article class="step sticker-lg reveal" style="--tile:var(--green)">
             <div class="step-number display">3</div>
-            <h3 class="display">Win the round</h3>
-            <p>Answer fast, spend XP on lifelines, protect streaks, and watch the scoreboard pop after every swing.</p>
+            <h3 class="display">Win it for your city</h3>
+            <p>Every point lifts your clan up the ladder. Top a topic this month and the crown is yours.</p>
           </article>
         </div>
       </div>
@@ -1319,10 +1242,10 @@
       <div class="section-inner">
         <div class="section-head">
           <div>
-            <p class="section-kicker pixel reveal">Built for the game</p>
-            <h2 class="section-title display reveal" id="features-title">More than a quiz.</h2>
+            <p class="section-kicker pixel reveal">Under the rivalry</p>
+            <h2 class="section-title display reveal" id="features-title">A proper game, too.</h2>
           </div>
-          <p class="section-copy reveal">Live duels, custom topics, clans, a social feed, and rank progression, all in one fast game on your phone.</p>
+          <p class="section-copy reveal">Beating the neighbours is the point. Doing it in a fast, loud trivia game is the fun.</p>
         </div>
 
         <div class="features">
@@ -1347,14 +1270,14 @@
             <p>Progress bars, streak badges, and rank colors make every win feel earned.</p>
           </article>
           <article class="feature sticker reveal" style="--tile:var(--purple);color:#fff">
-            <span class="feature-chip pixel">Clans</span>
-            <h3 class="display stroke">Squad up</h3>
-            <p style="color:rgba(255,255,255,0.88)">Play for your city. Every win adds to your clan's total on the state and country ladders.</p>
+            <span class="feature-chip pixel">Pictures</span>
+            <h3 class="display stroke">Picture rounds</h3>
+            <p style="color:rgba(255,255,255,0.88)">Name the flag, the country from its shape, or the landmark in the photo.</p>
           </article>
           <article class="feature sticker reveal" style="--tile:var(--orange)">
             <span class="feature-chip pixel">Feed</span>
             <h3 class="display">Arena chatter</h3>
-            <p>Wins, streaks, milestones, posts, comments, and reactions keep the world alive.</p>
+            <p>Wins, crowns, streaks and posts from your city, with comments and reactions.</p>
           </article>
           <article class="feature sticker reveal" style="--tile:#B9A4FF">
             <span class="feature-chip pixel">Async</span>
@@ -1373,28 +1296,28 @@
     <section id="community" aria-labelledby="community-title">
       <div class="section-inner playground">
         <article class="feed sticker-lg reveal">
-          <h3 class="display" id="community-title">The feed is alive.</h3>
+          <h3 class="display" id="community-title">Your city, live.</h3>
           <div class="feed-list" role="list">
             <div class="feed-item" role="listitem">
               <div class="avatar display" style="background:var(--pink)">F</div>
               <div>
-                <p class="feed-text"><strong>FoxTrot99</strong> beat <strong>StarGazer</strong> in Science.</p>
-                <p class="feed-meta">2 min ago / 8 of 10 correct</p>
+                <p class="feed-text"><strong>FoxTrot99</strong> took the Movies crown in Sydney.</p>
+                <p class="feed-meta">2 min ago / topic crown</p>
               </div>
-              <span class="badge pixel">Win</span>
+              <span class="badge pixel">Crown</span>
             </div>
             <div class="feed-item" role="listitem">
               <div class="avatar display" style="background:var(--orange);color:var(--ink)">Q</div>
               <div>
-                <p class="feed-text"><strong>QuizKing_PK</strong> is on a 7-game streak.</p>
-                <p class="feed-meta">5 min ago / streak protected</p>
+                <p class="feed-text"><strong>Brisbane</strong> moved past <strong>Perth</strong> on the clan ladder.</p>
+                <p class="feed-meta">5 min ago / October race</p>
               </div>
-              <span class="badge pixel">x7</span>
+              <span class="badge pixel">#3</span>
             </div>
             <div class="feed-item" role="listitem">
               <div class="avatar display" style="background:var(--teal);color:var(--ink)">N</div>
               <div>
-                <p class="feed-text"><strong>NightOwl</strong> reached Scholar rank.</p>
+                <p class="feed-text"><strong>NightOwl</strong> from Melbourne reached Scholar rank.</p>
                 <p class="feed-meta">12 min ago / 800 XP milestone</p>
               </div>
               <span class="badge pixel">+120 XP</span>
@@ -1430,7 +1353,7 @@
             <p class="section-kicker pixel reveal">Rank road</p>
             <h2 class="section-title display reveal" id="ranks-title">From Novice to Legend.</h2>
           </div>
-          <p class="section-copy reveal">Every match earns XP, every streak raises the pressure, and every rank gives rivals another reason to chase you.</p>
+          <p class="section-copy reveal">Every match earns XP, and every rank tells the neighbours exactly who to beat.</p>
         </div>
 
         <div class="rank-strip" role="list" aria-label="Rank progression">
@@ -1472,8 +1395,8 @@
       <div class="section-inner">
         <div class="cta-card sticker-lg reveal">
           <div>
-            <h2 class="display stroke" id="cta-title">Your move. The timer is running.</h2>
-            <p>Start a live duel, make up a topic, or challenge a friend. KWIZ lands on Google Play soon.</p>
+            <h2 class="display stroke" id="cta-title">Your city needs a champion.</h2>
+            <p>The map is waiting for its first crown holders. Be the name your neighbours have to beat when KWIZ lands on Google Play.</p>
             <div class="store-cta breathe" role="img" aria-label="Coming soon to Google Play"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="#FFE14D" stroke="#fff" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="#14142B"/></svg><span><small>Coming soon to</small><strong>Google Play</strong></span><span class="soon pixel" aria-hidden="true">Soon</span></div>
           </div>
           <svg class="mascot wiggle" viewBox="40 40 432 432" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg>
@@ -1486,7 +1409,7 @@
     <div class="footer-inner">
       <div class="footer-meta">
         <div class="footer-brand display"><svg class="" viewBox="40 40 432 432" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg><span>KWIZ<span style="color:var(--pink)">.LIVE</span></span></div>
-        <div>&copy; 2026 KWIZ.LIVE. Built for fast trivia showdowns.</div>
+        <div>&copy; 2026 KWIZ.LIVE. Trivia with your neighbours.</div>
       </div>
       <div class="footer-links" aria-label="Legal and support links">
         <a href="/privacy/">Privacy</a>
@@ -1506,6 +1429,23 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    // Map level toggle in the Near you section
+    var mapImg = document.getElementById('clan-map');
+    var mapCaption = document.getElementById('map-caption');
+    var maps = {
+      sydney: { src: '/img/map-sydney.webp', caption: 'Sydney, area by area: what each part of town plays most, and who wears the crown.',
+                alt: 'The KWIZ map of Sydney: each area shows its most played topic, its player count, and a crown for the local leader.' },
+      australia: { src: '/img/map-australia.webp', caption: 'Zoom out: every city in Australia, with its favourite topics and local champions.',
+                   alt: 'The KWIZ map of Australia: each city shows its most played topic, its player count, and a crown for the city leader.' }
+    };
+    Array.prototype.forEach.call(document.querySelectorAll('[data-map]'), function(btn, _, all) {
+      btn.addEventListener('click', function() {
+        var m = maps[btn.getAttribute('data-map')];
+        mapImg.src = m.src; mapImg.alt = m.alt; mapCaption.textContent = m.caption;
+        Array.prototype.forEach.call(all, function(b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      });
+    });
 
     var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
     if ('IntersectionObserver' in window) {

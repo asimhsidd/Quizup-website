@@ -7,6 +7,14 @@ The marketing site for KWIZ.LIVE (https://kwiz.live), split out of `/home/asim/Q
 - **Look: Showdown, same as the game.** Cream halftone ground (`#FFF1D0`), 3px ink
   (`#14142B`) outlines, hard offset shadows, Lilita One + Nunito, Press Start 2P for short caps
   labels. Inline SVG icons, no emoji.
+- **The core message is neighbourhood play.** KWIZ's USP is playing the people near you: the
+  "Near you" list, the Clans map (topics as landmarks, crown holders) and city clans. Every
+  section leads with it; the rest of the game (lifelines, any topic, ranks) supports it. Clans
+  are live in Australia first, so say "Starting in Australia". Privacy claims must stay true:
+  location is opt-in, others see the city only (never the suburb or coordinates), and both
+  hiding and nearby challenges are toggles in Profile → Settings.
+- **App screens are real captures** (`img/`, from `scripts/capture-app.mjs` against the game's
+  local stack). Recapture when the Clans tab changes; don't hand-draw the map.
 - **The logo is `kwiz-logo.svg`** (pink bolt on a yellow tile). Pages inline the same drawing
   (`viewBox="40 40 432 432"`); the game's `LogoIcon.jsx` uses it too. Keep them identical.
 - **The game is Android-only and not on Play yet.** No "play in the browser", PWA or
