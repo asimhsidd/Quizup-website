@@ -5,7 +5,7 @@
    sends a "waitlist-signup" event. */
 (function () {
   var HOST = 'https://analytics.nestory.homes';
-  var WEBSITE_ID = '';
+  var WEBSITE_ID = '390a052a-daca-4ed4-9898-22a8aa2380ce';
   if (!WEBSITE_ID || location.hostname !== 'kwiz.live') return;
   var s = document.createElement('script');
   s.defer = true;
