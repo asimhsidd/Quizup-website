@@ -1,9 +1,11 @@
 # KWIZ.LIVE website
 
-The marketing site at https://kwiz.live. Split out of the game repo (`Quizup/landing/`,
-history kept) on 2026-10-10.
+The marketing site at https://kwiz.live, plus the legal pages Google Play and Google OAuth
+verification need (privacy, terms, account deletion, community guidelines, child safety,
+contact). Split out of the game repo (`Quizup/landing/`, history kept) on 2026-10-10.
 
-A static page: `index.html`, `favicon.png`, `og-image.png`. No build step.
+Static HTML, no build step. nginx serves it (`nginx.conf`: relative redirects, a 404 page,
+security headers, no-cache HTML).
 
 ## Preview locally
 
@@ -11,11 +13,14 @@ A static page: `index.html`, `favicon.png`, `og-image.png`. No build step.
 python3 -m http.server 8080      # http://localhost:8080
 ```
 
+Or exactly as production serves it:
+
+```bash
+docker build -t kwiz-website . && docker run --rm -p 8080:80 kwiz-website
+```
+
 ## Deploy
 
 Push to `main` → GitHub Actions builds `ghcr.io/asimhsidd/quizup-website:main` (nginx serving
 the files) → Coolify pulls it. Secrets `COOLIFY_WEBHOOK` + `COOLIFY_TOKEN` enable the
 auto-redeploy. The full runbook is `Quizup/docs/deployment.md`.
-
-Roadmap step 4 (Google OAuth brand verification) adds the privacy policy, the terms and the
-account-deletion page here.

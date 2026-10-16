@@ -1,3 +1,6 @@
 .git
 .github
+.claude
 *.md
+Dockerfile
+.dockerignore

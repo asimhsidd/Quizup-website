@@ -4,20 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KWIZ.LIVE - Multiplayer Trivia Showdowns</title>
-  <meta name="description" content="KWIZ.LIVE is a fast multiplayer trivia game with live duels, any-topic quizzes, lifelines, ranks, clans, and a social feed.">
+  <meta name="description" content="KWIZ.LIVE is a fast multiplayer trivia game for Android: live duels, quizzes on any topic you name, lifelines, ranks, clans, and a social feed.">
+  <meta name="theme-color" content="#FFF1D0">
+  <meta property="og:site_name" content="KWIZ.LIVE">
   <meta property="og:title" content="KWIZ.LIVE - Multiplayer Trivia Showdowns">
-  <meta property="og:description" content="Pick a topic, press start, and battle real rivals in comic-pop trivia showdowns.">
-  <meta property="og:image" content="/og-image.png">
-  <meta property="og:url" content="https://kwiz.live">
+  <meta property="og:description" content="Pick a topic, press start, and battle real rivals in comic-pop trivia showdowns. Coming soon to Google Play.">
+  <meta property="og:image" content="https://kwiz.live/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="KWIZ.LIVE logo: a pink lightning bolt on a yellow tile, with the line Pick a topic. Press start. Beat your rival.">
+  <meta property="og:url" content="https://kwiz.live/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="KWIZ.LIVE - Multiplayer Trivia Showdowns">
-  <meta name="twitter:description" content="Pick a topic, press start, and battle real rivals in comic-pop trivia showdowns.">
-  <link rel="canonical" href="https://kwiz.live">
-  <link rel="icon" href="/favicon.png" type="image/png">
+  <meta name="twitter:description" content="Pick a topic, press start, and battle real rivals in comic-pop trivia showdowns. Coming soon to Google Play.">
+  <meta name="twitter:image" content="https://kwiz.live/og-image.png">
+  <link rel="canonical" href="https://kwiz.live/">
+  <link rel="icon" href="/kwiz-logo.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,800&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "KWIZ.LIVE",
+    "url": "https://kwiz.live/",
+    "image": "https://kwiz.live/og-image.png",
+    "applicationCategory": "GameApplication",
+    "genre": "Trivia",
+    "operatingSystem": "Android",
+    "description": "A fast multiplayer trivia game: live duels, quizzes on any topic you name, lifelines, ranks, clans, and a social feed.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -138,6 +161,52 @@
     .btn.secondary { background: #fff; }
     .btn.pink { background: var(--pink); color: #fff; }
 
+    /* Store badge. Until the Play listing is live it's a plain sticker, not a link.
+       At launch: make it an <a href> to the Play listing and drop the "soon" tag. */
+    .store-cta {
+      min-height: 64px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 20px 8px 14px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: var(--ink);
+      color: #fff;
+      position: relative;
+      white-space: nowrap;
+    }
+    .store-cta svg { flex: 0 0 auto; }
+    .store-cta small {
+      display: block;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.1;
+    }
+    .store-cta strong {
+      display: block;
+      font-family: "Lilita One", "Nunito", sans-serif;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 1;
+    }
+    .store-cta .soon {
+      position: absolute;
+      top: -13px;
+      right: -12px;
+      padding: 3px 7px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--yellow);
+      color: var(--ink);
+      box-shadow: 2px 2px 0 var(--ink);
+      transform: rotate(6deg);
+    }
+
     @keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
     @keyframes breathe { 0%, 100% { scale: 1; } 50% { scale: 1.035; } }
     @keyframes wiggle { 0%, 80%, 100% { rotate: 0deg; } 84% { rotate: -7deg; } 88% { rotate: 7deg; } 92% { rotate: -4deg; } 96% { rotate: 3deg; } }
@@ -150,12 +219,13 @@
     .spin { animation: spin 34s linear infinite; }
     .blink { animation: blink 1.1s steps(1) infinite; }
 
-    .reveal {
+    /* Hidden until scrolled into view, only when JS runs (the html.js class is set in <head>) */
+    .js .reveal {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
-    .reveal.in-view {
+    .js .reveal.in-view {
       opacity: 1;
       transform: translateY(0);
     }
@@ -189,16 +259,12 @@
       min-width: 0;
     }
 
+    /* The kwiz-logo.svg tile, inlined */
     .brand-mark {
-      width: 42px;
-      height: 42px;
-      border: 3px solid var(--ink);
-      border-radius: 14px;
-      box-shadow: var(--shadow-sm);
-      background: var(--yellow);
-      display: grid;
-      place-items: center;
-      overflow: hidden;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      filter: drop-shadow(3px 3px 0 var(--ink));
     }
 
     .brand-word {
@@ -321,7 +387,7 @@
       box-shadow: var(--shadow-sm);
       color: var(--ink);
       font-size: 13px;
-      font-weight: 1000;
+      font-weight: 900;
     }
 
     .phone-wrap {
@@ -468,6 +534,7 @@
     }
 
     .topic-tile {
+      position: relative;
       aspect-ratio: 1;
       border: 3px solid var(--ink);
       border-radius: 15px;
@@ -478,7 +545,7 @@
       text-align: center;
       padding: 6px;
       font-size: 10px;
-      font-weight: 1000;
+      font-weight: 900;
       line-height: 1.05;
     }
 
@@ -489,13 +556,48 @@
     .topic-tile:nth-child(5) { background: var(--purple); color: #fff; }
     .topic-tile:nth-child(6) { background: var(--pink-soft); }
 
-    .mini-game {
-      margin: 13px;
+    .quick-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      padding: 0 13px 11px;
+    }
+
+    .quick {
+      height: 38px;
+      border: 3px solid var(--ink);
+      border-radius: 13px;
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      line-height: 1;
+    }
+    .quick:first-child { background: var(--yellow); }
+
+    .tile-count {
+      position: absolute;
+      left: 5px;
+      bottom: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 9px;
+    }
+
+    .float-match {
+      position: absolute;
+      z-index: 2;
+      left: -78px;
+      bottom: -34px;
+      width: 250px;
       padding: 11px;
       border: 3px solid var(--ink);
       border-radius: 18px;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-lg);
       background: #fff;
+      transform: rotate(-4deg);
     }
 
     .score-row {
@@ -515,6 +617,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
       padding: 0 9px;
       transform: skewX(-6deg);
     }
@@ -543,7 +646,6 @@
       text-align: center;
       font-size: 16px;
       line-height: 1.15;
-      margin-bottom: 12px;
     }
 
     .answers {
@@ -719,6 +821,7 @@
       border: 2px solid var(--ink);
       border-radius: 999px;
       background: #fff;
+      color: var(--ink);
       font-size: 11px;
       position: relative;
       z-index: 1;
@@ -957,23 +1060,13 @@
 
     .cta-card .btn { position: relative; z-index: 1; }
 
-    .mascot-card {
-      width: 220px;
-      height: 220px;
-      border: 3px solid var(--ink);
-      border-radius: 40px;
-      box-shadow: var(--shadow-lg);
-      background: #fff;
-      display: grid;
-      place-items: center;
+    .mascot {
+      width: 210px;
+      height: 210px;
+      filter: drop-shadow(7px 7px 0 var(--ink));
       transform: rotate(5deg);
       position: relative;
       z-index: 1;
-    }
-
-    .bolt {
-      width: 94px;
-      height: 120px;
     }
 
     footer {
@@ -996,9 +1089,13 @@
     }
 
     .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       color: #fff;
       font-size: 25px;
     }
+    .footer-brand svg { width: 34px; height: 34px; }
 
     .footer-meta {
       display: grid;
@@ -1051,21 +1148,25 @@
         grid-template-columns: repeat(6, 160px);
         padding-bottom: 10px;
       }
-      .mascot-card { display: none; }
+      .mascot { display: none; }
     }
 
     @media (max-width: 640px) {
       .nav-inner { width: min(100% - 22px, var(--max)); height: 68px; }
       .brand-word { font-size: 24px; }
-      .brand-mark { width: 38px; height: 38px; border-radius: 12px; }
+      .brand-mark { width: 38px; height: 38px; }
       .nav .btn { min-height: 46px; padding: 0 14px; font-size: 18px; }
+      .nav .btn .wide { display: none; }
       .hero { padding: 92px 0 30px; }
       h1 { font-size: clamp(48px, 16vw, 70px); }
       .hero-copy { font-size: 17px; }
-      .hero-actions .btn { width: 100%; }
+      .hero-actions .btn,
+      .hero-actions .store-cta { width: 100%; justify-content: center; }
       .stat-row { display: none; }
-      .phone-wrap { display: none; }
-      .phone { box-shadow: 7px 7px 0 var(--ink); }
+      .phone-wrap { width: min(300px, 78vw); margin-top: 18px; }
+      .float-match { left: -10px; bottom: -40px; transform: rotate(-4deg) scale(0.8); transform-origin: bottom left; }
+      .phone-wrap { margin-bottom: 40px; }
+      .cta-card::after { width: 150px; height: 150px; right: -60px; top: -60px; }
       .section-inner { width: min(100% - 22px, var(--max)); }
       section { padding: 56px 0; }
       .features { grid-template-columns: 1fr; }
@@ -1089,11 +1190,7 @@
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a class="brand" href="#top" aria-label="KWIZ.LIVE home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg width="25" height="31" viewBox="0 0 26 34">
-            <path d="M15 2 L3 19 H11 L8 32 L23 13 H14 L18 2 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="3" stroke-linejoin="round"/>
-          </svg>
-        </span>
+        <svg class="brand-mark" viewBox="40 40 432 432" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg>
         <span class="brand-word">KWIZ<span>.LIVE</span></span>
       </a>
       <div class="nav-links" aria-label="Page sections">
@@ -1102,7 +1199,7 @@
         <a href="#community">Community</a>
         <a href="#ranks">Ranks</a>
       </div>
-      <a class="btn press" href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer">Play Now</a>
+      <a class="btn press" href="#get"><span>Get <span class="wide">the </span>app</span></a>
     </div>
   </nav>
 
@@ -1112,15 +1209,12 @@
         <div>
           <p class="eyebrow pixel reveal"><span class="eyebrow-dot blink" aria-hidden="true"></span> Live trivia showdowns</p>
           <h1 class="display reveal" id="hero-title">Pick a topic. <span class="pink-word">Press start.</span> Beat your rival.</h1>
-          <p class="hero-copy reveal">KWIZ.LIVE is the comic-pop trivia game where real players duel across any topic, use lifelines at the perfect moment, and climb from Novice to Legend.</p>
+          <p class="hero-copy reveal">KWIZ.LIVE is the comic-pop trivia game where real players duel across any topic, use lifelines at the perfect moment, and climb from Novice to Legend. Coming soon to Android.</p>
           <div class="hero-actions reveal">
-            <a class="btn pink press breathe" href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer">
-              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-              Press Start
-            </a>
-            <a class="btn secondary press" href="#features">See the game</a>
+            <div class="store-cta" role="img" aria-label="Coming soon to Google Play"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="#FFE14D" stroke="#fff" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="#14142B"/></svg><span><small>Coming soon to</small><strong>Google Play</strong></span><span class="soon pixel" aria-hidden="true">Soon</span></div>
+            <a class="btn secondary press" href="#how">See how it plays</a>
           </div>
-          <p class="hero-note pixel reveal">Free to play / no download / Google or Discord sign in</p>
+          <p class="hero-note pixel reveal">Free to play / Android / Google sign in</p>
           <div class="stat-row reveal" aria-label="Game highlights">
             <span class="stat-pill">Real-time PvP</span>
             <span class="stat-pill">Any-topic quizzes</span>
@@ -1132,14 +1226,20 @@
 
         <div class="phone-wrap reveal" aria-label="KWIZ game interface preview">
           <div class="phone-rays spin" aria-hidden="true"></div>
+        <div class="float-match" aria-hidden="true">
+          <div class="score-row">
+            <div class="score-plate you display"><span>You</span><span class="stroke">240</span></div>
+            <div class="timer display">12</div>
+            <div class="score-plate rival display"><span>Rival</span><span>190</span></div>
+          </div>
+          <div class="question display">Which lifeline steals points?</div>
+        </div>
           <div class="phone bob">
             <div class="screen field">
               <div class="app-top">
                 <div class="app-logo display">
-                  <span class="brand-mark" style="width:30px;height:30px;border-radius:10px;box-shadow:none" aria-hidden="true">
-                    <svg width="18" height="22" viewBox="0 0 26 34"><path d="M15 2 L3 19 H11 L8 32 L23 13 H14 L18 2 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="3" stroke-linejoin="round"/></svg>
-                  </span>
-                  KWIZ<span style="color:var(--pink)">.LIVE</span>
+                  <svg class="" viewBox="40 40 432 432" width="28" height="28" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg>
+                  <span>KWIZ<span style="color:var(--pink)">.LIVE</span></span>
                 </div>
                 <span class="tiny-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="none" stroke="#14142B" stroke-width="2.5" stroke-linejoin="round"/></svg></span>
                 <span class="tiny-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 7h18s-3 0-3-7" fill="none" stroke="#14142B" stroke-width="2.5"/><path d="M13.7 21a2 2 0 0 1-3.4 0" fill="none" stroke="#14142B" stroke-width="2.5"/></svg></span>
@@ -1156,28 +1256,21 @@
                 <p class="pixel blink" style="text-align:center;margin-top:10px">Insert coin / 1 credit</p>
               </div>
 
-              <div class="topic-grid" aria-hidden="true">
-                <div class="topic-tile">Movies</div>
-                <div class="topic-tile">Science</div>
-                <div class="topic-tile">Sports</div>
-                <div class="topic-tile">History</div>
-                <div class="topic-tile">Anime</div>
-                <div class="topic-tile">Your Topic</div>
+              <div class="quick-row display" aria-hidden="true">
+                <div class="quick">Your Topic</div>
+                <div class="quick">Random</div>
+                <div class="quick">Challenge</div>
               </div>
 
-              <div class="mini-game" aria-hidden="true">
-                <div class="score-row">
-                  <div class="score-plate you display"><span>You</span><span class="stroke">240</span></div>
-                  <div class="timer display">12</div>
-                  <div class="score-plate rival display"><span>Rival</span><span>190</span></div>
-                </div>
-                <div class="question display">Which lifeline steals points?</div>
-                <div class="answers">
-                  <div class="answer"><span class="answer-key display">A</span><span>Score Heist</span></div>
-                  <div class="answer"><span class="answer-key display">B</span><span>Shield</span></div>
-                  <div class="answer"><span class="answer-key display">C</span><span>Double Dip</span></div>
-                </div>
+              <div class="topic-grid" aria-hidden="true">
+                <div class="topic-tile">Movies<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>42</span></div>
+                <div class="topic-tile">Science<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>31</span></div>
+                <div class="topic-tile">Sports<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>27</span></div>
+                <div class="topic-tile">History<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>18</span></div>
+                <div class="topic-tile">Anime<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>15</span></div>
+                <div class="topic-tile">Geography<span class="tile-count"><svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4.5" fill="currentColor"/><path d="M3.5 22c0-5 3.8-8 8.5-8s8.5 3 8.5 8z" fill="currentColor"/></svg>12</span></div>
               </div>
+
 
               <div class="dock pixel" aria-hidden="true">
                 <span>Home</span>
@@ -1227,21 +1320,21 @@
         <div class="section-head">
           <div>
             <p class="section-kicker pixel reveal">Built for the game</p>
-            <h2 class="section-title display reveal" id="features-title">Everything feels like KWIZ now.</h2>
+            <h2 class="section-title display reveal" id="features-title">More than a quiz.</h2>
           </div>
-          <p class="section-copy reveal">Live duels, custom topics, clans, social posts, and rank progression all sit inside one fast browser game.</p>
+          <p class="section-copy reveal">Live duels, custom topics, clans, a social feed, and rank progression, all in one fast game on your phone.</p>
         </div>
 
         <div class="features">
           <article class="feature sticker reveal" style="--tile:#FF8FB8">
             <span class="feature-chip pixel">PvP</span>
             <h3 class="display">Live battles</h3>
-            <p>Socket-synced duels with score plates, countdown pressure, and instant reveal moments.</p>
+            <p>Real-time duels with score plates, countdown pressure, and an instant reveal after every answer.</p>
           </article>
           <article class="feature sticker reveal" style="--tile:var(--teal)">
             <span class="feature-chip pixel">Topics</span>
             <h3 class="display">Any subject</h3>
-            <p>Curated categories sit beside custom AI-generated topics for niche obsessions.</p>
+            <p>Pick from curated categories, or name your own niche obsession and get a fresh quiz on it.</p>
           </article>
           <article class="feature sticker reveal" style="--tile:var(--yellow)">
             <span class="feature-chip pixel">Lifelines</span>
@@ -1256,7 +1349,7 @@
           <article class="feature sticker reveal" style="--tile:var(--purple);color:#fff">
             <span class="feature-chip pixel">Clans</span>
             <h3 class="display stroke">Squad up</h3>
-            <p style="color:rgba(255,255,255,0.88)">Team with friends, compare activity, and turn trivia into a group sport.</p>
+            <p style="color:rgba(255,255,255,0.88)">Play for your city. Every win adds to your clan's total on the state and country ladders.</p>
           </article>
           <article class="feature sticker reveal" style="--tile:var(--orange)">
             <span class="feature-chip pixel">Feed</span>
@@ -1269,9 +1362,9 @@
             <p>Send a duel, take your turn, and let your opponent answer when they are ready.</p>
           </article>
           <article class="feature sticker reveal" style="--tile:#FFFFFF">
-            <span class="feature-chip pixel">PWA</span>
-            <h3 class="display">No download</h3>
-            <p>Play from the browser, pin it to your homescreen, and get challenge alerts.</p>
+            <span class="feature-chip pixel">Android</span>
+            <h3 class="display">Made for phones</h3>
+            <p>A native Android app with alerts the moment a rival challenges you.</p>
           </article>
         </div>
       </div>
@@ -1312,7 +1405,7 @@
         <article class="live-panel sticker-lg reveal">
           <p class="pixel">KWIZ Live</p>
           <h3 class="display stroke">Lobby opens soon.</h3>
-          <p>Survive the same question set as everyone else. Share the prize pool if you make it through.</p>
+          <p>Everyone gets the same questions at the same time. Survive to the end and win a share of the XP pool.</p>
           <div class="lobby">
             <div class="lobby-row">
               <strong>Prize pool</strong>
@@ -1375,19 +1468,15 @@
       </div>
     </section>
 
-    <section class="cta" aria-labelledby="cta-title">
+    <section class="cta" id="get" aria-labelledby="cta-title">
       <div class="section-inner">
         <div class="cta-card sticker-lg reveal">
           <div>
             <h2 class="display stroke" id="cta-title">Your move. The timer is running.</h2>
-            <p>Start a live duel, generate a topic, or challenge a friend. Same KWIZ energy, now from the first pixel of the website.</p>
-            <a class="btn press breathe" href="https://play.kwiz.live" target="_blank" rel="noopener noreferrer">Play KWIZ now</a>
+            <p>Start a live duel, make up a topic, or challenge a friend. KWIZ lands on Google Play soon.</p>
+            <div class="store-cta breathe" role="img" aria-label="Coming soon to Google Play"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="#FFE14D" stroke="#fff" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="#14142B"/></svg><span><small>Coming soon to</small><strong>Google Play</strong></span><span class="soon pixel" aria-hidden="true">Soon</span></div>
           </div>
-          <div class="mascot-card wiggle" aria-hidden="true">
-            <svg class="bolt" viewBox="0 0 26 34">
-              <path d="M15 2 L3 19 H11 L8 32 L23 13 H14 L18 2 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="3" stroke-linejoin="round"/>
-            </svg>
-          </div>
+          <svg class="mascot wiggle" viewBox="40 40 432 432" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg>
         </div>
       </div>
     </section>
@@ -1396,8 +1485,8 @@
   <footer role="contentinfo">
     <div class="footer-inner">
       <div class="footer-meta">
-        <div class="footer-brand display">KWIZ<span style="color:var(--pink)">.LIVE</span></div>
-        <div>Copyright 2026 KWIZ. Built for fast trivia showdowns.</div>
+        <div class="footer-brand display"><svg class="" viewBox="40 40 432 432" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg><span>KWIZ<span style="color:var(--pink)">.LIVE</span></span></div>
+        <div>&copy; 2026 KWIZ.LIVE. Built for fast trivia showdowns.</div>
       </div>
       <div class="footer-links" aria-label="Legal and support links">
         <a href="/privacy/">Privacy</a>
