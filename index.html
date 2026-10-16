@@ -23,9 +23,9 @@
   <link rel="icon" href="/kwiz-logo.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="preload" href="/fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/nunito-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
   <script>document.documentElement.classList.add('js');</script>
   <script type="application/ld+json">
   {
@@ -1245,6 +1245,45 @@
 
     .cta-card .btn { position: relative; z-index: 1; }
 
+    /* Launch waitlist: one email when KWIZ is on Google Play (API: POST /api/waitlist) */
+    .notify { position: relative; z-index: 1; max-width: 560px; margin-top: 26px; }
+    .notify label { display: block; margin-bottom: 8px; font-family: "Lilita One", "Nunito", sans-serif; font-size: 22px; }
+    .notify-row { display: flex; gap: 10px; }
+    .notify input[type="email"] {
+      flex: 1;
+      min-width: 0;
+      height: 56px;
+      padding: 0 16px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: #fff;
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 800;
+    }
+    .notify input[type="email"]::placeholder { color: rgba(20, 20, 43, 0.5); }
+    .notify input[type="email"]:focus { outline: 3px solid var(--yellow); outline-offset: 2px; }
+    .notify .btn { cursor: pointer; }
+    .notify .btn[disabled] { opacity: 0.7; cursor: progress; }
+    .notify .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .notify-fine { margin-top: 10px; font-size: 13px; color: rgba(255, 255, 255, 0.9); }
+    .notify-fine a { text-decoration: underline; }
+    .notify-status {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+      color: var(--ink);
+      font-size: 15px;
+    }
+    .notify-status.show { display: block; }
+    .notify-status.error { background: var(--yellow); }
+    .notify.done .notify-row, .notify.done label { display: none; }
+
     .mascot {
       width: 210px;
       height: 210px;
@@ -1360,6 +1399,9 @@
       .map-caption { display: none; }
       .privacy-strip { align-items: flex-start; font-size: 14px; }
       .cta-card::after { width: 150px; height: 150px; right: -60px; top: -60px; }
+      .notify-row { flex-direction: column; }
+      .notify input[type="email"] { flex: none; width: 100%; }
+      .notify .btn { width: 100%; }
       .section-inner { width: min(100% - 22px, var(--max)); }
       section { padding: 56px 0; }
       .features { grid-template-columns: 1fr; }
@@ -1788,6 +1830,16 @@
             <h2 class="display stroke" id="cta-title">Go find the rival next door</h2>
             <p>The map is waiting for its first crown holders. Be the name your neighbours have to find when KWIZ lands on Google Play.</p>
             <div class="store-cta breathe" role="img" aria-label="Coming soon to Google Play"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3" fill="#FFE14D" stroke="#fff" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="#14142B"/></svg><span><small>Coming soon to</small><strong>Google Play</strong></span><span class="soon pixel" aria-hidden="true">Soon</span></div>
+            <form class="notify" id="notify" novalidate>
+              <label for="notify-email">Get a heads-up when it lands</label>
+              <div class="notify-row">
+                <input id="notify-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required maxlength="254">
+                <button class="btn press" type="submit">Notify me</button>
+              </div>
+              <div class="hp" aria-hidden="true"><label for="notify-website">Leave this empty</label><input id="notify-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+              <p class="notify-status" id="notify-status" role="status" aria-live="polite"></p>
+              <p class="notify-fine">One email when KWIZ is on Google Play. No spam, never shared. <a href="/privacy/#waitlist">Privacy</a></p>
+            </form>
           </div>
           <svg class="mascot wiggle" viewBox="40 40 432 432" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg>
         </div>
@@ -1835,6 +1887,36 @@
         mapImg.src = m.src; mapImg.alt = m.alt; mapCaption.textContent = m.caption;
         Array.prototype.forEach.call(all, function(b) { b.setAttribute('aria-pressed', String(b === btn)); });
       });
+    });
+
+    // Launch waitlist. The API lives on api.kwiz.live; locally, the game backend on :3001.
+    var notifyForm = document.getElementById('notify');
+    var WAITLIST_URL = location.hostname === 'kwiz.live'
+      ? 'https://api.kwiz.live/api/waitlist' : 'http://localhost:3001/api/waitlist';
+    notifyForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = notifyForm.email.value.trim();
+      var status = document.getElementById('notify-status');
+      var btn = notifyForm.querySelector('button');
+      function say(text, isError) {
+        status.textContent = text;
+        status.className = 'notify-status show' + (isError ? ' error' : '');
+      }
+      if (!notifyForm.email.checkValidity() || !email) { say('That email doesn\'t look right. Try again?', true); notifyForm.email.focus(); return; }
+      btn.disabled = true;
+      fetch(WAITLIST_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, website: notifyForm.website.value })
+      }).then(function(r) {
+        return r.json().catch(function() { return {}; }).then(function(d) {
+          if (!r.ok) throw new Error(d.error || 'Something went wrong, please try again');
+          notifyForm.classList.add('done');
+          say('You\'re on the list. We\'ll email ' + email + ' the day KWIZ lands on Google Play.');
+        });
+      }).catch(function(err) {
+        say(err.message && err.message !== 'Failed to fetch' ? err.message : 'Couldn\'t reach the server. Please try again in a moment.', true);
+      }).then(function() { btn.disabled = false; });
     });
 
     var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));

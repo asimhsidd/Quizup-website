@@ -23,6 +23,11 @@ The marketing site for KWIZ.LIVE (https://kwiz.live), split out of `/home/asim/Q
 - Claims about the game (ranks, XP thresholds, lifelines, dock tabs, the deletion flow) must
   match the game. Check `Quizup/backend/services/configService.js` and `Profile.jsx`.
 - `index.html` is large (~50 KB). Grep for the section, then read with an offset.
+- **Fonts are self-hosted** (`fonts/`, `fonts.css`): the same files the game bundles. No Google
+  Fonts link; the CSP only allows `font-src 'self'`.
+- **The launch waitlist** form (`#notify` in the CTA) posts to `https://api.kwiz.live/api/waitlist`
+  (`Quizup/backend/routes/waitlist.js`; locally `localhost:3001`). The CSP's `connect-src` allows
+  that origin. The privacy policy's `#waitlist` item covers it.
 - Legal pages (privacy, terms, account deletion, community guidelines, child safety,
   contact) share `legal.css`. Bump "Last updated" when their content changes, and add new
   pages to `sitemap.xml`.
