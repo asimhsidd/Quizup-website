@@ -18,7 +18,16 @@ The marketing site for KWIZ.LIVE (https://kwiz.live), split out of `/home/asim/Q
 - **The logo is `kwiz-logo.svg`** (pink bolt on a yellow tile). Pages inline the same drawing
   (`viewBox="40 40 432 432"`); the game's `LogoIcon.jsx` uses it too. Keep them identical.
 - **The game is Android-only and not on Play yet.** No "play in the browser", PWA or
-  play.kwiz.live links. CTAs are the `.store-cta` "Coming soon to Google Play" sticker; at
+  play.kwiz.live links (play.kwiz.live is retired).
+- **Share-link landing pages:** `c/` (a challenge, kwiz.live/c/<token>) and `i/` (an invite,
+  /i/<code>), one page each (nginx sends every /c/… and /i/… to it), filled in by `link.js` +
+  `link.css` from the public `GET https://api.kwiz.live/api/links/c/<token>` | `/i/<code>`
+  (Quizup `backend/routes/links.js`). Nothing playable: who sent it, then the official Google Play
+  badge (`img/google-play-badge.png`) with the link in the install referrer
+  (`&referrer=c%3D<token>`), so the app opens it after the install. iPhone gets "Coming soon to
+  iPhone" + the waitlist. With KWIZ installed, Android opens these links in the app instead
+  (App Links: `.well-known/assetlinks.json`, checked in CI by `scripts/check-assetlinks.mjs`; see
+  Quizup `docs/android.md` → App Links). `noindex`, and robots.txt disallows them. CTAs are the `.store-cta` "Coming soon to Google Play" sticker; at
   launch turn it into a link to the Play listing (see the comment in `index.html`).
 - Claims about the game (ranks, XP thresholds, lifelines, dock tabs, the deletion flow) must
   match the game. Check `Quizup/backend/services/configService.js` and `Profile.jsx`.

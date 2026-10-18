@@ -13,6 +13,11 @@ security headers, no-cache HTML).
 python3 -m http.server 8080      # http://localhost:8080
 ```
 
+Port 8080 may be taken (Coolify's proxy on the dev box): use 8088, which the local backend also
+allows for the waitlist and link previews. The share-link pages (`/c/<token>`, `/i/<code>`) need
+nginx's routing, so preview those with the Docker image below (`-p 8088:80`), the game backend on
+:3001, and a CSP that allows it (the image's CSP only allows api.kwiz.live).
+
 Or exactly as production serves it:
 
 ```bash

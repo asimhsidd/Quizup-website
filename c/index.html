@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You’ve been challenged on KWIZ</title>
+  <meta name="description" content="A friend challenged you to a quiz on KWIZ. Get the app and beat their score.">
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="You’ve been challenged on KWIZ">
+  <meta property="og:description" content="A friend challenged you to a quiz on KWIZ. Get the app and beat their score.">
+  <meta property="og:image" content="https://kwiz.live/og-image.png">
+  <link rel="icon" href="/kwiz-logo.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#FFF1D0">
+  <link rel="preload" href="/fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/nunito-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/link.css">
+  <script defer src="/analytics.js"></script>
+  <script defer src="/link.js"></script>
+</head>
+<body>
+  <header class="top"><a class="brand" href="/"><svg class="brand-mark" viewBox="40 40 432 432" aria-hidden="true"><rect x="56" y="56" width="400" height="400" rx="112" fill="#FFE14D" stroke="#14142B" stroke-width="32"/><path d="M286 92 L112 292 H232 L190 420 L400 202 H272 L328 92 Z" fill="#FF4D8D" stroke="#14142B" stroke-width="28" stroke-linejoin="round"/></svg><span class="brand-word">KWIZ<span>.LIVE</span></span></a></header>
+  <main class="page">
+    <p class="loading" id="loading">Loading…</p>
+
+    <section id="gone" hidden>
+      <h1 id="gone-title"></h1>
+      <p class="small" id="gone-body"></p>
+    </section>
+
+    <section id="main" hidden style="width:100%;display:flex;flex-direction:column;align-items:center">
+      <div class="avatar" id="avatar" aria-hidden="true"></div>
+      <p class="who" data-who></p>
+      <h1>challenged you!</h1>
+      <p class="pill" id="topic"></p>
+      <div class="card" id="card-score" hidden>
+        <p class="label"><span data-who></span> scored</p>
+        <p class="score"><b id="score"></b><span id="total"></span></p>
+        <p>Can you beat it?</p>
+      </div>
+      <div class="card" id="card-first" hidden>
+        <p class="lead"><span data-who></span> is waiting for you to play first!</p>
+      </div>
+      <div class="card" id="card-played" hidden>
+        <p class="lead">Someone already took this one.</p>
+        <p>Get KWIZ and challenge <span data-who></span> yourself.</p>
+      </div>
+    </section>
+
+    <!-- Android (and computers): Google Play, carrying the link through the install -->
+    <section id="android" hidden style="width:100%;display:flex;flex-direction:column;align-items:center">
+      <a class="play" data-play data-umami-event="challenge-link-play" href="https://play.google.com/store/apps/details?id=live.kwiz.app"><img src="/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+      <ol class="steps">
+        <li><b>1</b><span>Install KWIZ (free)</span></li>
+        <li><b>2</b><span>Sign in with Google</span></li>
+        <li id="step3"><b>3</b><span><span data-who></span>’s challenge is waiting for you</span></li>
+      </ol>
+      <p class="small">Already have KWIZ? <a data-open-app data-umami-event="challenge-link-open-app" href="#">Open the challenge</a></p>
+    </section>
+
+    <!-- iPhone: no app yet -->
+    <section id="ios" hidden style="width:100%">
+      <div class="soon">
+        <h2>Coming soon to iPhone</h2>
+        <p>KWIZ is on Android for now. Leave your email and we’ll tell you the day it lands.</p>
+        <form id="notify" novalidate>
+          <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="Email">
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit">Notify me</button>
+        </form>
+        <p class="status" id="notify-status" role="status"></p>
+      </div>
+      <p class="small">On Android? <a data-play data-umami-event="challenge-link-play" href="https://play.google.com/store/apps/details?id=live.kwiz.app">Get it on Google Play</a></p>
+    </section>
+  </main>
+</body>
+</html>
