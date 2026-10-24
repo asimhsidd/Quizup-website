@@ -28,7 +28,7 @@
   </nav>
 
   <header class="hero">
-    <p class="kicker pixel">Last updated / October 16, 2026</p>
+    <p class="kicker pixel">Last updated / October 24, 2026</p>
     <h1 class="display">Privacy Policy</h1>
     <p class="intro">This policy explains how KWIZ.LIVE collects, uses, shares, and protects information when you use our website, game, and related services.</p>
   </header>
@@ -42,12 +42,14 @@
     <h2>Information We Collect</h2>
     <ul>
       <li id="waitlist"><strong>Launch waitlist:</strong> if you leave your email on kwiz.live to hear when KWIZ is available, we keep that address and the date you signed up. We use it only to tell you about the launch, we never share it, and you can ask us to remove it any time at <a href="mailto:info@kwiz.live">info@kwiz.live</a>.</li>
-      <li><strong>Account information:</strong> username, email address, authentication provider identifiers, avatar, profile details, and sign-in records.</li>
+      <li><strong>Account information:</strong> username, email address, authentication provider identifiers, avatar, profile details, the birth month and year you give on the age screen, and sign-in records.</li>
       <li><strong>Google sign-in information:</strong> when you choose Google sign-in, we receive the Google account information needed to create and secure your KWIZ account, such as your name, email address, profile image, and Google user ID. We do not ask for access to Gmail, Drive, Contacts, Calendar, or other Google content.</li>
       <li><strong>Gameplay information:</strong> topics played, answers, scores, XP, ranks, streaks, missions, crowns, leaderboard position, duels, live event participation, and match history.</li>
       <li><strong>Community content:</strong> posts, comments, reactions, chat messages, clan activity, reports, blocks, usernames, profile images, custom topic names, and any images, audio, or attachments you choose to upload.</li>
-      <li><strong>Location and nearby features:</strong> if you enable location-based features, we may process approximate place, city, region, country, coordinates, or visibility settings to support nearby challenges, clans, and regional leaderboards.</li>
-      <li><strong>Device and technical information:</strong> IP address, browser or device type, app version, operating system, diagnostics, crash data, server logs, security events, and push notification tokens.</li>
+      <li><strong>Location and nearby features:</strong> if you allow location, the app sends your device's position to our server, which turns it into a suburb, city, region and country for nearby players, clans and regional leaderboards. We keep only those place names, never the coordinates. Outside the cities we map ourselves, the coordinates are sent once to OpenStreetMap's Nominatim service to look up the city name. You can hide your location or turn off nearby challenges in the app.</li>
+      <li><strong>Device and technical information:</strong> IP address, device type, app version, operating system, server logs, security events, and push notification tokens. The app has no analytics or crash-reporting SDK of its own.</li>
+      <li><strong>Purchases:</strong> when you buy coins or KWIZ+ through Google Play, we keep the purchase token, order ID, product and its state so we can grant it and handle refunds. Google processes the payment; we never see your card details.</li>
+      <li><strong>Ads:</strong> the app can offer optional rewarded ads from Google AdMob, shown only when you choose to watch one. The AdMob SDK collects your device's advertising ID, IP address, ad interactions and diagnostic information, and Google uses them for advertising, measurement and fraud prevention. Where the law requires it, you are asked for consent first, and you can reset or delete your advertising ID in your device settings. See <a href="https://policies.google.com/technologies/partner-sites">how Google uses data from apps that use its services</a>.</li>
       <li><strong>Website visits:</strong> we count visits to kwiz.live with self-hosted, cookie-free analytics (Umami): pages viewed, referrer, browser, device type and country. It sets no cookies, stores no device identifier, and builds no profile of you.</li>
       <li><strong>Support and moderation information:</strong> messages you send us, reports you submit, reported content, block lists, moderation decisions, and abuse-prevention records.</li>
     </ul>
@@ -69,8 +71,9 @@
     <h2>How We Share Information</h2>
     <ul>
       <li><strong>With other users:</strong> your username, avatar, public profile, gameplay results, leaderboard/rank information, posts, comments, reactions, clan activity, and content you choose to share may be visible to other users.</li>
-      <li><strong>With service providers:</strong> we use vendors for hosting, databases, storage, authentication, push notifications, analytics, safety, and support. They process information for us under appropriate restrictions.</li>
-      <li><strong>With our AI question provider:</strong> when you create a custom topic, its name (and the category it sits in) is sent to an AI model provider to write the quiz questions. We do not send your name, email, or account details with it.</li>
+      <li><strong>With service providers:</strong> we use vendors for hosting (Hetzner), file storage (Cloudflare R2), sign-in (Google), payments (Google Play), push notifications (Firebase Cloud Messaging) and place names (OpenStreetMap Nominatim). They process information for us under appropriate restrictions.</li>
+      <li><strong>With Google for ads:</strong> if you watch a rewarded ad, the data described under "Ads" above goes to Google AdMob.</li>
+      <li><strong>With our AI providers:</strong> when you create a custom topic, its name (and the category it sits in) is sent to AI model providers to write and check the quiz questions. When you set a profile picture, the photo you choose (or your Google profile photo, the first time you sign in with Google) is sent to an AI image provider to redraw it as a cartoon; we keep only the cartoon, not the photo. We do not send your name, email, or account details with either.</li>
       <li><strong>For safety and legal reasons:</strong> we may share information when needed to investigate abuse, protect users, enforce policies, comply with law, or respond to lawful requests.</li>
       <li><strong>Business changes:</strong> if KWIZ is involved in a merger, acquisition, financing, or asset transfer, information may be transferred subject to this policy or a successor policy.</li>
     </ul>
@@ -88,7 +91,7 @@
     </ul>
 
     <h2>Children</h2>
-    <p>KWIZ is not intended for children under 13. If you believe a child has provided personal information to KWIZ, contact us at <a href="mailto:info@kwiz.live">info@kwiz.live</a> so we can review and take appropriate action.</p>
+    <p>KWIZ is for people aged 16 and over. The app asks for your age when you sign up and closes accounts for anyone younger. If you believe someone under 16 has provided personal information to KWIZ, contact us at <a href="mailto:info@kwiz.live">info@kwiz.live</a> so we can review and take appropriate action.</p>
 
     <h2>Security</h2>
     <p>We use technical and organizational measures designed to protect information, including authentication controls, access limits, encrypted transport, monitoring, and moderation tools. No online service can guarantee absolute security.</p>
