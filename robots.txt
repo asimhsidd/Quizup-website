@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /c/
 Disallow: /i/
+Disallow: /r/
 
 Sitemap: https://kwiz.live/sitemap.xml

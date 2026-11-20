@@ -1,4 +1,5 @@
-// The share-link landing pages: kwiz.live/c/<token> (a challenge) and /i/<code> (an invite).
+// The share-link landing pages: kwiz.live/c/<token> (a challenge), /i/<code> (an invite) and
+// /r/<code> (a private room: who's hosting, what, when, how many are going).
 // With KWIZ installed, Android opens these links in the app (App Links: .well-known/assetlinks.json)
 // and this page never shows. Without it, the page says who sent the link and sends the player
 // to Google Play. The Play link carries the link in Google's install referrer, so after the
@@ -9,7 +10,7 @@
   var API = location.hostname === 'kwiz.live' ? 'https://api.kwiz.live' : 'http://localhost:3001';
   var PACKAGE = 'live.kwiz.app';
 
-  var m = location.pathname.match(/^\/(c|i)\/([A-Za-z0-9]{1,16})\/?$/);
+  var m = location.pathname.match(/^\/(c|i|r)\/([A-Za-z0-9]{1,16})\/?$/);
   var kind = m && m[1];
   var id = m && m[2];
   var ua = navigator.userAgent;
@@ -85,6 +86,19 @@
         }
         document.title = who + ' challenged you on KWIZ';
         ready();
+      } else if (kind === 'r') {
+        if (!d.open) { gone('This room has closed', 'Ask your friend for a new link, or get KWIZ and make your own room.'); return; }
+        avatar(d.host);
+        text('[data-who]', d.host.username);
+        text('#room-name', d.name);
+        text('#room-topic', d.topicName ? d.topicName : '');
+        text('#room-going', d.going ? ' · ' + d.going + ' going' : '');
+        var when = d.scheduledAt ? new Date(d.scheduledAt) : null;
+        text('#room-when', when
+          ? when.toLocaleString([], { weekday: 'long', hour: 'numeric', minute: '2-digit' })
+          : 'On now');
+        document.title = d.host.username + ' invited you to ' + d.name;
+        ready();
       } else {
         avatar(d.inviter);
         text('[data-who]', d.inviter.username);
@@ -115,7 +129,7 @@
           if (!r.ok) throw new Error(r.body.error || 'Something went wrong');
           status.textContent = 'You’re on the list. We’ll email you the day KWIZ lands on iPhone.';
           form.reset();
-          if (window.umami) window.umami.track('waitlist-signup', { from: kind === 'c' ? 'challenge-link' : 'invite-link' });
+          if (window.umami) window.umami.track('waitlist-signup', { from: kind === 'c' ? 'challenge-link' : kind === 'r' ? 'room-link' : 'invite-link' });
         })
         .catch(function (err) { status.textContent = err.message || 'Something went wrong. Try again?'; });
     });
